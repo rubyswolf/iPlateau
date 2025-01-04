@@ -1,0 +1,31 @@
+{
+    "name": "iPlug2WAM",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "extensions": [
+            "ms-vscode.cpptools",
+            "ms-python.python",
+            "ms-vscode.cmake-tools",
+            "cschlosser.doxdocgen"
+        ],
+        "codespaces": {
+            "repositories": {
+                "iplug2/iplug2oos": {
+                    "permissions": "write-all"
+                },
+                "iplug2/iplug2": {
+                    "permissions": "read-all"
+                }
+            }
+        }
+    },
+    "postCreateCommand": "./setup_container.sh",
+    "portsAttributes": {
+        "8001": {
+            "label": "emrun",
+            "protocol": "https"
+        }
+    }
+}
