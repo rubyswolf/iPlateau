@@ -1,25 +1,39 @@
-#include "SVGLayerKnob.hpp"
+#include "IControl.h"
 
-using namespace iplug;
-using namespace igraphics;
+BEGIN_IPLUG_NAMESPACE
+BEGIN_IGRAPHICS_NAMESPACE
 
-ISVGLayerKnobControl::ISVGLayerKnobControl(const IRECT& bounds, const ISVG& svg, const ISVG& backgroundSvg, const ISVG& foregroundSVG, int paramIdx)
-: IKnobControlBase(bounds, paramIdx)
-  , mSVG(svg)
-  , bSVG(backgroundSvg)
-  , fSVG(foregroundSVG)
+class ISVGLayerKnobControl : public IKnobControlBase
 {
-}
+public:
+  ISVGLayerKnobControl(const IRECT& bounds, const ISVG& svg, const ISVG& backgroundSvg, const ISVG& foregroundSvg, int paramIdx = kNoParameter)
+    : IKnobControlBase(bounds, paramIdx)
+    , mSVG(svg)
+    , bSVG(backgroundSvg)
+    , fSVG(foregroundSvg)
+  {
+  }
 
-void ISVGLayerKnobControl::Draw(IGraphics& g)
-{
-  g.DrawSVG(bSVG, mRECT);
-  g.DrawRotatedSVG(mSVG, mRECT.MW(), mRECT.MH(), mRECT.W(), mRECT.H(), mStartAngle + GetValue() * (mEndAngle - mStartAngle), &mBlend);
-  g.DrawSVG(fSVG, mRECT);
-}
+  void Draw(IGraphics& g) override
+  {
+    g.DrawSVG(bSVG, mRECT);
+    g.DrawRotatedSVG(mSVG, mRECT.MW(), mRECT.MH(), mRECT.W(), mRECT.H(), mStartAngle + GetValue() * (mEndAngle - mStartAngle), &mBlend);
+    g.DrawSVG(fSVG, mRECT);
+  }
 
-void ISVGLayerKnobControl::SetSVG(ISVG& svg)
-{
-  mSVG = svg;
-  SetDirty(false);
-}
+  void SetSVG(ISVG& svg)
+  {
+    mSVG = svg;
+    SetDirty(false);
+  }
+
+private:
+  ISVG mSVG;
+  ISVG bSVG;
+  ISVG fSVG;
+  float mStartAngle = -135.f;
+  float mEndAngle = 135.f;
+};
+
+END_IGRAPHICS_NAMESPACE
+END_IPLUG_NAMESPACE

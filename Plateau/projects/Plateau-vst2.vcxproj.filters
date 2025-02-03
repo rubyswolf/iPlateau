@@ -48,7 +48,6 @@
       <Filter>IGraphics\Drawing</Filter>
     </ClCompile>
     <ClCompile Include="..\..\iPlug2\IGraphics\Drawing\IGraphicsNanoVG.cpp" />
-    <ClCompile Include="..\controls\SVGLayerKnob.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="../config.h" />
@@ -194,7 +193,6 @@
     <ClInclude Include="..\..\iPlug2\IGraphics\ISender.h">
       <Filter>IGraphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\controls\SVGLayerKnob.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IPlug">

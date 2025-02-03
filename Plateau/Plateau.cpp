@@ -1,7 +1,8 @@
 #include "Plateau.h"
 #include "IPlug_include_in_plug_src.h"
 #include "IControls.h"
-//#include "./controls/SVGLayerKnob.hpp"
+
+#include "./controls/SVGLayerKnob.cpp"
 
 Plateau::Plateau(const InstanceInfo& info)
 : iplug::Plugin(info, MakeConfig(kNumParams, kNumPresets))
@@ -24,8 +25,7 @@ Plateau::Plateau(const InstanceInfo& info)
     const ISVG RoganSVG = pGraphics->LoadSVG(ROGAN_FN);
     const ISVG RoganBGSVG = pGraphics->LoadSVG(ROGANBG_FN);
     const ISVG RoganFGSVG = pGraphics->LoadSVG(ROGANFG_FN);
-    //pGraphics->AttachControl(new ISVGLayerKnobControl(b.GetCentredInside(100).GetVShifted(-100), RoganSVG, RoganBGSVG, RoganFGSVG, kGain));
-    pGraphics->AttachControl(new ISVGKnobControl(b.GetCentredInside(100).GetVShifted(-100), RoganSVG, kGain));
+    pGraphics->AttachControl(new ISVGLayerKnobControl(b.GetCentredInside(100).GetVShifted(-100), RoganSVG, RoganBGSVG, RoganFGSVG, kGain));
 
   };
 #endif

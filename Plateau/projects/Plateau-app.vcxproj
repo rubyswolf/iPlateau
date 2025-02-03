@@ -317,7 +317,6 @@
     <ClInclude Include="..\..\iPlug2\IPlug\IPlugUtilities.h" />
     <ClInclude Include="..\..\iPlug2\IPlug\IPlug_include_in_plug_hdr.h" />
     <ClInclude Include="..\..\iPlug2\IPlug\IPlug_include_in_plug_src.h" />
-    <ClInclude Include="..\controls\SVGLayerKnob.hpp" />
     <ClInclude Include="..\Plateau.h" />
     <ClInclude Include="..\resources\resource.h" />
   </ItemGroup>
@@ -361,7 +360,6 @@
     <ClCompile Include="..\..\iPlug2\IPlug\IPlugPluginBase.cpp" />
     <ClCompile Include="..\..\iPlug2\IPlug\IPlugProcessor.cpp" />
     <ClCompile Include="..\..\iPlug2\IPlug\IPlugTimer.cpp" />
-    <ClCompile Include="..\controls\SVGLayerKnob.cpp" />
     <ClCompile Include="..\Plateau.cpp" />
   </ItemGroup>
   <ItemGroup>

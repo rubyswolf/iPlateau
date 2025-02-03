@@ -59,7 +59,6 @@
     <ClCompile Include="..\..\iPlug2\IGraphics\Drawing\IGraphicsSkia.cpp">
       <Filter>IGraphics\Drawing</Filter>
     </ClCompile>
-    <ClCompile Include="..\controls\SVGLayerKnob.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Plateau.h" />
@@ -211,7 +210,6 @@
     <ClInclude Include="..\..\iPlug2\IGraphics\Drawing\IGraphicsSkia.h">
       <Filter>IGraphics\Drawing</Filter>
     </ClInclude>
-    <ClInclude Include="..\controls\SVGLayerKnob.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resources">
