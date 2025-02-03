@@ -6,7 +6,7 @@
         //     "type": "lldb",
         //     "request": "launch",
         //     "program": "/Applications/REAPER.app",
-        //     "args": ["${workspaceFolder}/TemplateProject/TemplateProject.RPP"],
+        //     "args": ["${workspaceFolder}/Plateau/Plateau.RPP"],
         //     "preLaunchTask": "build VST2 Debug",
         // },
         // {
@@ -14,7 +14,7 @@
         //     "type": "lldb",
         //     "request": "launch",
         //     "program": "/Applications/REAPER.app",
-        //     "args": ["${workspaceFolder}/TemplateProject/TemplateProject.RPP"],
+        //     "args": ["${workspaceFolder}/Plateau/Plateau.RPP"],
         //     "preLaunchTask": "build VST3 Debug",
         // },
         // {
@@ -22,14 +22,14 @@
         //     "type": "lldb",
         //     "request": "launch",
         //     "program": "/Applications/REAPER.app",
-        //     "args": ["${workspaceFolder}/TemplateProject/TemplateProject.RPP"],
+        //     "args": ["${workspaceFolder}/Plateau/Plateau.RPP"],
         //     "preLaunchTask": "build AUv2 Debug",
         // },
         {
             "name": "(lldb) Launch APP",
             "type": "lldb",
             "request": "launch",
-            "program": "~/Applications/TemplateProject.app",
+            "program": "~/Applications/Plateau.app",
             "preLaunchTask": "build APP Debug"
         }
     ]
