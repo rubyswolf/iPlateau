@@ -46,6 +46,7 @@ jobs:
       if: matrix.os == 'macOS-latest'
       run: |
         cd ${{env.PROJECT_NAME}}/scripts
+        chmod +x ./makedist-mac.sh
         ./makedist-mac.sh full zip
       shell: bash
 
