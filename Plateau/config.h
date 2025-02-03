@@ -1,4 +1,4 @@
-#define PLUG_NAME "iPlateau"
+#define PLUG_NAME "Plateau"
 #define PLUG_MFR "Dart"
 #define PLUG_VERSION_HEX 0x00010000
 #define PLUG_VERSION_STR "1.0.0"
@@ -9,11 +9,11 @@
 #define PLUG_COPYRIGHT_STR "Copyright 2020 Acme Inc"
 #define PLUG_CLASS_NAME Plateau
 
-#define BUNDLE_NAME "iPlateau"
+#define BUNDLE_NAME "Plateau"
 #define BUNDLE_MFR "Dart"
 #define BUNDLE_DOMAIN "com"
 
-#define SHARED_RESOURCES_SUBPATH "iPlateau"
+#define SHARED_RESOURCES_SUBPATH "Plateau"
 
 #define PLUG_CHANNEL_IO "1-1 2-2"
 
@@ -39,7 +39,7 @@
 #define AAX_TYPE_IDS 'IEF1', 'IEF2'
 #define AAX_TYPE_IDS_AUDIOSUITE 'IEA1', 'IEA2'
 #define AAX_PLUG_MFR_STR "Acme"
-#define AAX_PLUG_NAME_STR "iPlateau\nIPEF"
+#define AAX_PLUG_NAME_STR "Plateau\nIPEF"
 #define AAX_PLUG_CATEGORY_STR "Effect"
 #define AAX_DOES_AUDIOSUITE 1
 
