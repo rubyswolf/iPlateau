@@ -6,7 +6,23 @@ const int kNumPresets = 1;
 
 enum EParams
 {
-  kGain = 0,
+    kDry,
+    kWet,
+    kPreDelay,
+    kInputLowDamp,
+    kInputHighDamp,
+    kSize,
+    kDiffusion,
+    kDecay,
+    kReverbLowDamp,
+    kReverbHighDamp,
+    kModSpeed,
+    kModDepth,
+    kModShape,
+    kFreeze,
+    kClear,
+    kTunedMode,
+    kDiffuseInput,
   kNumParams
 };
 

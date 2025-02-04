@@ -62,3 +62,6 @@
 #define ROGAN_FN "Rogan1PSLimeMed.svg"
 #define ROGANBG_FN "Rogan1PSMed-bg.svg"
 #define ROGANFG_FN "Rogan1PSLimeMed-fg.svg"
+#define LEDOFF_FN "LEDButtonOff.svg"
+#define LEDON_FN "LEDButtonOn.svg"
+#define LEDBG_FN "LEDButtonBackground.svg"
