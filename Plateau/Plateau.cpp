@@ -2,10 +2,9 @@
 #include "IPlug_include_in_plug_src.h"
 #include "IControls.h"
 
-
-
 #include "./controls/SVGLayerKnob.cpp"
 
+#include "./controls/IBButtonHold.cpp"
 
 Plateau::Plateau(const InstanceInfo& info)
 : iplug::Plugin(info, MakeConfig(kNumParams, kNumPresets))
@@ -26,9 +25,12 @@ Plateau::Plateau(const InstanceInfo& info)
   GetParam(kFreeze)->InitBool("Freeze", false);
   GetParam(kClear)->InitBool("Clear", false);
   GetParam(kTunedMode)->InitBool("Tuned Mode", false);
-  GetParam(kDiffuseInput)->InitBool("Diffuse Input", false);
+  GetParam(kDiffuseInput)->InitBool("Diffuse Input", true);
 
-
+  reverb.setSampleRate(GetSampleRate());
+  envelope.setSampleRate(GetSampleRate());
+  envelope.setTime(0.004f);
+  envelope._value = 1.f;
 
 #if IPLUG_EDITOR // http://bit.ly/2S64BDd
   mMakeGraphicsFunc = [&]() {
@@ -63,22 +65,126 @@ Plateau::Plateau(const InstanceInfo& info)
     pGraphics->AttachControl(new IBSwitchControl(IRECT::MakeXYWH(-14, 184, 102, 102), LedPNG, kTunedMode));
     pGraphics->AttachControl(new IBSwitchControl(IRECT::MakeXYWH(228, 184, 102, 102), LedPNG, kDiffuseInput));
 
-    pGraphics->AttachControl(new IBButtonControl(IRECT::MakeXYWH(238, 400, 102, 102), LedPNG,[this](IControl* freezeControl) {}));
-
+    pGraphics->AttachControl(new IBButtonHoldControl(IRECT::MakeXYWH(238, 400, 102, 102), LedPNG, [this](IControl* clearControl) {SetParameterValue(kClear, 1);}));
   };
 #endif
 }
 
+void Plateau::OnParamChange(int index)
+{
+    switch (index) {
+    case kPreDelay:
+        reverb.setPreDelay(GetParam(index)->Value());
+        break;
+    case kInputLowDamp:
+        reverb.setInputFilterLowCutoffPitch(10.f - GetParam(index)->Value());
+        break;
+    case kInputHighDamp:
+        reverb.setInputFilterHighCutoffPitch(GetParam(index)->Value());
+        break;
+    case kSize:
+    case kTunedMode:
+    {
+        float size = GetParam(kSize)->Value();
+        bool tunedMode = GetParam(kTunedMode)->Value();
+        if (tunedMode) {
+            reverb.setTimeScale(0.0025f * powf(2.f, size * 5.f));
+        }
+        else {
+            reverb.setTimeScale(scale(size * size, 0.f, 1.f, 0.01f, 4.0f));
+        }
+        break;
+    }
+    case kDiffusion:
+        reverb.setTankDiffusion(GetParam(index)->Value());
+        break;
+    case kDecay:
+    {
+        float decay = GetParam(index)->Value();
+        reverb.setDecay(2.f * decay - decay * decay);
+        break;
+    }
+    case kReverbLowDamp:
+        reverb.setTankFilterLowCutFrequency(10.f - GetParam(index)->Value());
+        break;
+    case kReverbHighDamp:
+        reverb.setTankFilterHighCutFrequency(GetParam(index)->Value());
+        break;
+    case kModSpeed:
+    {
+        float modSpeed = GetParam(index)->Value();
+        reverb.setTankModSpeed(modSpeed * modSpeed * 99.f + 1.f);
+        break;
+    }
+    case kModDepth:
+        reverb.setTankModDepth(GetParam(index)->Value());
+        break;
+    case kModShape:
+        reverb.setTankModShape(GetParam(index)->Value());
+        break;
+    case kDiffuseInput:
+        reverb.enableInputDiffusion(GetParam(index)->Value());
+        break;
+    }
+}
+
+
 #if IPLUG_DSP
 void Plateau::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 {
-  const double gain = GetParam(kDry)->Value() / 100.;
+  const bool clearParam = GetParam(kClear)->Value();
+  const bool freezeParam = GetParam(kFreeze)->Value();
+  const double dryParam = GetParam(kDry)->Value()/100;
+  const double wetParam = GetParam(kWet)->Value()/100;
   const int nChans = NOutChansConnected();
   
   for (int s = 0; s < nFrames; s++) {
-    for (int c = 0; c < nChans; c++) {
-      outputs[c][s] = inputs[c][s] * gain;
-    }
+        if (clearParam && !clear && cleared) {
+            cleared = false;
+            clear = true;
+        }
+        else if (!clearParam && cleared) {
+            clear = false;
+        }
+
+        if (clear) {
+            if (!cleared && !fadeOut && !fadeIn) {
+                fadeOut = true;
+                envelope.setStartEndPoints(1.f, 0.f);
+                envelope.trigger();
+            }
+            if (fadeOut && envelope._justFinished) {
+                reverb.clear();
+                fadeOut = false;
+                fadeIn = true;
+                envelope.setStartEndPoints(0.f, 1.f);
+                envelope.trigger();
+            }
+            if (fadeIn && envelope._justFinished) {
+                fadeIn = false;
+                cleared = true;
+                envelope._value = 1.f;
+                SetParameterValue(kClear,0);
+            }
+        }
+        envelope.process();
+
+        if (freezeParam && !frozen) {
+            frozen = true;
+            reverb.freeze(frozen);
+        }
+        else if (!freezeParam && frozen) {
+            frozen = false;
+            reverb.freeze(frozen);
+        }
+
+        reverb.process((double)(inputs[0][s] * envelope._value), (double)(inputs[nChans>1?1:0][s] * envelope._value));
+
+        outputs[0][s] = inputs[0][s] * dryParam + reverb.getLeftOutput() * wetParam;
+        if (nChans > 1)
+        {
+            outputs[1][s] = inputs[1][s] * dryParam + reverb.getRightOutput() * wetParam;
+        }
   }
 }
 #endif
