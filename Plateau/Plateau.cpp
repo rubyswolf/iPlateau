@@ -2,7 +2,10 @@
 #include "IPlug_include_in_plug_src.h"
 #include "IControls.h"
 
+
+
 #include "./controls/SVGLayerKnob.cpp"
+
 
 Plateau::Plateau(const InstanceInfo& info)
 : iplug::Plugin(info, MakeConfig(kNumParams, kNumPresets))
@@ -54,10 +57,14 @@ Plateau::Plateau(const InstanceInfo& info)
     pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(56, 518, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kModSpeed));
     pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(203, 518, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kModDepth));
     pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(130, 543, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kModShape));
-    const ISVG LedOffSVG = pGraphics->LoadSVG(LEDOFF_FN);
-    const ISVG LedOnSVG = pGraphics->LoadSVG(LEDON_FN);
-    const ISVG LedBackgroundSVG = pGraphics->LoadSVG(LEDBG_FN);
-  /*  pGraphics->AttachControl(new ISVGButtonControl(IRECT::MakeXYWH(-24, 400, 102, 102),))*/
+
+    const IBitmap LedPNG = pGraphics->LoadBitmap(LED_FN,2,true);
+    pGraphics->AttachControl(new IBSwitchControl(IRECT::MakeXYWH(-24, 400, 102, 102), LedPNG, kFreeze));
+    pGraphics->AttachControl(new IBSwitchControl(IRECT::MakeXYWH(-14, 184, 102, 102), LedPNG, kTunedMode));
+    pGraphics->AttachControl(new IBSwitchControl(IRECT::MakeXYWH(228, 184, 102, 102), LedPNG, kDiffuseInput));
+
+    pGraphics->AttachControl(new IBButtonControl(IRECT::MakeXYWH(238, 400, 102, 102), LedPNG,[this](IControl* freezeControl) {}));
+
   };
 #endif
 }
