@@ -42,7 +42,6 @@ Plateau::Plateau(const InstanceInfo& info)
     pGraphics->AttachCornerResizer(EUIResizerMode::Scale, false);
     pGraphics->AttachSVGBackground(BACKGROUND_FN);
     pGraphics->LoadFont("Roboto-Regular", ROBOTO_FN);
-    const IRECT b = pGraphics->GetBounds();
     const ISVG RoganSVG = pGraphics->LoadSVG(ROGAN_FN);
     const ISVG RoganBGSVG = pGraphics->LoadSVG(ROGANBG_FN);
     const ISVG RoganFGSVG = pGraphics->LoadSVG(ROGANFG_FN);

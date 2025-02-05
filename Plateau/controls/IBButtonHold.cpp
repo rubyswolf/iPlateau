@@ -8,14 +8,14 @@ class IBButtonHoldControl : public IButtonControlBase
 {
 public:
 
-    IBButtonHoldControl::IBButtonHoldControl(float x, float y, const IBitmap& bitmap, IActionFunction aF)
+    IBButtonHoldControl(float x, float y, const IBitmap& bitmap, IActionFunction aF)
         : IButtonControlBase(IRECT(x, y, bitmap), aF)
         , IBitmapBase(bitmap)
     {
         AttachIControl(this);
     }
 
-    IBButtonHoldControl::IBButtonHoldControl(const IRECT& bounds, const IBitmap& bitmap, IActionFunction aF)
+    IBButtonHoldControl(const IRECT& bounds, const IBitmap& bitmap, IActionFunction aF)
         : IButtonControlBase(bounds.GetCentredInside(bitmap), aF)
         , IBitmapBase(bitmap)
     {
