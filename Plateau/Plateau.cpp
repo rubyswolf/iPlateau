@@ -70,13 +70,13 @@ Plateau::Plateau(const InstanceInfo& info)
 
     pGraphics->AttachControl(new LEDButton(IRECT::MakeXYWH(238-12.474f, 470-65.198f, 102, 102), LEDScale, LedSVGs, [this](IControl* clearControl) {SetParameterValue(kClear, 1);}));
 
-    IControl* cButton = new LEDSwitch(IRECT::MakeXYWH(106.5, 105, 102, 102), LEDScale, LedSVGs);
+    IControl* cButton = new LEDSwitch(IRECT::MakeXYWH(106.5, 112, 102, 102), LEDScale, LedSVGs);
 
     cButton->SetValue(1);
 
     pGraphics->AttachControl(cButton);
-    pGraphics->AttachControl(new LEDSwitch(IRECT::MakeXYWH(106.5-50, 75, 102, 102), LEDScale, LedSVGs));
-    pGraphics->AttachControl(new LEDSwitch(IRECT::MakeXYWH(106.5+50, 75, 102, 102), LEDScale, LedSVGs));
+    pGraphics->AttachControl(new LEDSwitch(IRECT::MakeXYWH(106.5-20, 40, 102, 102), LEDScale, LedSVGs));
+    pGraphics->AttachControl(new LEDSwitch(IRECT::MakeXYWH(106.5+20, 40, 102, 102), LEDScale, LedSVGs));
   };
 #endif
 }
