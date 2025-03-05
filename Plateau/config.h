@@ -59,7 +59,9 @@
 #define ROBOTO_FN "Roboto-Regular.ttf"
 
 #define BACKGROUND_FN "Background.svg"
-#define ROGAN_FN "Rogan1PSLimeMed.svg"
-#define ROGANBG_FN "Rogan1PSMed-bg.svg"
-#define ROGANFG_FN "Rogan1PSLimeMed-fg.svg"
-#define LED_FN "LEDButton.png"
+#define NEEDLE_FN "NeedleDial.svg"
+#define NEEDLEBG_FN "NeedleDial-bg.svg"
+#define NEEDLEFG_FN "NeedleDial-fg.png"
+//#define LED_FN "LEDButton.png"
+#define LEDON_FN "LEDButtonOn.svg"
+#define LEDOFF_FN "LEDButtonOff.svg"

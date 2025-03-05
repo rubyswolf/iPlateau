@@ -3,22 +3,15 @@
 BEGIN_IPLUG_NAMESPACE
 BEGIN_IGRAPHICS_NAMESPACE
 
-class IBButtonHoldControl : public IButtonControlBase
+class LEDRadio : public IButtonControlBase
     , public IBitmapBase
 {
 public:
-
-    IBButtonHoldControl(float x, float y, const IBitmap& bitmap, IActionFunction aF)
-        : IButtonControlBase(IRECT(x, y, bitmap), aF)
+    LEDRadio(const IRECT& bounds, float hitboxScaleFactor, const IBitmap& bitmap, IActionFunction aF)
+        : IButtonControlBase(bounds, aF)
         , IBitmapBase(bitmap)
     {
-        AttachIControl(this);
-    }
-
-    IBButtonHoldControl(const IRECT& bounds, const IBitmap& bitmap, IActionFunction aF)
-        : IButtonControlBase(bounds.GetCentredInside(bitmap), aF)
-        , IBitmapBase(bitmap)
-    {
+		hitboxScale = hitboxScaleFactor;
         AttachIControl(this);
     }
 
@@ -28,6 +21,14 @@ public:
         this->SetValue(0.);
         SetDirty(false);
     }
+
+    bool IsHit(float x, float y) const override {
+        ICircle hitbox = ICircle(mTargetRECT);
+        hitbox.Scale(hitboxScale);
+        return hitbox.Contains(x, y);
+    }
+
+    float hitboxScale = 1.0f;
 };
 
 END_IGRAPHICS_NAMESPACE

@@ -2,9 +2,10 @@
 #include "IPlug_include_in_plug_src.h"
 #include "IControls.h"
 
-#include "./controls/SVGLayerKnob.cpp"
-
-#include "./controls/IBButtonHold.cpp"
+//Custom Controls
+#include "./controls/NeedleKnob.cpp"
+#include "./controls/LEDButton.cpp"
+#include "./controls/LEDSwitch.cpp"
 
 Plateau::Plateau(const InstanceInfo& info)
 : iplug::Plugin(info, MakeConfig(kNumParams, kNumPresets))
@@ -42,29 +43,40 @@ Plateau::Plateau(const InstanceInfo& info)
     pGraphics->AttachCornerResizer(EUIResizerMode::Scale, false);
     pGraphics->AttachSVGBackground(BACKGROUND_FN);
     pGraphics->LoadFont("Roboto-Regular", ROBOTO_FN);
-    const ISVG RoganSVG = pGraphics->LoadSVG(ROGAN_FN);
-    const ISVG RoganBGSVG = pGraphics->LoadSVG(ROGANBG_FN);
-    const ISVG RoganFGSVG = pGraphics->LoadSVG(ROGANFG_FN);
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(89, 109, 42, 42), RoganSVG, RoganBGSVG, RoganFGSVG, kDry));
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(180, 109, 42, 42), RoganSVG, RoganBGSVG, RoganFGSVG, kWet));
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(140, 45, 35, 35), RoganSVG, RoganBGSVG, RoganFGSVG, kPreDelay));
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(93, 198, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kInputLowDamp));
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(166, 198, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kInputHighDamp));
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(56, 298, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kSize));
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(130, 317, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kDiffusion));
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(203, 298, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kDecay));
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(93, 417, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kReverbLowDamp));
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(166, 417, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kReverbHighDamp));
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(56, 518, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kModSpeed));
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(203, 518, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kModDepth));
-    pGraphics->AttachControl(new ISVGLayerKnobControl(IRECT::MakeXYWH(130, 543, 56, 56), RoganSVG, RoganBGSVG, RoganFGSVG, kModShape));
+    const ISVG NeedleSVG = pGraphics->LoadSVG(NEEDLE_FN);
+    const ISVG NeedleBGSVG = pGraphics->LoadSVG(NEEDLEBG_FN);
+    const IBitmap NeedleFGPNG = pGraphics->LoadBitmap(NEEDLEFG_FN);
+    pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(89-40, 141+50, 42, 42), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kDry));
+    pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(180+40, 141+50, 42, 42), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kWet));
+    //pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(140, 87, 35, 35), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kPreDelay));
+    pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(93, 230, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kInputLowDamp));
+    pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(166, 230, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kInputHighDamp));
+    pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(56, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kSize));
+    pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(130, 329, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kDiffusion));
+    pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(203, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kDecay));
+    pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(93, 446, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kReverbLowDamp));
+    pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(166, 446, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kReverbHighDamp));
+    pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(56, 518, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kModSpeed));
+    pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(203, 518, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kModDepth));
+    pGraphics->AttachControl(new NeedleKnob(IRECT::MakeXYWH(130, 543, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFGPNG, kModShape));
 
-    const IBitmap LedPNG = pGraphics->LoadBitmap(LED_FN,2,true);
-    pGraphics->AttachControl(new IBSwitchControl(IRECT::MakeXYWH(-24, 400, 102, 102), LedPNG, kFreeze));
-    pGraphics->AttachControl(new IBSwitchControl(IRECT::MakeXYWH(-14, 184, 102, 102), LedPNG, kTunedMode));
-    pGraphics->AttachControl(new IBSwitchControl(IRECT::MakeXYWH(228, 184, 102, 102), LedPNG, kDiffuseInput));
+    float LEDScale = 0.2453054f;
 
-    pGraphics->AttachControl(new IBButtonHoldControl(IRECT::MakeXYWH(238, 400, 102, 102), LedPNG, [this](IControl* clearControl) {SetParameterValue(kClear, 1);}));
+    const std::initializer_list<ISVG> LedSVGs = { pGraphics->LoadSVG(LEDOFF_FN), pGraphics->LoadSVG(LEDON_FN) };
+
+    pGraphics->AttachControl(new LEDSwitch(IRECT::MakeXYWH(-24+12.474f, 470-65.198f, 102, 102), LEDScale, LedSVGs, kFreeze));
+    pGraphics->AttachControl(new LEDSwitch(IRECT::MakeXYWH(-14, 216, 102, 102), LEDScale, LedSVGs, kTunedMode));
+    pGraphics->AttachControl(new LEDSwitch(IRECT::MakeXYWH(228, 216, 102, 102), LEDScale, LedSVGs, kDiffuseInput));
+
+    pGraphics->AttachControl(new LEDButton(IRECT::MakeXYWH(238-12.474f, 470-65.198f, 102, 102), LEDScale, LedSVGs, [this](IControl* clearControl) {SetParameterValue(kClear, 1);}));
+
+    IControl* cButton = new LEDSwitch(IRECT::MakeXYWH(106.5, 105, 102, 102), LEDScale, LedSVGs);
+
+    cButton->SetValue(1);
+
+    pGraphics->AttachControl(cButton);
+    pGraphics->AttachControl(new LEDSwitch(IRECT::MakeXYWH(106.5-50, 75, 102, 102), LEDScale, LedSVGs));
+    pGraphics->AttachControl(new LEDSwitch(IRECT::MakeXYWH(106.5+50, 75, 102, 102), LEDScale, LedSVGs));
   };
 #endif
 }
