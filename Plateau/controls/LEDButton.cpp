@@ -6,17 +6,25 @@ BEGIN_IGRAPHICS_NAMESPACE
 class LEDButton : public IButtonControlBase
 {
 public:
-    LEDButton(const IRECT& bounds, float hitboxScaleFactor, const std::initializer_list<ISVG>& svgs, IActionFunction aF)
+    LEDButton(const IRECT& bounds, float hitboxScaleFactor, const ISVG& svgOff, const ISVG& svgOn1, const ISVG& svgOn2, IActionFunction aF, IControl* linkedControl = nullptr)
         : IButtonControlBase(bounds, aF)
-        , mSVGs(svgs)
+		, mSVGOff(svgOff)
+		, mSVGOn1(svgOn1)
+		, mSVGOn2(svgOn2)
+        , mLinkedControl(linkedControl)
     {
 		hitboxScale = hitboxScaleFactor;
     }
 
-    void Draw(IGraphics& g) override { g.DrawSVG(mSVGs[GetValue()], mRECT, &mBlend); }
+    void Draw(IGraphics& g) override { g.DrawSVG(GetValue()>=1.?(tank2 ? mSVGOn2 : mSVGOn1) : mSVGOff, mRECT, &mBlend); }
     void OnMouseUp(float x, float y, const IMouseMod& mod) override {
         this->SetValue(0.);
-        SetDirty(false);
+        SetDirty();
+        if (mLinkedControl)
+        {
+            mLinkedControl->SetValue(0.);
+			mLinkedControl->SetDirty();
+        }
     }
 
     bool IsHit(float x, float y) const override {
@@ -25,9 +33,18 @@ public:
         return hitbox.Contains(x, y);
     }
 
+    void SelectTank(bool isTank2) {
+        tank2 = isTank2;
+        SetDirty(false);
+    }
+
     float hitboxScale = 1.0f;
 protected:
-    std::vector<ISVG> mSVGs;
+    ISVG mSVGOff;
+    ISVG mSVGOn1;
+    ISVG mSVGOn2;
+	IControl* mLinkedControl;
+    bool tank2 = false;
 };
 
 END_IGRAPHICS_NAMESPACE
