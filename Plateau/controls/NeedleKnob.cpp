@@ -6,12 +6,14 @@ BEGIN_IGRAPHICS_NAMESPACE
 class NeedleKnob : public IKnobControlBase
 {
 public:
-    NeedleKnob(const IRECT& bounds, const ISVG& dialPointer, const ISVG& dialBg, const IBitmap& dialFg1Bmp, const IBitmap& dialFg2Bmp, int kParamIdx)
-        : IKnobControlBase(bounds, kParamIdx)
+    NeedleKnob(const IRECT& bounds, const ISVG& dialPointer, const ISVG& dialBg, const IBitmap& dialFg1Bmp, const IBitmap& dialFg2Bmp, int kParam1Idx, int kParam2Idx)
+        : IKnobControlBase(bounds, kParam1Idx)
         , mDialFg1(dialFg1Bmp)
         , mDialFg2(dialFg2Bmp)
         , mDialBg(dialBg)
         , mDialPointer(dialPointer)
+		, mParam1Idx(kParam1Idx)
+		, mParam2Idx(kParam2Idx)
     {
     }
 
@@ -29,7 +31,7 @@ public:
     
 	void SelectTank(bool isTank2) {
 		tank2 = isTank2;
-		SetDirty(false);
+		SetParamIdx(tank2 ? mParam2Idx : mParam1Idx, 0, true);
 	}
 
 private:
@@ -39,6 +41,8 @@ private:
     ISVG mDialPointer;
     float mStartAngle = -135.f;
     float mEndAngle = 135.f;
+	int mParam1Idx;
+	int mParam2Idx;
 	bool tank2 = false;
 };
 

@@ -1,4 +1,5 @@
 #include "IControl.h"
+#include "Plateau.h"
 
 BEGIN_IPLUG_NAMESPACE
 BEGIN_IGRAPHICS_NAMESPACE
@@ -10,11 +11,13 @@ public:
      * @param bounds The control's bounds
      * @param bitmap The bitmap resource for the control
      * @param paramIdx The parameter index to link this control to */
-    LEDSwitch(const IRECT& bounds, float hitboxScaleFactor, const ISVG& svgOff, const ISVG& svgOn1, const ISVG& svgOn2, int paramIdx = kNoParameter)
-        : ISwitchControlBase(bounds, paramIdx, nullptr, 3)
+    LEDSwitch(const IRECT& bounds, float hitboxScaleFactor, const ISVG& svgOff, const ISVG& svgOn1, const ISVG& svgOn2, int param1Idx = kNoParameter, int param2Idx = kNoParameter)
+        : ISwitchControlBase(bounds, param1Idx, nullptr, 3)
         , mSVGOff(svgOff)
         , mSVGOn1(svgOn1)
         , mSVGOn2(svgOn2)
+		, mParam1Idx(param1Idx)
+		, mParam2Idx(param2Idx)
     {
         hitboxScale = hitboxScaleFactor;
     }
@@ -26,20 +29,19 @@ public:
 		//	if (linkedParent->GetValue() == 1.) {
 		//		return;
 		//	}
-  //      }
+        //}
         SetValue(GetValue() + 1.);
         if (GetValue() > 1.) {
             SetValue(0.);
         }
-		preferedState = GetValue() >= 1.; //Set the state to return to when the parent turns back off
+        if (tank2) {
+			preferedState2 = GetValue() >= 1.;
+        }
+        else
+        {
+			preferedState1 = GetValue() >= 1.;
+        }
         SetDirty();
-        if (child && !preferedState) {
-            linkedParent->SetValue(0.);
-			linkedParent->SetDirty();
-        }
-        if (parent) {
-			linkedChild->Update();
-        }
     };
 
     bool IsHit(float x, float y) const override {
@@ -50,45 +52,29 @@ public:
 
     void SelectTank(bool isTank2) {
         tank2 = isTank2;
-        SetDirty();
+        SetParamIdx(tank2 ? mParam2Idx : mParam1Idx, 0, true);
     }
 
     float hitboxScale = 1.0f;
 
-	void SetChild(LEDSwitch* child) {
-        linkedChild = child;
-		parent = true;
-		child->SetParent(this);
+    void Update() {
+		SetValue(tank2 ? preferedState2 : preferedState1);
+    }
+
+	double GetPrefered() {
+        return (tank2 ? preferedState1 : preferedState2) ? 1. : 0.;
 	}
 
-    void Update() {
-        if (child) {
-            if (linkedParent->GetValue() >= 1) {
-				SetValue(1.);
-			}
-            else {
-                SetValue(preferedState);
-            }
-			SetDirty();
-        }
-    }
+	bool preferedState1 = false;
+	bool preferedState2 = false;
 
 protected:
     ISVG mSVGOff;
     ISVG mSVGOn1;
     ISVG mSVGOn2;
+    int mParam1Idx;
+    int mParam2Idx;
 	bool tank2 = false;
-    bool parent = false;
-    bool child = false;
-	LEDSwitch* linkedChild;
-	LEDSwitch* linkedParent;
-	bool preferedState = false;
-
-private:
-    void SetParent(LEDSwitch* parent) {
-        linkedParent = parent;
-        child = true;
-    }
 };
 END_IGRAPHICS_NAMESPACE
 END_IPLUG_NAMESPACE

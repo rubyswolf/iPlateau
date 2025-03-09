@@ -18,7 +18,7 @@ enum EParams
     kDry,
     kFreeze,
     kClear,
-    kEnabled1,
+    kEnable1,
     kWet1,
     kInputLowDamp1,
     kInputHighDamp1,
@@ -35,6 +35,23 @@ enum EParams
     kTunedMode1,
     kDiffuseInput1,
     kPreDelay1,
+    kEnable2,
+    kWet2,
+    kInputLowDamp2,
+    kInputHighDamp2,
+    kSize2,
+    kDiffusion2,
+    kDecay2,
+    kReverbLowDamp2,
+    kReverbHighDamp2,
+    kModSpeed2,
+    kModDepth2,
+    kModShape2,
+    kFreeze2,
+    kClear2,
+    kTunedMode2,
+    kDiffuseInput2,
+    kPreDelay2,
     kNumParams
 };
 
@@ -50,25 +67,34 @@ class Plateau final : public Plugin
 public:
   Plateau(const InstanceInfo& info);
 
+  bool initalizedInterface = false;
+
 
 #if IPLUG_DSP // http://bit.ly/2S64BDd
   void ProcessBlock(sample** inputs, sample** outputs, int nFrames) override;
   void OnParamChange(int index) override;
   void SelectTank(bool tank2);
+  void ProcessReverb(sample** inputs, sample** outputs, int nFrames, int nChans, Dattorro& reverb, LinearEnvelope& envelope, bool& clear, bool& cleared, bool& fadeOut, bool& fadeIn, bool& frozen, int kClear, int kFreeze, int kWet);
 #endif
     private:
         Dattorro reverb1;
         LinearEnvelope envelope1;
-
-        bool clear = false;
-        bool cleared = true;
-        bool fadeOut = false;
-        bool fadeIn = false;
-
-        bool frozen = false;
+        bool clear1 = false;
+        bool cleared1 = true;
+        bool fadeOut1 = false;
+        bool fadeIn1 = false;
+        bool frozen1 = false;
+        
+        Dattorro reverb2;
+        LinearEnvelope envelope2;
+        bool clear2 = false;
+        bool cleared2 = true;
+        bool fadeOut2 = false;
+        bool fadeIn2 = false;
+        bool frozen2 = false;
 
 		bool tank2Selected = false;
-		NeedleKnob* Knobs[kNumKnobs];
-		LEDSwitch* Switches[kNumSwitches];
-		LEDButton* Buttons[kNumButtons];
+        NeedleKnob* Knobs[kNumKnobs];
+        LEDSwitch* Switches[kNumSwitches];
+        LEDButton* Buttons[kNumButtons];
 };
