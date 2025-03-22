@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4F3AE17812C0E5E2001FD7A4"
-               BuildableName = "Plateau.component"
+               BuildableName = "Plateau2.component"
                BlueprintName = "AU"
-               ReferencedContainer = "container:Plateau-macOS.xcodeproj">
+               ReferencedContainer = "container:Plateau2-macOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F3AE17812C0E5E2001FD7A4"
-            BuildableName = "Plateau.component"
+            BuildableName = "Plateau2.component"
             BlueprintName = "AU"
-            ReferencedContainer = "container:Plateau-macOS.xcodeproj">
+            ReferencedContainer = "container:Plateau2-macOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CommandLineArguments>

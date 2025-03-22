@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4F3EE1BA231438D000004786"
-               BuildableName = "Plateau.app"
+               BuildableName = "Plateau2.app"
                BlueprintName = "AUv3App"
-               ReferencedContainer = "container:Plateau-macOS.xcodeproj">
+               ReferencedContainer = "container:Plateau2-macOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -31,9 +31,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F3EE1BA231438D000004786"
-            BuildableName = "Plateau.app"
+            BuildableName = "Plateau2.app"
             BlueprintName = "AUv3App"
-            ReferencedContainer = "container:Plateau-macOS.xcodeproj">
+            ReferencedContainer = "container:Plateau2-macOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F3EE1BA231438D000004786"
-            BuildableName = "Plateau.app"
+            BuildableName = "Plateau2.app"
             BlueprintName = "AUv3App"
-            ReferencedContainer = "container:Plateau-macOS.xcodeproj">
+            ReferencedContainer = "container:Plateau2-macOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -73,9 +73,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F3EE1BA231438D000004786"
-            BuildableName = "Plateau.app"
+            BuildableName = "Plateau2.app"
             BlueprintName = "AUv3App"
-            ReferencedContainer = "container:Plateau-macOS.xcodeproj">
+            ReferencedContainer = "container:Plateau2-macOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

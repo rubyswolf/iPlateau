@@ -1,5 +1,5 @@
 #include "IControl.h"
-#include "Plateau.h"
+#include "Plateau2.h"
 
 BEGIN_IPLUG_NAMESPACE
 BEGIN_IGRAPHICS_NAMESPACE

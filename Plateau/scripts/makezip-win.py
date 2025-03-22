@@ -27,21 +27,21 @@ def main():
   files = []
 
   if not zip:
-    installer = "\\build-win\\installer\\Plateau Installer.exe"
+    installer = "\\build-win\\installer\\Plateau2 Installer.exe"
     
     if demo:
-      installer = "\\build-win\\installer\\Plateau Demo Installer.exe"
+      installer = "\\build-win\\installer\\Plateau2 Demo Installer.exe"
     
     files = [
       projectpath + installer,
       projectpath + "\\installer\\changelog.txt",
       projectpath + "\\installer\\known-issues.txt",
-      projectpath + "\\manual\\Plateau manual.pdf" 
+      projectpath + "\\manual\\Plateau2 manual.pdf" 
     ]
   else:
     files = [
-      projectpath + "\\build-win\\Plateau.vst3\\Contents\\x86_64-win\\Plateau.vst3",
-      projectpath + "\\build-win\\Plateau_x64.exe"  
+      projectpath + "\\build-win\\Plateau2.vst3\\Contents\\x86_64-win\\Plateau2.vst3",
+      projectpath + "\\build-win\\Plateau2_x64.exe"  
     ]
 
   zipname = get_archive_name(projectpath, "win", "demo" if demo == 1 else "full" )
@@ -58,8 +58,8 @@ def main():
   zf = zipfile.ZipFile(projectpath + "\\build-win\\out\\" + zipname + "-pdbs.zip", mode="w")
 
   files = [
-    projectpath + "\\build-win\\pdbs\\Plateau-vst3_x64.pdb",
-    projectpath + "\\build-win\\pdbs\\Plateau-app_x64.pdb"  
+    projectpath + "\\build-win\\pdbs\\Plateau2-vst3_x64.pdb",
+    projectpath + "\\build-win\\pdbs\\Plateau2-app_x64.pdb"  
   ]
 
   for f in files:

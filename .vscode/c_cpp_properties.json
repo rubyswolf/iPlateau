@@ -1,8 +1,8 @@
 {
     "env": {
         "commonIncludePaths": [
-            "${workspaceFolder}/Plateau/.",
-            "${workspaceFolder}/Plateau/**",
+            "${workspaceFolder}/Plateau2/.",
+            "${workspaceFolder}/Plateau2/**",
             "${workspaceFolder}/iPlug2/WDL/**",
             "${workspaceFolder}/iPlug2/IPlug/**",
             "${workspaceFolder}/iPlug2/IGraphics/**",

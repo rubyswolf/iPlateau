@@ -14,7 +14,7 @@ IPLUG2_ROOT=$SCRIPT_DIR/$IPLUG2_ROOT
 FILE_PACKAGER=$EMSDK/upstream/emscripten/tools/file_packager.py
 EMRUN="python3 ${IPLUG2_ROOT}/Scripts/emrun/emrun.py"
 
-PROJECT_NAME=Plateau
+PROJECT_NAME=Plateau2
 BUILD_DSP=1
 BUILD_EDITOR=1
 WEBSOCKET_MODE=0

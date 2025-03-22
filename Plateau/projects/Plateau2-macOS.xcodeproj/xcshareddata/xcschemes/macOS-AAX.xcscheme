@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4FB600121567CB0A0020189A"
-               BuildableName = "Plateau.aaxplugin"
+               BuildableName = "Plateau2.aaxplugin"
                BlueprintName = "AAX"
-               ReferencedContainer = "container:Plateau-macOS.xcodeproj">
+               ReferencedContainer = "container:Plateau2-macOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -51,9 +51,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4FB600121567CB0A0020189A"
-            BuildableName = "Plateau.aaxplugin"
+            BuildableName = "Plateau2.aaxplugin"
             BlueprintName = "AAX"
-            ReferencedContainer = "container:Plateau-macOS.xcodeproj">
+            ReferencedContainer = "container:Plateau2-macOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </LaunchAction>

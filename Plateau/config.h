@@ -2,18 +2,18 @@
 #define PLUG_MFR "Dart"
 #define PLUG_VERSION_HEX 0x00020000
 #define PLUG_VERSION_STR "2.0.0"
-#define PLUG_UNIQUE_ID 'Pltu'
+#define PLUG_UNIQUE_ID 'Wl8a'
 #define PLUG_MFR_ID 'Acme'
 #define PLUG_URL_STR "https://iplug2.github.io"
-#define PLUG_EMAIL_STR "spam@me.com"
-#define PLUG_COPYRIGHT_STR "Copyright 2020 Acme Inc"
-#define PLUG_CLASS_NAME Plateau
+#define PLUG_EMAIL_STR "rubyswolf1374@gmail.com"
+#define PLUG_COPYRIGHT_STR "Copyright 2025 Dart Spark"
+#define PLUG_CLASS_NAME Plateau2
 
 #define BUNDLE_NAME "Plateau2"
 #define BUNDLE_MFR "Dart"
 #define BUNDLE_DOMAIN "com"
 
-#define SHARED_RESOURCES_SUBPATH "Plateau"
+#define SHARED_RESOURCES_SUBPATH "Plateau2"
 
 #define PLUG_CHANNEL_IO "1-1 2-2"
 
@@ -30,16 +30,16 @@
 #define PLUG_SHARED_RESOURCES 0
 #define PLUG_HOST_RESIZE 0
 
-#define AUV2_ENTRY Plateau_Entry
-#define AUV2_ENTRY_STR "Plateau_Entry"
-#define AUV2_FACTORY Plateau_Factory
-#define AUV2_VIEW_CLASS Plateau_View
-#define AUV2_VIEW_CLASS_STR "Plateau_View"
+#define AUV2_ENTRY Plateau2_Entry
+#define AUV2_ENTRY_STR "Plateau2_Entry"
+#define AUV2_FACTORY Plateau2_Factory
+#define AUV2_VIEW_CLASS Plateau2_View
+#define AUV2_VIEW_CLASS_STR "Plateau2_View"
 
 #define AAX_TYPE_IDS 'IEF1', 'IEF2'
 #define AAX_TYPE_IDS_AUDIOSUITE 'IEA1', 'IEA2'
 #define AAX_PLUG_MFR_STR "Acme"
-#define AAX_PLUG_NAME_STR "Plateau2\nIPEF"
+#define AAX_PLUG_NAME_STR "Plateau22\nIPEF"
 #define AAX_PLUG_CATEGORY_STR "Effect"
 #define AAX_DOES_AUDIOSUITE 1
 

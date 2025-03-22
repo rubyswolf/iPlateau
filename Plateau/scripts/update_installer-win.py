@@ -39,9 +39,9 @@ def main():
       line="AppVersion=" + config['FULL_VER_STR'] + "\n"
     if "OutputBaseFilename" in line:
       if demo:
-        line="OutputBaseFilename=Plateau Demo Installer\n"
+        line="OutputBaseFilename=Plateau2 Demo Installer\n"
       else:
-        line="OutputBaseFilename=Plateau Installer\n"
+        line="OutputBaseFilename=Plateau2 Installer\n"
         
     if 'Source: "readme' in line:
      if demo:
@@ -51,15 +51,15 @@ def main():
     
     if "WelcomeLabel1" in line:
      if demo:
-       line="WelcomeLabel1=Welcome to the Plateau Demo installer\n"
+       line="WelcomeLabel1=Welcome to the Plateau2 Demo installer\n"
      else:
-       line="WelcomeLabel1=Welcome to the Plateau installer\n"
+       line="WelcomeLabel1=Welcome to the Plateau2 installer\n"
        
     if "SetupWindowTitle" in line:
      if demo:
-       line="SetupWindowTitle=Plateau Demo installer\n"
+       line="SetupWindowTitle=Plateau2 Demo installer\n"
      else:
-       line="SetupWindowTitle=Plateau installer\n"
+       line="SetupWindowTitle=Plateau2 installer\n"
        
     sys.stdout.write(line) 
     

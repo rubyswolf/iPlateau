@@ -21,8 +21,8 @@ SCRIPTS=$IPLUG2_ROOT/Scripts
 CODESIGN=0
 
 # macOS codesigning/notarization
-NOTARIZE_BUNDLE_ID=com.Dart.Plateau
-NOTARIZE_BUNDLE_ID_DEMO=com.Dart.Plateau.DEMO
+NOTARIZE_BUNDLE_ID=com.Dart.Plateau2
+NOTARIZE_BUNDLE_ID_DEMO=com.Dart.Plateau2.DEMO
 APP_SPECIFIC_ID=TODO
 APP_SPECIFIC_PWD=TODO
 
@@ -355,8 +355,8 @@ mv ./build-mac/*.zip ./build-mac/out
 
 #if [ $DEMO == 1 ]
 #then
-#  git checkout installer/Plateau.iss
-#  git checkout installer/Plateau.pkgproj
+#  git checkout installer/Plateau2.iss
+#  git checkout installer/Plateau2.pkgproj
 #  git checkout resources/img/AboutBox.png
 #fi
 

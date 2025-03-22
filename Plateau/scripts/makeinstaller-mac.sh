@@ -26,7 +26,7 @@ if [ "$VERSION" == "" ]; then
   exit 1
 fi
 
-PRODUCT_NAME=Plateau
+PRODUCT_NAME=Plateau2
 
 # locations
 PRODUCTS="build-mac"

@@ -20,10 +20,10 @@ echo ZIP_ARG %ZIP_ARG%
 echo END SCRIPT VARIABLES -----------------------------------------------------
 
 if %DEMO_ARG% == "demo" (
-  echo Making Plateau Windows DEMO VERSION distribution ...
+  echo Making Plateau2 Windows DEMO VERSION distribution ...
   set DEMO=1
 ) else (
-  echo Making Plateau Windows FULL VERSION distribution ...
+  echo Making Plateau2 Windows FULL VERSION distribution ...
   set DEMO=0
 )
 
@@ -74,22 +74,22 @@ if %DEMO% == 1 (
 )
 
 REM - Could build individual targets like this:
-REM - msbuild Plateau-app.vcxproj /p:configuration=release /p:platform=win32
+REM - msbuild Plateau2-app.vcxproj /p:configuration=release /p:platform=win32
 
 REM echo Building 32 bit binaries...
-REM msbuild Plateau.sln /p:configuration=release /p:platform=win32 /nologo /verbosity:minimal /fileLogger /m /flp:logfile=build-win.log;errorsonly 
+REM msbuild Plateau2.sln /p:configuration=release /p:platform=win32 /nologo /verbosity:minimal /fileLogger /m /flp:logfile=build-win.log;errorsonly 
 
 REM echo Building 64 bit binaries...
 REM add projects with /t to build VST2 and AAX
-msbuild Plateau.sln /t:Plateau-app;Plateau-vst3 /p:configuration=release /p:platform=x64 /nologo /verbosity:minimal /fileLogger /m /flp:logfile=build-win.log;errorsonly;append
+msbuild Plateau2.sln /t:Plateau2-app;Plateau2-vst3 /p:configuration=release /p:platform=x64 /nologo /verbosity:minimal /fileLogger /m /flp:logfile=build-win.log;errorsonly;append
 
 REM --echo Copying AAX Presets
 
 REM --echo ------------------------------------------------------------------
 REM --echo Code sign AAX binary...
 REM --info at pace central, login via iLok license manager https://www.paceap.com/pace-central.html
-REM --wraptool sign --verbose --account XXXXX --wcguid XXXXX --keyfile XXXXX.p12 --keypassword XXXXX --in .\build-win\aax\bin\Plateau.aaxplugin\Contents\Win32\Plateau.aaxplugin --out .\build-win\aax\bin\Plateau.aaxplugin\Contents\Win32\Plateau.aaxplugin
-REM --wraptool sign --verbose --account XXXXX --wcguid XXXXX --keyfile XXXXX.p12 --keypassword XXXXX --in .\build-win\aax\bin\Plateau.aaxplugin\Contents\x64\Plateau.aaxplugin --out .\build-win\aax\bin\Plateau.aaxplugin\Contents\x64\Plateau.aaxplugin
+REM --wraptool sign --verbose --account XXXXX --wcguid XXXXX --keyfile XXXXX.p12 --keypassword XXXXX --in .\build-win\aax\bin\Plateau2.aaxplugin\Contents\Win32\Plateau2.aaxplugin --out .\build-win\aax\bin\Plateau2.aaxplugin\Contents\Win32\Plateau2.aaxplugin
+REM --wraptool sign --verbose --account XXXXX --wcguid XXXXX --keyfile XXXXX.p12 --keypassword XXXXX --in .\build-win\aax\bin\Plateau2.aaxplugin\Contents\x64\Plateau2.aaxplugin --out .\build-win\aax\bin\Plateau2.aaxplugin\Contents\x64\Plateau2.aaxplugin
 
 if %ZIP% == 0 (
 REM - Make Installer (InnoSetup)
@@ -100,21 +100,21 @@ echo Making Installer ...
   REM if exist "%ProgramFiles(x86)%" (goto 64-Bit-is) else (goto 32-Bit-is)
 
   REM :32-Bit-is
-  REM REM "%ProgramFiles%\Inno Setup 6\iscc" /Q ".\installer\Plateau.iss"
+  REM REM "%ProgramFiles%\Inno Setup 6\iscc" /Q ".\installer\Plateau2.iss"
   REM goto END-is
 
   REM :64-Bit-is
-  "%ProgramFiles(x86)%\Inno Setup 6\iscc" /Q ".\installer\Plateau.iss"
+  "%ProgramFiles(x86)%\Inno Setup 6\iscc" /Q ".\installer\Plateau2.iss"
   REM goto END-is
 
   REM :END-is
 
   REM - Codesign Installer for Windows 8+
-  REM -"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\signtool.exe" sign /f "XXXXX.p12" /p XXXXX /d "Plateau Installer" ".\installer\Plateau Installer.exe"
+  REM -"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\signtool.exe" sign /f "XXXXX.p12" /p XXXXX /d "Plateau2 Installer" ".\installer\Plateau2 Installer.exe"
 
   REM -if %1 == 1 (
-  REM -copy ".\installer\Plateau Installer.exe" ".\installer\Plateau Demo Installer.exe"
-  REM -del ".\installer\Plateau Installer.exe"
+  REM -copy ".\installer\Plateau2 Installer.exe" ".\installer\Plateau2 Demo Installer.exe"
+  REM -del ".\installer\Plateau2 Installer.exe"
   REM -)
 
   echo Making Zip File of Installer ...

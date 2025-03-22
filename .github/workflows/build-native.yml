@@ -7,7 +7,7 @@ on:
     #   - "v*"
 
 env:
-  PROJECT_NAME: Plateau
+  PROJECT_NAME: Plateau2
 
 jobs:
   build:

@@ -60,19 +60,19 @@
 		4F1A5282205D913300CF2908 /* IPlugAPP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F1A5280205D913300CF2908 /* IPlugAPP.cpp */; };
 		4F1A5285205D914A00CF2908 /* IPlugAAX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F1A5284205D914A00CF2908 /* IPlugAAX.cpp */; };
 		4F1A528C205D916F00CF2908 /* IPlugAU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F1A528A205D916F00CF2908 /* IPlugAU.cpp */; };
-		4F1B4AE42014D33600BC64D4 /* Plateau-macOS-MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F1B4AE32014D33600BC64D4 /* Plateau-macOS-MainMenu.xib */; };
+		4F1B4AE42014D33600BC64D4 /* Plateau2-macOS-MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F1B4AE32014D33600BC64D4 /* Plateau2-macOS-MainMenu.xib */; };
 		4F2EA978203A50EA008E4850 /* IPlugAPP_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F2EA977203A50E9008E4850 /* IPlugAPP_dialog.cpp */; };
-		4F32AE7C231427EC00710734 /* PlateauAU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F78BE0222E73D0800AD537E /* PlateauAU.framework */; };
+		4F32AE7C231427EC00710734 /* Plateau2AU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F78BE0222E73D0800AD537E /* Plateau2AU.framework */; };
 		4F35DEAD207E5C5A00867D8F /* IPlugPluginBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F35DEAB207E5C5A00867D8F /* IPlugPluginBase.cpp */; };
 		4F35DEAE207E5C5A00867D8F /* IPlugPluginBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F35DEAB207E5C5A00867D8F /* IPlugPluginBase.cpp */; };
 		4F35DEAF207E5C5A00867D8F /* IPlugPluginBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F35DEAB207E5C5A00867D8F /* IPlugPluginBase.cpp */; };
 		4F35DEB0207E5C5A00867D8F /* IPlugPluginBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F35DEAB207E5C5A00867D8F /* IPlugPluginBase.cpp */; };
 		4F35DEB1207E5C5A00867D8F /* IPlugPluginBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F35DEAB207E5C5A00867D8F /* IPlugPluginBase.cpp */; };
-		4F3862EF2014BBEC0009F402 /* Plateau.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau.cpp */; };
-		4F3862F12014BBEC0009F402 /* Plateau.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau.cpp */; };
-		4F3862F22014BBEC0009F402 /* Plateau.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau.cpp */; };
-		4F3862F32014BBEC0009F402 /* Plateau.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau.cpp */; };
-		4F3EE1C0231438D000004786 /* Plateau-macOS-MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F1B4AE32014D33600BC64D4 /* Plateau-macOS-MainMenu.xib */; };
+		4F3862EF2014BBEC0009F402 /* Plateau2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau2.cpp */; };
+		4F3862F12014BBEC0009F402 /* Plateau2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau2.cpp */; };
+		4F3862F22014BBEC0009F402 /* Plateau2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau2.cpp */; };
+		4F3862F32014BBEC0009F402 /* Plateau2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau2.cpp */; };
+		4F3EE1C0231438D000004786 /* Plateau2-macOS-MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F1B4AE32014D33600BC64D4 /* Plateau2-macOS-MainMenu.xib */; };
 		4F3EE1C2231438D000004786 /* IPlugProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F61A8202807B9003F2573 /* IPlugProcessor.cpp */; };
 		4F3EE1C3231438D000004786 /* RtMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F10D3D7203A6719003EF82A /* RtMidi.cpp */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
 		4F3EE1C5231438D000004786 /* IGraphicsNanoVG_src.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6369DC20A464BB0022C370 /* IGraphicsNanoVG_src.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -97,19 +97,19 @@
 		4F3EE1DA231438D000004786 /* IGraphicsCoreText.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F6FD2AF22675B6300FC59E6 /* IGraphicsCoreText.mm */; };
 		4F3EE1DB231438D000004786 /* IPlugAPP_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F690C9A203A345100A4A13E /* IPlugAPP_main.cpp */; };
 		4F3EE1DD231438D000004786 /* IGraphicsMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB1F58120E4AFEE004157C8 /* IGraphicsMac.mm */; };
-		4F3EE1DE231438D000004786 /* Plateau.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau.cpp */; };
+		4F3EE1DE231438D000004786 /* Plateau2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau2.cpp */; };
 		4F3EE1E0231438D000004786 /* IPlugAPIBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F78D8ED13B63BA40032E0F3 /* IPlugAPIBase.cpp */; };
 		4F3EE1E1231438D000004786 /* IPlugPluginBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F35DEAB207E5C5A00867D8F /* IPlugPluginBase.cpp */; };
 		4F3EE1E2231438D000004786 /* IGraphicsEditorDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C10DE20BA2796006320CD /* IGraphicsEditorDelegate.cpp */; };
 		4F3EE1E3231438D000004786 /* swell-gdi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D0B13B634BF001D0217 /* swell-gdi.mm */; settings = {COMPILER_FLAGS = "-Wno-unreachable-code -Wno-shorten-64-to-32"; }; };
 		4F3EE1E4231438D000004786 /* IPlugParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F78D90413B63BA50032E0F3 /* IPlugParameter.cpp */; };
 		4F3EE1E5231438D000004786 /* IPlugTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FDAC0E6207D76C600299363 /* IPlugTimer.cpp */; };
-		4F3EE1E9231438D000004786 /* PlateauAU.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F78BE0222E73D0800AD537E /* PlateauAU.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4F3EE1EB231438D000004786 /* Plateau.appex in Embed AUv3 App Extension */ = {isa = PBXBuildFile; fileRef = 4F3907602013EBA300DDA490 /* Plateau.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4F3EE1E9231438D000004786 /* Plateau2AU.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F78BE0222E73D0800AD537E /* Plateau2AU.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4F3EE1EB231438D000004786 /* Plateau2.appex in Embed AUv3 App Extension */ = {isa = PBXBuildFile; fileRef = 4F3907602013EBA300DDA490 /* Plateau2.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4F472103209B294400A0A0A8 /* IPlugVST3_Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FFBB8F220863B0900DDD0E7 /* IPlugVST3_Controller.cpp */; };
 		4F4856852773C3B5005BCF8E /* IPlugAUViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FF93DF8209C68A400310D7C /* IPlugAUViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F4856862773C3B5005BCF8E /* IPlugAUAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F39077B2013EC0400DDA490 /* IPlugAUAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F4856892773CA76005BCF8E /* PlateauAUv3Appex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4856812773BD16005BCF8E /* PlateauAUv3Appex.m */; };
+		4F4856892773CA76005BCF8E /* Plateau2AUv3Appex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4856812773BD16005BCF8E /* Plateau2AUv3Appex.m */; };
 		4F5C5F6921BED05B00E024A7 /* swellappmain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD16D4613B635C8001D0217 /* swellappmain.mm */; };
 		4F5C5F6B21BED08700E024A7 /* swell-appstub.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5C5F6A21BED08700E024A7 /* swell-appstub.mm */; };
 		4F5F344120C0226200487201 /* IPlugPaths.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5F344020C0226200487201 /* IPlugPaths.mm */; };
@@ -141,9 +141,9 @@
 		4F6FD2B722675B6300FC59E6 /* IGraphicsCoreText.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F6FD2AF22675B6300FC59E6 /* IGraphicsCoreText.mm */; };
 		4F722020225C1EB100FF0E7C /* commoniids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F72201E225C1EB100FF0E7C /* commoniids.cpp */; };
 		4F722021225C1EB100FF0E7C /* commoniids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F72201E225C1EB100FF0E7C /* commoniids.cpp */; };
-		4F78BE1222E73DD900AD537E /* PlateauAU.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F78BE1022E73DD900AD537E /* PlateauAU.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F78BE1422E7406D00AD537E /* Plateau.h in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862EE2014BBEC0009F402 /* Plateau.h */; };
-		4F78BE1522E7406D00AD537E /* Plateau.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau.cpp */; };
+		4F78BE1222E73DD900AD537E /* Plateau2AU.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F78BE1022E73DD900AD537E /* Plateau2AU.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F78BE1422E7406D00AD537E /* Plateau2.h in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862EE2014BBEC0009F402 /* Plateau2.h */; };
+		4F78BE1522E7406D00AD537E /* Plateau2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau2.cpp */; };
 		4F78BE1622E7406D00AD537E /* IGraphicsMac_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB1F58620E4AFEF004157C8 /* IGraphicsMac_view.mm */; };
 		4F78BE1722E7406D00AD537E /* IGraphicsMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB1F58120E4AFEE004157C8 /* IGraphicsMac.mm */; };
 		4F78BE1822E7406D00AD537E /* IGraphicsCoreText.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F6FD2AF22675B6300FC59E6 /* IGraphicsCoreText.mm */; };
@@ -160,7 +160,7 @@
 		4F78BE2922E7406D00AD537E /* IPlugTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FDAC0E6207D76C600299363 /* IPlugTimer.cpp */; };
 		4F78BE2A22E7406D00AD537E /* IPlugPaths.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5F344020C0226200487201 /* IPlugPaths.mm */; };
 		4F78BE2D22E7412300AD537E /* IGraphicsNanoVG_src.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6369DC20A464BB0022C370 /* IGraphicsNanoVG_src.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		4F78BE3C22E74CD000AD537E /* IPlugAUViewController_vPlateau.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F98C32C20A7678800F120A9 /* IPlugAUViewController_vPlateau.xib */; };
+		4F78BE3C22E74CD000AD537E /* IPlugAUViewController_vPlateau2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F98C32C20A7678800F120A9 /* IPlugAUViewController_vPlateau2.xib */; };
 		4F78D90B13B63BA50032E0F3 /* IPlugAPIBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F78D8ED13B63BA40032E0F3 /* IPlugAPIBase.cpp */; };
 		4F78D91813B63BA50032E0F3 /* IPlugParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F78D90413B63BA50032E0F3 /* IPlugParameter.cpp */; };
 		4F78D94513B63BA50032E0F3 /* IPlugAPIBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F78D8ED13B63BA40032E0F3 /* IPlugAPIBase.cpp */; };
@@ -228,7 +228,7 @@
 		4F8C10E420BA2796006320CD /* IGraphicsEditorDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C10DE20BA2796006320CD /* IGraphicsEditorDelegate.cpp */; };
 		4F8C10E620BA2796006320CD /* IGraphicsEditorDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C10DE20BA2796006320CD /* IGraphicsEditorDelegate.cpp */; };
 		4F8C10E720BA2796006320CD /* IGraphicsEditorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8C10DF20BA2796006320CD /* IGraphicsEditorDelegate.h */; };
-		4F8D9707209EF5AC006E2A11 /* Plateau.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau.cpp */; };
+		4F8D9707209EF5AC006E2A11 /* Plateau2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau2.cpp */; };
 		4F9828B8140A9EB700F3FCC1 /* IPlugAPIBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F78D8ED13B63BA40032E0F3 /* IPlugAPIBase.cpp */; };
 		4F9828C1140A9EB700F3FCC1 /* IPlugParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F78D90413B63BA50032E0F3 /* IPlugParameter.cpp */; };
 		4F993F7223055C96000313AF /* IPlugProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F61A8202807B9003F2573 /* IPlugProcessor.cpp */; };
@@ -253,9 +253,9 @@
 		4FB600231567CB0A0020189A /* IPlugParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F78D90413B63BA50032E0F3 /* IPlugParameter.cpp */; };
 		4FB600261567CB0A0020189A /* AAX_Exports.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F4CC38A1549B91100A9EA21 /* AAX_Exports.cpp */; };
 		4FB600281567CB0A0020189A /* IPlugAAX_Describe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F4CC4401549C15500A9EA21 /* IPlugAAX_Describe.cpp */; };
-		4FC3EFCB2086C27800BD11FA /* Plateau.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau.cpp */; };
+		4FC3EFCB2086C27800BD11FA /* Plateau2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau2.cpp */; };
 		4FC3EFCE2086C35D00BD11FA /* IPlugPluginBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F35DEAB207E5C5A00867D8F /* IPlugPluginBase.cpp */; };
-		4FC3EFD42086C49D00BD11FA /* PlateauVST3Controller.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC3EFC42086C0A600BD11FA /* PlateauVST3Controller.a */; };
+		4FC3EFD42086C49D00BD11FA /* Plateau2VST3Controller.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC3EFC42086C0A600BD11FA /* Plateau2VST3Controller.a */; };
 		4FC3EFF02086CE5700BD11FA /* eventlist.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FC3EFDD2086CE5600BD11FA /* eventlist.h */; };
 		4FC3EFF22086CE5700BD11FA /* hostclasses.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FC3EFDF2086CE5600BD11FA /* hostclasses.h */; };
 		4FC3EFF42086CE5700BD11FA /* module.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FC3EFE12086CE5600BD11FA /* module.h */; };
@@ -286,7 +286,7 @@
 		4FF3205820B2BFAB00269268 /* IPlugPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FF3204F20B2BFAB00269268 /* IPlugPaths.h */; };
 		4FFBB90520863B0E00DDD0E7 /* baseiids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8158BF205D50EB00393585 /* baseiids.cpp */; };
 		4FFBB90620863B0E00DDD0E7 /* IPlugTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FDAC0E6207D76C600299363 /* IPlugTimer.cpp */; };
-		4FFBB90720863B0E00DDD0E7 /* Plateau.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau.cpp */; };
+		4FFBB90720863B0E00DDD0E7 /* Plateau2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F3862ED2014BBEC0009F402 /* Plateau2.cpp */; };
 		4FFBB90820863B0E00DDD0E7 /* pluginfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8157E9205D50EA00393585 /* pluginfactory.cpp */; };
 		4FFBB90920863B0E00DDD0E7 /* vstinitiids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F81588D205D50EB00393585 /* vstinitiids.cpp */; };
 		4FFBB90A20863B0E00DDD0E7 /* fdebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8158C5205D50EB00393585 /* fdebug.cpp */; };
@@ -444,7 +444,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4F3EE1E9231438D000004786 /* PlateauAU.framework in Embed Frameworks */,
+				4F3EE1E9231438D000004786 /* Plateau2AU.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,7 +455,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				4F3EE1EB231438D000004786 /* Plateau.appex in Embed AUv3 App Extension */,
+				4F3EE1EB231438D000004786 /* Plateau2.appex in Embed AUv3 App Extension */,
 			);
 			name = "Embed AUv3 App Extension";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,35 +499,35 @@
 		4F1A5287205D915B00CF2908 /* IPlugAUv3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IPlugAUv3.h; path = ../../iPlug2/IPlug/AUv3/IPlugAUv3.h; sourceTree = "<group>"; };
 		4F1A5289205D916F00CF2908 /* IPlugAU.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugAU.h; path = ../../iPlug2/IPlug/AUv2/IPlugAU.h; sourceTree = "<group>"; tabWidth = 2; };
 		4F1A528A205D916F00CF2908 /* IPlugAU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; name = IPlugAU.cpp; path = ../../iPlug2/IPlug/AUv2/IPlugAU.cpp; sourceTree = "<group>"; tabWidth = 2; };
-		4F1B4AE32014D33600BC64D4 /* Plateau-macOS-MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Plateau-macOS-MainMenu.xib"; path = "../resources/Plateau-macOS-MainMenu.xib"; sourceTree = "<group>"; };
+		4F1B4AE32014D33600BC64D4 /* Plateau2-macOS-MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Plateau2-macOS-MainMenu.xib"; path = "../resources/Plateau2-macOS-MainMenu.xib"; sourceTree = "<group>"; };
 		4F1F1BE9135B1F60003A5BB2 /* wdlendian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wdlendian.h; path = ../../iPlug2/WDL/wdlendian.h; sourceTree = SOURCE_ROOT; };
-		4F20EF33132C69FE0030E34C /* Plateau.vst */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Plateau.vst; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F23BA1313B647E50097A67E /* Plateau-AU-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Plateau-AU-Info.plist"; path = "../resources/Plateau-AU-Info.plist"; sourceTree = "<group>"; };
-		4F23BA1413B647E50097A67E /* Plateau-macOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Plateau-macOS-Info.plist"; path = "../resources/Plateau-macOS-Info.plist"; sourceTree = "<group>"; };
-		4F23BA1513B647E50097A67E /* Plateau-VST2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Plateau-VST2-Info.plist"; path = "../resources/Plateau-VST2-Info.plist"; sourceTree = "<group>"; };
+		4F20EF33132C69FE0030E34C /* Plateau2.vst */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Plateau2.vst; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F23BA1313B647E50097A67E /* Plateau2-AU-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Plateau2-AU-Info.plist"; path = "../resources/Plateau2-AU-Info.plist"; sourceTree = "<group>"; };
+		4F23BA1413B647E50097A67E /* Plateau2-macOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Plateau2-macOS-Info.plist"; path = "../resources/Plateau2-macOS-Info.plist"; sourceTree = "<group>"; };
+		4F23BA1513B647E50097A67E /* Plateau2-VST2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Plateau2-VST2-Info.plist"; path = "../resources/Plateau2-VST2-Info.plist"; sourceTree = "<group>"; };
 		4F2EA977203A50E9008E4850 /* IPlugAPP_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; name = IPlugAPP_dialog.cpp; path = ../../iPlug2/IPlug/APP/IPlugAPP_dialog.cpp; sourceTree = "<group>"; tabWidth = 2; };
 		4F35DEAB207E5C5A00867D8F /* IPlugPluginBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; name = IPlugPluginBase.cpp; path = ../../iPlug2/IPlug/IPlugPluginBase.cpp; sourceTree = "<group>"; tabWidth = 2; };
 		4F35DEAC207E5C5A00867D8F /* IPlugPluginBase.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugPluginBase.h; path = ../../iPlug2/IPlug/IPlugPluginBase.h; sourceTree = "<group>"; tabWidth = 2; };
-		4F3862ED2014BBEC0009F402 /* Plateau.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plateau.cpp; path = ../Plateau.cpp; sourceTree = "<group>"; };
-		4F3862EE2014BBEC0009F402 /* Plateau.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plateau.h; path = ../Plateau.h; sourceTree = "<group>"; };
+		4F3862ED2014BBEC0009F402 /* Plateau2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plateau2.cpp; path = ../Plateau2.cpp; sourceTree = "<group>"; };
+		4F3862EE2014BBEC0009F402 /* Plateau2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plateau2.h; path = ../Plateau2.h; sourceTree = "<group>"; };
 		4F3862FF2014BCC70009F402 /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = scripts; path = ../scripts; sourceTree = "<group>"; };
-		4F3907602013EBA300DDA490 /* Plateau.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Plateau.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F3907602013EBA300DDA490 /* Plateau2.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Plateau2.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F3907772013EC0400DDA490 /* IPlugAUViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = IPlugAUViewController.mm; path = ../../iPlug2/IPlug/AUv3/IPlugAUViewController.mm; sourceTree = "<group>"; };
 		4F3907792013EC0400DDA490 /* BufferedAudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BufferedAudioBus.hpp; path = ../../iPlug2/IPlug/AUv3/BufferedAudioBus.hpp; sourceTree = "<group>"; };
 		4F39077A2013EC0400DDA490 /* IPlugAUAudioUnit.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = IPlugAUAudioUnit.mm; path = ../../iPlug2/IPlug/AUv3/IPlugAUAudioUnit.mm; sourceTree = "<group>"; };
 		4F39077B2013EC0400DDA490 /* IPlugAUAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IPlugAUAudioUnit.h; path = ../../iPlug2/IPlug/AUv3/IPlugAUAudioUnit.h; sourceTree = "<group>"; };
-		4F3907872013ED2F00DDA490 /* Plateau-macOS-AUv3-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Plateau-macOS-AUv3-Info.plist"; path = "../resources/Plateau-macOS-AUv3-Info.plist"; sourceTree = "<group>"; };
+		4F3907872013ED2F00DDA490 /* Plateau2-macOS-AUv3-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Plateau2-macOS-AUv3-Info.plist"; path = "../resources/Plateau2-macOS-AUv3-Info.plist"; sourceTree = "<group>"; };
 		4F39A96F2051E53600739CAB /* processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = processor.cpp; path = ../../iPlug2/Dependencies/IPlug/WAM_SDK/wamsdk/processor.cpp; sourceTree = "<group>"; };
 		4F39A9702051E53600739CAB /* processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = processor.h; path = ../../iPlug2/Dependencies/IPlug/WAM_SDK/wamsdk/processor.h; sourceTree = "<group>"; };
 		4F3D2B4520212D4E00842FF4 /* wdl_base64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = wdl_base64.h; path = ../../iPlug2/WDL/wdl_base64.h; sourceTree = "<group>"; };
-		4F3E693A1409747300C4D749 /* Plateau-VST3-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Plateau-VST3-Info.plist"; path = "../resources/Plateau-VST3-Info.plist"; sourceTree = "<group>"; };
-		4F3EE1F0231438D000004786 /* Plateau.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Plateau.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F3FB118202273A500622761 /* Plateau-macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Plateau-macOS.entitlements"; sourceTree = "<group>"; };
+		4F3E693A1409747300C4D749 /* Plateau2-VST3-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Plateau2-VST3-Info.plist"; path = "../resources/Plateau2-VST3-Info.plist"; sourceTree = "<group>"; };
+		4F3EE1F0231438D000004786 /* Plateau2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Plateau2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F3FB118202273A500622761 /* Plateau2-macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Plateau2-macOS.entitlements"; sourceTree = "<group>"; };
 		4F4237201FC852FE0067D58C /* IPlugConstants.h */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugConstants.h; path = ../../iPlug2/IPlug/IPlugConstants.h; sourceTree = "<group>"; tabWidth = 2; };
 		4F4237231FC863060067D58C /* IPlugUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugUtilities.h; path = ../../iPlug2/IPlug/IPlugUtilities.h; sourceTree = "<group>"; tabWidth = 2; };
 		4F472105209B37A100A0A0A8 /* IPlugVST3_View.h */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugVST3_View.h; path = ../../iPlug2/IPlug/VST3/IPlugVST3_View.h; sourceTree = "<group>"; tabWidth = 2; };
-		4F4856812773BD16005BCF8E /* PlateauAUv3Appex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlateauAUv3Appex.m; path = ../resources/PlateauAUv3Appex.m; sourceTree = "<group>"; };
-		4F4CC3811549B8A700A9EA21 /* Plateau-AAX-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Plateau-AAX-Info.plist"; path = "../resources/Plateau-AAX-Info.plist"; sourceTree = "<group>"; };
+		4F4856812773BD16005BCF8E /* Plateau2AUv3Appex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Plateau2AUv3Appex.m; path = ../resources/Plateau2AUv3Appex.m; sourceTree = "<group>"; };
+		4F4CC3811549B8A700A9EA21 /* Plateau2-AAX-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Plateau2-AAX-Info.plist"; path = "../resources/Plateau2-AAX-Info.plist"; sourceTree = "<group>"; };
 		4F4CC38A1549B91100A9EA21 /* AAX_Exports.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AAX_Exports.cpp; path = ../../iPlug2/Dependencies/IPlug/AAX_SDK/Interfaces/AAX_Exports.cpp; sourceTree = SOURCE_ROOT; };
 		4F4CC38C1549B92900A9EA21 /* AAXLibrary_common_debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = AAXLibrary_common_debug.xcconfig; path = ../../iPlug2/Dependencies/IPlug/AAX_SDK/Libs/AAXLibrary/MacBuild/AAXLibrary_common_debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		4F4CC38D1549B92900A9EA21 /* AAXLibrary_common_release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = AAXLibrary_common_release.xcconfig; path = ../../iPlug2/Dependencies/IPlug/AAX_SDK/Libs/AAXLibrary/MacBuild/AAXLibrary_common_release.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -544,9 +544,9 @@
 		4F6FD2AD22675B6300FC59E6 /* IGraphicsCoreText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IGraphicsCoreText.h; path = ../../iPlug2/IGraphics/Platforms/IGraphicsCoreText.h; sourceTree = "<group>"; };
 		4F6FD2AF22675B6300FC59E6 /* IGraphicsCoreText.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = IGraphicsCoreText.mm; path = ../../iPlug2/IGraphics/Platforms/IGraphicsCoreText.mm; sourceTree = "<group>"; };
 		4F72201E225C1EB100FF0E7C /* commoniids.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = commoniids.cpp; sourceTree = "<group>"; };
-		4F78BE0222E73D0800AD537E /* PlateauAU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PlateauAU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F78BE1022E73DD900AD537E /* PlateauAU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlateauAU.h; path = ../resources/PlateauAU.h; sourceTree = "<group>"; };
-		4F78BE1122E73DD900AD537E /* Plateau-macOS-AUv3Framework-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Plateau-macOS-AUv3Framework-Info.plist"; path = "../resources/Plateau-macOS-AUv3Framework-Info.plist"; sourceTree = "<group>"; };
+		4F78BE0222E73D0800AD537E /* Plateau2AU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Plateau2AU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F78BE1022E73DD900AD537E /* Plateau2AU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plateau2AU.h; path = ../resources/Plateau2AU.h; sourceTree = "<group>"; };
+		4F78BE1122E73DD900AD537E /* Plateau2-macOS-AUv3Framework-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Plateau2-macOS-AUv3Framework-Info.plist"; path = "../resources/Plateau2-macOS-AUv3Framework-Info.plist"; sourceTree = "<group>"; };
 		4F78D8BD13B63A4E0032E0F3 /* wdltypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wdltypes.h; path = ../../iPlug2/WDL/wdltypes.h; sourceTree = SOURCE_ROOT; };
 		4F78D8D213B63B5D0032E0F3 /* aeffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aeffect.h; sourceTree = "<group>"; };
 		4F78D8D313B63B5D0032E0F3 /* aeffectx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aeffectx.h; sourceTree = "<group>"; };
@@ -559,7 +559,7 @@
 		4F78D90313B63BA50032E0F3 /* IPlugParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugParameter.h; path = ../../iPlug2/IPlug/IPlugParameter.h; sourceTree = SOURCE_ROOT; tabWidth = 2; };
 		4F78D90413B63BA50032E0F3 /* IPlugParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; name = IPlugParameter.cpp; path = ../../iPlug2/IPlug/IPlugParameter.cpp; sourceTree = SOURCE_ROOT; tabWidth = 2; };
 		4F78D90513B63BA50032E0F3 /* IPlugMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugMidi.h; path = ../../iPlug2/IPlug/IPlugMidi.h; sourceTree = SOURCE_ROOT; tabWidth = 2; };
-		4F78DB5F13B6462B0032E0F3 /* Plateau.component */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Plateau.component; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F78DB5F13B6462B0032E0F3 /* Plateau2.component */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Plateau2.component; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F7C4940255DDF8600DF7588 /* IVDisplayControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IVDisplayControl.h; sourceTree = "<group>"; };
 		4F7C4942255DDF8600DF7588 /* IShaderControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IShaderControl.h; sourceTree = "<group>"; };
 		4F7C4943255DDF8600DF7588 /* ILEDControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ILEDControl.h; sourceTree = "<group>"; };
@@ -754,8 +754,8 @@
 		4F9313232315CA1100DB2383 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		4F97BD89213760E200541A17 /* IGraphicsCanvas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGraphicsCanvas.h; sourceTree = "<group>"; };
 		4F97BD8A213760E200541A17 /* IGraphicsCanvas.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IGraphicsCanvas.cpp; sourceTree = "<group>"; };
-		4F9828E0140A9EB700F3FCC1 /* Plateau.vst3 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Plateau.vst3; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F98C32C20A7678800F120A9 /* IPlugAUViewController_vPlateau.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IPlugAUViewController_vPlateau.xib; path = ../resources/IPlugAUViewController_vPlateau.xib; sourceTree = "<group>"; };
+		4F9828E0140A9EB700F3FCC1 /* Plateau2.vst3 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Plateau2.vst3; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F98C32C20A7678800F120A9 /* IPlugAUViewController_vPlateau2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IPlugAUViewController_vPlateau2.xib; path = ../resources/IPlugAUViewController_vPlateau2.xib; sourceTree = "<group>"; };
 		4F993FE32306D581000313AF /* IGraphicsPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IGraphicsPrivate.h; path = ../../iPlug2/IGraphics/IGraphicsPrivate.h; sourceTree = "<group>"; };
 		4F9C097E224D26B40050309D /* IPlugVST3_ControllerBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IPlugVST3_ControllerBase.h; path = ../../iPlug2/IPlug/VST3/IPlugVST3_ControllerBase.h; sourceTree = "<group>"; };
 		4FA61F9922E8A96300A92C58 /* tex */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tex; path = ../resources/tex; sourceTree = "<group>"; };
@@ -773,10 +773,10 @@
 		4FB1F58620E4AFEF004157C8 /* IGraphicsMac_view.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = IGraphicsMac_view.mm; path = ../../iPlug2/IGraphics/Platforms/IGraphicsMac_view.mm; sourceTree = "<group>"; };
 		4FB1F58720E4AFEF004157C8 /* IGraphicsMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IGraphicsMac.h; path = ../../iPlug2/IGraphics/Platforms/IGraphicsMac.h; sourceTree = "<group>"; };
 		4FB1F58820E4AFEF004157C8 /* IGraphicsMac_view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IGraphicsMac_view.h; path = ../../iPlug2/IGraphics/Platforms/IGraphicsMac_view.h; sourceTree = "<group>"; };
-		4FB600331567CB0A0020189A /* Plateau.aaxplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Plateau.aaxplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FB600331567CB0A0020189A /* Plateau2.aaxplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Plateau2.aaxplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FBAA593207918230054E717 /* IPlugDelegate_select.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugDelegate_select.h; path = ../../iPlug2/IPlug/IPlugDelegate_select.h; sourceTree = "<group>"; tabWidth = 2; };
 		4FBBD7F320B6AB9800A37DE2 /* config */ = {isa = PBXFileReference; lastKnownFileType = folder; name = config; path = ../config; sourceTree = "<group>"; };
-		4FC3EFC42086C0A600BD11FA /* PlateauVST3Controller.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = PlateauVST3Controller.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FC3EFC42086C0A600BD11FA /* Plateau2VST3Controller.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = Plateau2VST3Controller.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC3EFDC2086CE5600BD11FA /* eventlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eventlist.cpp; sourceTree = "<group>"; };
 		4FC3EFDD2086CE5600BD11FA /* eventlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eventlist.h; sourceTree = "<group>"; };
 		4FC3EFDE2086CE5600BD11FA /* hostclasses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hostclasses.cpp; sourceTree = "<group>"; };
@@ -801,7 +801,7 @@
 		4FC82B4620BD522B00722133 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../resources/fonts; sourceTree = "<group>"; };
 		4FCDB64822C849D200698A4B /* IGraphicsSkia.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IGraphicsSkia.cpp; sourceTree = "<group>"; };
 		4FCDB64922C849D200698A4B /* IGraphicsSkia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGraphicsSkia.h; sourceTree = "<group>"; };
-		4FD16A0913B63081001D0217 /* Plateau.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Plateau.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FD16A0913B63081001D0217 /* Plateau2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Plateau2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FD16D0213B63489001D0217 /* swell-menugen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "swell-menugen.h"; path = "../../iPlug2/WDL/swell/swell-menugen.h"; sourceTree = SOURCE_ROOT; };
 		4FD16D0313B63494001D0217 /* swell-dlggen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "swell-dlggen.h"; path = "../../iPlug2/WDL/swell/swell-dlggen.h"; sourceTree = SOURCE_ROOT; };
 		4FD16D0413B634AA001D0217 /* swell-dlg.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "swell-dlg.mm"; path = "../../iPlug2/WDL/swell/swell-dlg.mm"; sourceTree = SOURCE_ROOT; };
@@ -827,7 +827,7 @@
 		4FDA1E0E2012CDB30027C868 /* main.rc_mac_menu */ = {isa = PBXFileReference; lastKnownFileType = text; name = main.rc_mac_menu; path = ../resources/main.rc_mac_menu; sourceTree = "<group>"; };
 		4FDA1E0F2012CDB30027C868 /* main.rc_mac_dlg */ = {isa = PBXFileReference; lastKnownFileType = text; name = main.rc_mac_dlg; path = ../resources/main.rc_mac_dlg; sourceTree = "<group>"; };
 		4FDA1E102012CDB30027C868 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = resource.h; path = ../resources/resource.h; sourceTree = "<group>"; };
-		4FDA600620B586AC00C49ABA /* Plateau-mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Plateau-mac.xcconfig"; path = "../config/Plateau-mac.xcconfig"; sourceTree = "<group>"; };
+		4FDA600620B586AC00C49ABA /* Plateau2-mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Plateau2-mac.xcconfig"; path = "../config/Plateau2-mac.xcconfig"; sourceTree = "<group>"; };
 		4FDAC0E6207D76C600299363 /* IPlugTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; name = IPlugTimer.cpp; path = ../../iPlug2/IPlug/IPlugTimer.cpp; sourceTree = "<group>"; tabWidth = 2; };
 		4FDAC0E8207D76C600299363 /* IPlugQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugQueue.h; path = ../../iPlug2/IPlug/IPlugQueue.h; sourceTree = "<group>"; tabWidth = 2; };
 		4FDAC0E9207D76C600299363 /* IPlugTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugTimer.h; path = ../../iPlug2/IPlug/IPlugTimer.h; sourceTree = "<group>"; tabWidth = 2; };
@@ -845,7 +845,7 @@
 		4FFBB8F320863B0900DDD0E7 /* IPlugVST3_Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugVST3_Controller.h; path = ../../iPlug2/IPlug/VST3/IPlugVST3_Controller.h; sourceTree = "<group>"; tabWidth = 2; };
 		4FFBB8F420863B0900DDD0E7 /* IPlugVST3_Processor.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugVST3_Processor.h; path = ../../iPlug2/IPlug/VST3/IPlugVST3_Processor.h; sourceTree = "<group>"; tabWidth = 2; };
 		4FFBB8F520863B0900DDD0E7 /* IPlugVST3_Processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; name = IPlugVST3_Processor.cpp; path = ../../iPlug2/IPlug/VST3/IPlugVST3_Processor.cpp; sourceTree = "<group>"; tabWidth = 2; };
-		4FFBB93B20863B0E00DDD0E7 /* Plateau.vst3 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Plateau.vst3; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FFBB93B20863B0E00DDD0E7 /* Plateau2.vst3 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Plateau2.vst3; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FFBB94120863E9300DDD0E7 /* IPlugVST3_Parameter.h */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugVST3_Parameter.h; path = ../../iPlug2/IPlug/VST3/IPlugVST3_Parameter.h; sourceTree = "<group>"; tabWidth = 2; };
 		4FFF72B8214BB71400839091 /* main.rc */ = {isa = PBXFileReference; lastKnownFileType = text; name = main.rc; path = ../resources/main.rc; sourceTree = "<group>"; };
 		52FBBED30D0CF143001C8B8A /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = config.h; path = ../config.h; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
@@ -866,7 +866,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F32AE7C231427EC00710734 /* PlateauAU.framework in Frameworks */,
+				4F32AE7C231427EC00710734 /* Plateau2AU.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,7 +917,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FC3EFD42086C49D00BD11FA /* PlateauVST3Controller.a in Frameworks */,
+				4FC3EFD42086C49D00BD11FA /* Plateau2VST3Controller.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -928,8 +928,8 @@
 			isa = PBXGroup;
 			children = (
 				52FBBED30D0CF143001C8B8A /* config.h */,
-				4F3862EE2014BBEC0009F402 /* Plateau.h */,
-				4F3862ED2014BBEC0009F402 /* Plateau.cpp */,
+				4F3862EE2014BBEC0009F402 /* Plateau2.h */,
+				4F3862ED2014BBEC0009F402 /* Plateau2.cpp */,
 				4F9313232315CA1100DB2383 /* README.md */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				32C88E010371C26100C91783 /* Other Sources */,
@@ -957,22 +957,22 @@
 				4FC82B4520BD522B00722133 /* img */,
 				4FA61F9922E8A96300A92C58 /* tex */,
 				4FC46E57231440B4000045E7 /* web */,
-				4F1B4AE32014D33600BC64D4 /* Plateau-macOS-MainMenu.xib */,
-				4F3FB118202273A500622761 /* Plateau-macOS.entitlements */,
-				4F98C32C20A7678800F120A9 /* IPlugAUViewController_vPlateau.xib */,
+				4F1B4AE32014D33600BC64D4 /* Plateau2-macOS-MainMenu.xib */,
+				4F3FB118202273A500622761 /* Plateau2-macOS.entitlements */,
+				4F98C32C20A7678800F120A9 /* IPlugAUViewController_vPlateau2.xib */,
 				4FFF72B8214BB71400839091 /* main.rc */,
 				4FDA1E0F2012CDB30027C868 /* main.rc_mac_dlg */,
 				4FDA1E0E2012CDB30027C868 /* main.rc_mac_menu */,
 				4FDA1E102012CDB30027C868 /* resource.h */,
-				4F78BE1022E73DD900AD537E /* PlateauAU.h */,
-				4F4856812773BD16005BCF8E /* PlateauAUv3Appex.m */,
-				4F23BA1413B647E50097A67E /* Plateau-macOS-Info.plist */,
-				4F3907872013ED2F00DDA490 /* Plateau-macOS-AUv3-Info.plist */,
-				4F78BE1122E73DD900AD537E /* Plateau-macOS-AUv3Framework-Info.plist */,
-				4F23BA1513B647E50097A67E /* Plateau-VST2-Info.plist */,
-				4F3E693A1409747300C4D749 /* Plateau-VST3-Info.plist */,
-				4F23BA1313B647E50097A67E /* Plateau-AU-Info.plist */,
-				4F4CC3811549B8A700A9EA21 /* Plateau-AAX-Info.plist */,
+				4F78BE1022E73DD900AD537E /* Plateau2AU.h */,
+				4F4856812773BD16005BCF8E /* Plateau2AUv3Appex.m */,
+				4F23BA1413B647E50097A67E /* Plateau2-macOS-Info.plist */,
+				4F3907872013ED2F00DDA490 /* Plateau2-macOS-AUv3-Info.plist */,
+				4F78BE1122E73DD900AD537E /* Plateau2-macOS-AUv3Framework-Info.plist */,
+				4F23BA1513B647E50097A67E /* Plateau2-VST2-Info.plist */,
+				4F3E693A1409747300C4D749 /* Plateau2-VST3-Info.plist */,
+				4F23BA1313B647E50097A67E /* Plateau2-AU-Info.plist */,
+				4F4CC3811549B8A700A9EA21 /* Plateau2-AAX-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -980,16 +980,16 @@
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4FD16A0913B63081001D0217 /* Plateau.app */,
-				4F20EF33132C69FE0030E34C /* Plateau.vst */,
-				4F9828E0140A9EB700F3FCC1 /* Plateau.vst3 */,
-				4F78DB5F13B6462B0032E0F3 /* Plateau.component */,
-				4FB600331567CB0A0020189A /* Plateau.aaxplugin */,
-				4F3907602013EBA300DDA490 /* Plateau.appex */,
-				4FFBB93B20863B0E00DDD0E7 /* Plateau.vst3 */,
-				4FC3EFC42086C0A600BD11FA /* PlateauVST3Controller.a */,
-				4F78BE0222E73D0800AD537E /* PlateauAU.framework */,
-				4F3EE1F0231438D000004786 /* Plateau.app */,
+				4FD16A0913B63081001D0217 /* Plateau2.app */,
+				4F20EF33132C69FE0030E34C /* Plateau2.vst */,
+				4F9828E0140A9EB700F3FCC1 /* Plateau2.vst3 */,
+				4F78DB5F13B6462B0032E0F3 /* Plateau2.component */,
+				4FB600331567CB0A0020189A /* Plateau2.aaxplugin */,
+				4F3907602013EBA300DDA490 /* Plateau2.appex */,
+				4FFBB93B20863B0E00DDD0E7 /* Plateau2.vst3 */,
+				4FC3EFC42086C0A600BD11FA /* Plateau2VST3Controller.a */,
+				4F78BE0222E73D0800AD537E /* Plateau2AU.framework */,
+				4F3EE1F0231438D000004786 /* Plateau2.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1000,7 +1000,7 @@
 				4FBBD7F320B6AB9800A37DE2 /* config */,
 				4F3862FF2014BCC70009F402 /* scripts */,
 				4FF7B0D4156A825000E6CB12 /* common-mac.xcconfig */,
-				4FDA600620B586AC00C49ABA /* Plateau-mac.xcconfig */,
+				4FDA600620B586AC00C49ABA /* Plateau2-mac.xcconfig */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -1094,7 +1094,7 @@
 		4F39A96B2051E4F500739CAB /* WEB */ = {
 			isa = PBXGroup;
 			children = (
-				4F7E6F2820DEC3DE00A5F641 /* Plateau */,
+				4F7E6F2820DEC3DE00A5F641 /* Plateau2 */,
 				4F05C5A72082422300DD1621 /* WAM_SDK */,
 				4F05C5A92082424400DD1621 /* IPlugWAM.cpp */,
 				4F05C5A82082424400DD1621 /* IPlugWAM.h */,
@@ -1373,15 +1373,15 @@
 			path = HIIR;
 			sourceTree = "<group>";
 		};
-		4F7E6F2820DEC3DE00A5F641 /* Plateau */ = {
+		4F7E6F2820DEC3DE00A5F641 /* Plateau2 */ = {
 			isa = PBXGroup;
 			children = (
 				4F7E6F2920DEC3DE00A5F641 /* favicon.ico */,
 				4F7E6F2B20DEC3DE00A5F641 /* index.html */,
 				4F7E6F2C20DEC3DE00A5F641 /* scripts */,
 			);
-			name = Plateau;
-			path = ../../iPlug2/IPlug/WEB/Plateau;
+			name = Plateau2;
+			path = ../../iPlug2/IPlug/WEB/Plateau2;
 			sourceTree = "<group>";
 		};
 		4F7E6F2C20DEC3DE00A5F641 /* scripts */ = {
@@ -1745,7 +1745,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F4856862773C3B5005BCF8E /* IPlugAUAudioUnit.h in Headers */,
-				4F78BE1222E73DD900AD537E /* PlateauAU.h in Headers */,
+				4F78BE1222E73DD900AD537E /* Plateau2AU.h in Headers */,
 				4F4856852773C3B5005BCF8E /* IPlugAUViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1800,7 +1800,7 @@
 			name = VST2;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = IPlugExample;
-			productReference = 4F20EF33132C69FE0030E34C /* Plateau.vst */;
+			productReference = 4F20EF33132C69FE0030E34C /* Plateau2.vst */;
 			productType = "com.apple.product-type.bundle";
 		};
 		4F39075F2013EBA300DDA490 /* AUv3 */ = {
@@ -1819,7 +1819,7 @@
 			);
 			name = AUv3;
 			productName = AUv3;
-			productReference = 4F3907602013EBA300DDA490 /* Plateau.appex */;
+			productReference = 4F3907602013EBA300DDA490 /* Plateau2.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		4F3AE17812C0E5E2001FD7A4 /* AU */ = {
@@ -1840,7 +1840,7 @@
 			);
 			name = AU;
 			productName = IPlugExampleAU;
-			productReference = 4F78DB5F13B6462B0032E0F3 /* Plateau.component */;
+			productReference = 4F78DB5F13B6462B0032E0F3 /* Plateau2.component */;
 			productType = "com.apple.product-type.bundle";
 		};
 		4F3EE1BA231438D000004786 /* AUv3App */ = {
@@ -1863,12 +1863,12 @@
 			);
 			name = AUv3App;
 			productName = AUv3App;
-			productReference = 4F3EE1F0231438D000004786 /* Plateau.app */;
+			productReference = 4F3EE1F0231438D000004786 /* Plateau2.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4F78BE0122E73D0800AD537E /* PlateauAU */ = {
+		4F78BE0122E73D0800AD537E /* Plateau2AU */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4F78BE0E22E73D0800AD537E /* Build configuration list for PBXNativeTarget "PlateauAU" */;
+			buildConfigurationList = 4F78BE0E22E73D0800AD537E /* Build configuration list for PBXNativeTarget "Plateau2AU" */;
 			buildPhases = (
 				4F78BDFD22E73D0800AD537E /* Headers */,
 				4F78BDFE22E73D0800AD537E /* Sources */,
@@ -1879,9 +1879,9 @@
 			);
 			dependencies = (
 			);
-			name = PlateauAU;
+			name = Plateau2AU;
 			productName = AUv3Framework;
-			productReference = 4F78BE0222E73D0800AD537E /* PlateauAU.framework */;
+			productReference = 4F78BE0222E73D0800AD537E /* Plateau2AU.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		4F9828AA140A9EB700F3FCC1 /* VST3 */ = {
@@ -1901,7 +1901,7 @@
 			name = VST3;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = IPlugExample;
-			productReference = 4F9828E0140A9EB700F3FCC1 /* Plateau.vst3 */;
+			productReference = 4F9828E0140A9EB700F3FCC1 /* Plateau2.vst3 */;
 			productType = "com.apple.product-type.bundle";
 		};
 		4FB600121567CB0A0020189A /* AAX */ = {
@@ -1922,7 +1922,7 @@
 			name = AAX;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = IPlugExample;
-			productReference = 4FB600331567CB0A0020189A /* Plateau.aaxplugin */;
+			productReference = 4FB600331567CB0A0020189A /* Plateau2.aaxplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 		4FC3EFC32086C0A600BD11FA /* VST3C */ = {
@@ -1939,8 +1939,8 @@
 				B87FD1FE2351C78000CF7307 /* PBXTargetDependency */,
 			);
 			name = VST3C;
-			productName = "Plateau-VST3Controller";
-			productReference = 4FC3EFC42086C0A600BD11FA /* PlateauVST3Controller.a */;
+			productName = "Plateau2-VST3Controller";
+			productReference = 4FC3EFC42086C0A600BD11FA /* Plateau2VST3Controller.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		4FD16A0813B63081001D0217 /* APP */ = {
@@ -1958,7 +1958,7 @@
 			);
 			name = APP;
 			productName = macOSApp;
-			productReference = 4FD16A0913B63081001D0217 /* Plateau.app */;
+			productReference = 4FD16A0913B63081001D0217 /* Plateau2.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4FFBB8F820863B0E00DDD0E7 /* VST3P */ = {
@@ -1979,7 +1979,7 @@
 			name = VST3P;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = IPlugExample;
-			productReference = 4FFBB93B20863B0E00DDD0E7 /* Plateau.vst3 */;
+			productReference = 4FFBB93B20863B0E00DDD0E7 /* Plateau2.vst3 */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -2053,7 +2053,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Plateau-macOS" */;
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Plateau2-macOS" */;
 			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
@@ -2083,7 +2083,7 @@
 				4FFBB8F820863B0E00DDD0E7 /* VST3P */,
 				4F39075F2013EBA300DDA490 /* AUv3 */,
 				4FC3EFC32086C0A600BD11FA /* VST3C */,
-				4F78BE0122E73D0800AD537E /* PlateauAU */,
+				4F78BE0122E73D0800AD537E /* Plateau2AU */,
 				4F3EE1BA231438D000004786 /* AUv3App */,
 				B87FD1E62351C6F900CF7307 /* Update plists */,
 			);
@@ -2126,7 +2126,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F3EE1C0231438D000004786 /* Plateau-macOS-MainMenu.xib in Resources */,
+				4F3EE1C0231438D000004786 /* Plateau2-macOS-MainMenu.xib in Resources */,
 				4F037D77261F9DB400A752B5 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2135,7 +2135,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F78BE3C22E74CD000AD537E /* IPlugAUViewController_vPlateau.xib in Resources */,
+				4F78BE3C22E74CD000AD537E /* IPlugAUViewController_vPlateau2.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2157,7 +2157,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F1B4AE42014D33600BC64D4 /* Plateau-macOS-MainMenu.xib in Resources */,
+				4F1B4AE42014D33600BC64D4 /* Plateau2-macOS-MainMenu.xib in Resources */,
 				4F037D76261F9DB400A752B5 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2195,7 +2195,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -d $APP_PATH/Plateau.app ]; then\n  pluginkit -a $APP_PATH/Plateau.app/Contents/PlugIns/Plateau.appex\n  echo \"Force register auv3\"\nelse\n  echo \"App path doesn't exist yet, cant force register auv3\"\nfi\n";
+			shellScript = "if [ -d $APP_PATH/Plateau2.app ]; then\n  pluginkit -a $APP_PATH/Plateau2.app/Contents/PlugIns/Plateau2.appex\n  echo \"Force register auv3\"\nelse\n  echo \"App path doesn't exist yet, cant force register auv3\"\nfi\n";
 		};
 		4F3EE1BD231438D000004786 /* Run Script - prepare_resources-mac.py */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2358,7 +2358,7 @@
 				4F8C10E120BA2796006320CD /* IGraphicsEditorDelegate.cpp in Sources */,
 				4F6369DE20A464BB0022C370 /* IGraphicsNanoVG_src.m in Sources */,
 				4F7C4958255DDFC400DF7588 /* IControls.cpp in Sources */,
-				4F8D9707209EF5AC006E2A11 /* Plateau.cpp in Sources */,
+				4F8D9707209EF5AC006E2A11 /* Plateau2.cpp in Sources */,
 				4F7C495A255DDFC400DF7588 /* ITextEntryControl.cpp in Sources */,
 				4F78D9BB13B63BA50032E0F3 /* IPlugAPIBase.cpp in Sources */,
 				4FB1F59020E4B010004157C8 /* IGraphicsMac_view.mm in Sources */,
@@ -2374,7 +2374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F4856892773CA76005BCF8E /* PlateauAUv3Appex.m in Sources */,
+				4F4856892773CA76005BCF8E /* Plateau2AUv3Appex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2401,7 +2401,7 @@
 				4F35DEB0207E5C5A00867D8F /* IPlugPluginBase.cpp in Sources */,
 				4F78D95C13B63BA50032E0F3 /* IPlugParameter.cpp in Sources */,
 				4FB1F58C20E4B006004157C8 /* IGraphicsMac.mm in Sources */,
-				4F3862F22014BBEC0009F402 /* Plateau.cpp in Sources */,
+				4F3862F22014BBEC0009F402 /* Plateau2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2436,7 +2436,7 @@
 				4F3EE1DA231438D000004786 /* IGraphicsCoreText.mm in Sources */,
 				4F3EE1DB231438D000004786 /* IPlugAPP_main.cpp in Sources */,
 				4F3EE1DD231438D000004786 /* IGraphicsMac.mm in Sources */,
-				4F3EE1DE231438D000004786 /* Plateau.cpp in Sources */,
+				4F3EE1DE231438D000004786 /* Plateau2.cpp in Sources */,
 				4F3EE1E0231438D000004786 /* IPlugAPIBase.cpp in Sources */,
 				4F3EE1E1231438D000004786 /* IPlugPluginBase.cpp in Sources */,
 				4F3EE1E2231438D000004786 /* IGraphicsEditorDelegate.cpp in Sources */,
@@ -2451,9 +2451,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F7C496A255DDFCB00DF7588 /* IControls.cpp in Sources */,
-				4F78BE1422E7406D00AD537E /* Plateau.h in Sources */,
+				4F78BE1422E7406D00AD537E /* Plateau2.h in Sources */,
 				4F0D965C23099F6900BFDED0 /* IPlugProcessor.cpp in Sources */,
-				4F78BE1522E7406D00AD537E /* Plateau.cpp in Sources */,
+				4F78BE1522E7406D00AD537E /* Plateau2.cpp in Sources */,
 				4F78BE1622E7406D00AD537E /* IGraphicsMac_view.mm in Sources */,
 				4F78BE1722E7406D00AD537E /* IGraphicsMac.mm in Sources */,
 				4F78BE1822E7406D00AD537E /* IGraphicsCoreText.mm in Sources */,
@@ -2482,7 +2482,7 @@
 				4FDAC0EC207D76C600299363 /* IPlugTimer.cpp in Sources */,
 				4F7C495D255DDFC400DF7588 /* ITextEntryControl.cpp in Sources */,
 				B8E22A0C220268C4007CBF4C /* IPlugVST3_ProcessorBase.cpp in Sources */,
-				4F3862F12014BBEC0009F402 /* Plateau.cpp in Sources */,
+				4F3862F12014BBEC0009F402 /* Plateau2.cpp in Sources */,
 				4F81591F205D50EB00393585 /* pluginfactory.cpp in Sources */,
 				4F6FD2B322675B6300FC59E6 /* IGraphicsCoreText.mm in Sources */,
 				4F815973205D50EB00393585 /* vstinitiids.cpp in Sources */,
@@ -2548,7 +2548,7 @@
 				4F0848292015129A00F9E881 /* IPlugAAX_Parameters.cpp in Sources */,
 				4FB1F59420E4B014004157C8 /* IGraphicsMac_view.mm in Sources */,
 				4F7C4963255DDFC600DF7588 /* ITextEntryControl.cpp in Sources */,
-				4F3862F32014BBEC0009F402 /* Plateau.cpp in Sources */,
+				4F3862F32014BBEC0009F402 /* Plateau2.cpp in Sources */,
 				4FB600231567CB0A0020189A /* IPlugParameter.cpp in Sources */,
 				4FB600261567CB0A0020189A /* AAX_Exports.cpp in Sources */,
 				4F6FD2B522675B6300FC59E6 /* IGraphicsCoreText.mm in Sources */,
@@ -2576,7 +2576,7 @@
 				4FB1F59620E4B017004157C8 /* IGraphicsMac_view.mm in Sources */,
 				4F472103209B294400A0A0A8 /* IPlugVST3_Controller.cpp in Sources */,
 				4F78BE2D22E7412300AD537E /* IGraphicsNanoVG_src.m in Sources */,
-				4FC3EFCB2086C27800BD11FA /* Plateau.cpp in Sources */,
+				4FC3EFCB2086C27800BD11FA /* Plateau2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2611,7 +2611,7 @@
 				4F6FD2B122675B6300FC59E6 /* IGraphicsCoreText.mm in Sources */,
 				4F690C9B203A345100A4A13E /* IPlugAPP_main.cpp in Sources */,
 				4FB1F58920E4B004004157C8 /* IGraphicsMac.mm in Sources */,
-				4F3862EF2014BBEC0009F402 /* Plateau.cpp in Sources */,
+				4F3862EF2014BBEC0009F402 /* Plateau2.cpp in Sources */,
 				4F78D90B13B63BA50032E0F3 /* IPlugAPIBase.cpp in Sources */,
 				4F35DEAD207E5C5A00867D8F /* IPlugPluginBase.cpp in Sources */,
 				4F8C10E020BA2796006320CD /* IGraphicsEditorDelegate.cpp in Sources */,
@@ -2627,7 +2627,7 @@
 			files = (
 				4FFBB90520863B0E00DDD0E7 /* baseiids.cpp in Sources */,
 				4FFBB90620863B0E00DDD0E7 /* IPlugTimer.cpp in Sources */,
-				4FFBB90720863B0E00DDD0E7 /* Plateau.cpp in Sources */,
+				4FFBB90720863B0E00DDD0E7 /* Plateau2.cpp in Sources */,
 				4FFBB90820863B0E00DDD0E7 /* pluginfactory.cpp in Sources */,
 				4FFBB90920863B0E00DDD0E7 /* vstinitiids.cpp in Sources */,
 				4FFBB90A20863B0E00DDD0E7 /* fdebug.cpp in Sources */,
@@ -2676,12 +2676,12 @@
 		};
 		4F3EE1BB231438D000004786 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4F78BE0122E73D0800AD537E /* PlateauAU */;
+			target = 4F78BE0122E73D0800AD537E /* Plateau2AU */;
 			targetProxy = 4F3EE1BC231438D000004786 /* PBXContainerItemProxy */;
 		};
 		4F78BE3622E742DE00AD537E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4F78BE0122E73D0800AD537E /* PlateauAU */;
+			target = 4F78BE0122E73D0800AD537E /* Plateau2AU */;
 			targetProxy = 4F78BE3522E742DE00AD537E /* PBXContainerItemProxy */;
 		};
 		4F78DAFA13B6436B0032E0F3 /* PBXTargetDependency */ = {
@@ -2749,7 +2749,7 @@
 /* Begin XCBuildConfiguration section */
 		1DEB913F08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FDA600620B586AC00C49ABA /* Plateau-mac.xcconfig */;
+			baseConfigurationReference = 4FDA600620B586AC00C49ABA /* Plateau2-mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -2829,7 +2829,7 @@
 		};
 		1DEB914008733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FDA600620B586AC00C49ABA /* Plateau-mac.xcconfig */;
+			baseConfigurationReference = 4FDA600620B586AC00C49ABA /* Plateau2-mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -2917,7 +2917,7 @@
 					"$(VST2_DEFS)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-VST2-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-VST2-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Dart.vst.${BINARY_NAME}";
 				SKIP_INSTALL = NO;
 				WARNING_CFLAGS = "-Wno-main";
@@ -2936,7 +2936,7 @@
 					"$(VST2_DEFS)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-VST2-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-VST2-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Dart.vst.${BINARY_NAME}";
 				SKIP_INSTALL = NO;
 				WARNING_CFLAGS = "-Wno-main";
@@ -2955,7 +2955,7 @@
 					"$(VST2_DEFS)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-VST2-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-VST2-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Dart.vst.${BINARY_NAME}";
 				SKIP_INSTALL = NO;
 				WARNING_CFLAGS = "-Wno-main";
@@ -2978,7 +2978,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "Plateau-macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Plateau2-macOS.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2988,12 +2988,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				IBC_FLATTEN_NIBS = NO;
-				INFOPLIST_FILE = "../resources/Plateau-macOS-AUv3-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-macOS-AUv3-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../iPlug2/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Dart.app.Plateau.AUv3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dart.app.Plateau2.AUv3;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -3016,7 +3016,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "Plateau-macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Plateau2-macOS.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -3027,12 +3027,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				IBC_FLATTEN_NIBS = NO;
-				INFOPLIST_FILE = "../resources/Plateau-macOS-AUv3-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-macOS-AUv3-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../iPlug2/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Dart.app.Plateau.AUv3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dart.app.Plateau2.AUv3;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -3055,7 +3055,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "Plateau-macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Plateau2-macOS.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -3066,12 +3066,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				IBC_FLATTEN_NIBS = NO;
-				INFOPLIST_FILE = "../resources/Plateau-macOS-AUv3-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-macOS-AUv3-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../iPlug2/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Dart.app.Plateau.AUv3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dart.app.Plateau2.AUv3;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -3090,7 +3090,7 @@
 					"$(AU_DEFS)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-AU-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-AU-Info.plist";
 				OTHER_LDFLAGS = (
 					"$(AU_FRAMEWORKS)",
 					"$(inherited)",
@@ -3118,7 +3118,7 @@
 					"$(AU_DEFS)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-AU-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-AU-Info.plist";
 				OTHER_LDFLAGS = (
 					"$(AU_FRAMEWORKS)",
 					"$(inherited)",
@@ -3146,7 +3146,7 @@
 					"$(AU_DEFS)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-AU-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-AU-Info.plist";
 				OTHER_LDFLAGS = (
 					"$(AU_FRAMEWORKS)",
 					"$(inherited)",
@@ -3166,8 +3166,8 @@
 		4F3EE1ED231438D000004786 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "Plateau-macOS";
-				CODE_SIGN_ENTITLEMENTS = "Plateau-macOS.entitlements";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Plateau2-macOS";
+				CODE_SIGN_ENTITLEMENTS = "Plateau2-macOS.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DSTROOT = "$(APP_PATH)";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -3177,7 +3177,7 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/../resources/Plateau-macOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../resources/Plateau2-macOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"$(APP_FRAMEWORKS)",
@@ -3193,8 +3193,8 @@
 		4F3EE1EE231438D000004786 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "Plateau-macOS";
-				CODE_SIGN_ENTITLEMENTS = "Plateau-macOS.entitlements";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Plateau2-macOS";
+				CODE_SIGN_ENTITLEMENTS = "Plateau2-macOS.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DSTROOT = "$(APP_PATH)";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -3204,7 +3204,7 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/../resources/Plateau-macOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../resources/Plateau2-macOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"$(APP_FRAMEWORKS)",
@@ -3220,8 +3220,8 @@
 		4F3EE1EF231438D000004786 /* Tracer */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "Plateau-macOS";
-				CODE_SIGN_ENTITLEMENTS = "Plateau-macOS.entitlements";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Plateau2-macOS";
+				CODE_SIGN_ENTITLEMENTS = "Plateau2-macOS.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DSTROOT = "$(APP_PATH)";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -3231,7 +3231,7 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/../resources/Plateau-macOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../resources/Plateau2-macOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"$(APP_FRAMEWORKS)",
@@ -3278,7 +3278,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_PKGINFO_FILE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/../resources/Plateau-macOS-AUv3Framework-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../resources/Plateau2-macOS-AUv3Framework-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
@@ -3289,7 +3289,7 @@
 					"$(EXTRA_LNK_FLAGS)",
 					"$(ALL_FRAMEWORKS)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Dart.app.Plateau.AUv3Framework;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dart.app.Plateau2.AUv3Framework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -3336,7 +3336,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_PKGINFO_FILE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/../resources/Plateau-macOS-AUv3Framework-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../resources/Plateau2-macOS-AUv3Framework-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
@@ -3347,7 +3347,7 @@
 					"$(EXTRA_LNK_FLAGS)",
 					"$(ALL_FRAMEWORKS)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Dart.app.Plateau.AUv3Framework;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dart.app.Plateau2.AUv3Framework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -3394,7 +3394,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_PKGINFO_FILE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/../resources/Plateau-macOS-AUv3Framework-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../resources/Plateau2-macOS-AUv3Framework-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
@@ -3405,7 +3405,7 @@
 					"$(EXTRA_LNK_FLAGS)",
 					"$(ALL_FRAMEWORKS)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Dart.app.Plateau.AUv3Framework;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dart.app.Plateau2.AUv3Framework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -3458,7 +3458,7 @@
 					"$(inherited)",
 					"$(VST3_SDK)",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-VST3-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-VST3-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Dart.vst3.${BINARY_NAME}";
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = vst3;
@@ -3480,7 +3480,7 @@
 					"$(inherited)",
 					"$(VST3_SDK)",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-VST3-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-VST3-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Dart.vst3.${BINARY_NAME}";
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = vst3;
@@ -3502,7 +3502,7 @@
 					"$(inherited)",
 					"$(VST3_SDK)",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-VST3-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-VST3-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Dart.vst3.${BINARY_NAME}";
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = vst3;
@@ -3552,7 +3552,7 @@
 					"$(AAX_SDK)/Interfaces",
 					"$(AAX_SDK)/Interfaces/ACF",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-AAX-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-AAX-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(EXTRA_LIB_PATHS)",
 					"$(AAX_SDK)/Libs/Debug",
@@ -3616,7 +3616,7 @@
 					"$(AAX_SDK)/Interfaces",
 					"$(AAX_SDK)/Interfaces/ACF",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-AAX-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-AAX-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(EXTRA_LIB_PATHS)",
 					"$(AAX_SDK)/Libs/Release",
@@ -3688,7 +3688,7 @@
 					"$(AAX_SDK)/Interfaces",
 					"$(AAX_SDK)/Interfaces/ACF",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-AAX-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-AAX-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(EXTRA_LIB_PATHS)",
 					"$(AAX_SDK)/Libs/Release",
@@ -3744,7 +3744,7 @@
 					"$(VST3_SDK)",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = PlateauVST3Controller;
+				PRODUCT_NAME = Plateau2VST3Controller;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -3778,7 +3778,7 @@
 					"$(VST3_SDK)",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = PlateauVST3Controller;
+				PRODUCT_NAME = Plateau2VST3Controller;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -3810,7 +3810,7 @@
 					"$(VST3_SDK)",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = PlateauVST3Controller;
+				PRODUCT_NAME = Plateau2VST3Controller;
 				SDKROOT = macosx;
 			};
 			name = Tracer;
@@ -3818,8 +3818,8 @@
 		4FD16A0C13B63082001D0217 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "Plateau-macOS";
-				CODE_SIGN_ENTITLEMENTS = "Plateau-macOS.entitlements";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Plateau2-macOS";
+				CODE_SIGN_ENTITLEMENTS = "Plateau2-macOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				DSTROOT = "$(APP_PATH)";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -3829,7 +3829,7 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "../resources/Plateau-macOS-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-macOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"$(APP_FRAMEWORKS)",
@@ -3845,8 +3845,8 @@
 		4FD16A0D13B63082001D0217 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "Plateau-macOS";
-				CODE_SIGN_ENTITLEMENTS = "Plateau-macOS.entitlements";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Plateau2-macOS";
+				CODE_SIGN_ENTITLEMENTS = "Plateau2-macOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				DSTROOT = "$(APP_PATH)";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -3856,7 +3856,7 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "../resources/Plateau-macOS-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-macOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"$(APP_FRAMEWORKS)",
@@ -3872,8 +3872,8 @@
 		4FD16A0E13B63082001D0217 /* Tracer */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "Plateau-macOS";
-				CODE_SIGN_ENTITLEMENTS = "Plateau-macOS.entitlements";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Plateau2-macOS";
+				CODE_SIGN_ENTITLEMENTS = "Plateau2-macOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				DSTROOT = "$(APP_PATH)";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -3883,7 +3883,7 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "../resources/Plateau-macOS-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-macOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"$(APP_FRAMEWORKS)",
@@ -3911,7 +3911,7 @@
 					"$(inherited)",
 					"$(VST3_SDK)",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-VST3-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-VST3-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Dart.vst3.${BINARY_NAME}";
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = vst3;
@@ -3933,7 +3933,7 @@
 					"$(inherited)",
 					"$(VST3_SDK)",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-VST3-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-VST3-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Dart.vst3.${BINARY_NAME}";
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = vst3;
@@ -3955,7 +3955,7 @@
 					"$(inherited)",
 					"$(VST3_SDK)",
 				);
-				INFOPLIST_FILE = "../resources/Plateau-VST3-Info.plist";
+				INFOPLIST_FILE = "../resources/Plateau2-VST3-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Dart.vst3.${BINARY_NAME}";
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = vst3;
@@ -3964,7 +3964,7 @@
 		};
 		528359A90D7F0C3A00577159 /* Tracer */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FDA600620B586AC00C49ABA /* Plateau-mac.xcconfig */;
+			baseConfigurationReference = 4FDA600620B586AC00C49ABA /* Plateau2-mac.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -4065,7 +4065,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Plateau-macOS" */ = {
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Plateau2-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913F08733D840010E9CD /* Debug */,
@@ -4115,7 +4115,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4F78BE0E22E73D0800AD537E /* Build configuration list for PBXNativeTarget "PlateauAU" */ = {
+		4F78BE0E22E73D0800AD537E /* Build configuration list for PBXNativeTarget "Plateau2AU" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4F78BE0B22E73D0800AD537E /* Debug */,

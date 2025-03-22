@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4F9828AA140A9EB700F3FCC1"
-               BuildableName = "Plateau.vst3"
+               BuildableName = "Plateau2.vst3"
                BlueprintName = "VST3"
-               ReferencedContainer = "container:Plateau-macOS.xcodeproj">
+               ReferencedContainer = "container:Plateau2-macOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F9828AA140A9EB700F3FCC1"
-            BuildableName = "Plateau.vst3"
+            BuildableName = "Plateau2.vst3"
             BlueprintName = "VST3"
-            ReferencedContainer = "container:Plateau-macOS.xcodeproj">
+            ReferencedContainer = "container:Plateau2-macOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CommandLineArguments>
