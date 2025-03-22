@@ -22,7 +22,7 @@ public:
         return hitbox.Contains(x, y);
     }
 
-    void OnMouseDown(float x, float y, const IMouseMod& mod)
+    void OnMouseDown(float x, float y, const IMouseMod& mod) override
     {
         SetValue(1.);
         SetDirty(true);

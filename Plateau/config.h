@@ -1,15 +1,15 @@
-#define PLUG_NAME "Plateau"
+#define PLUG_NAME "Plateau 2"
 #define PLUG_MFR "Dart"
 #define PLUG_VERSION_HEX 0x00010000
 #define PLUG_VERSION_STR "1.0.0"
-#define PLUG_UNIQUE_ID 'VGLb'
+#define PLUG_UNIQUE_ID 'Pltu'
 #define PLUG_MFR_ID 'Acme'
 #define PLUG_URL_STR "https://iplug2.github.io"
 #define PLUG_EMAIL_STR "spam@me.com"
 #define PLUG_COPYRIGHT_STR "Copyright 2020 Acme Inc"
 #define PLUG_CLASS_NAME Plateau
 
-#define BUNDLE_NAME "Plateau"
+#define BUNDLE_NAME "Plateau2"
 #define BUNDLE_MFR "Dart"
 #define BUNDLE_DOMAIN "com"
 
@@ -39,7 +39,7 @@
 #define AAX_TYPE_IDS 'IEF1', 'IEF2'
 #define AAX_TYPE_IDS_AUDIOSUITE 'IEA1', 'IEA2'
 #define AAX_PLUG_MFR_STR "Acme"
-#define AAX_PLUG_NAME_STR "Plateau\nIPEF"
+#define AAX_PLUG_NAME_STR "Plateau2\nIPEF"
 #define AAX_PLUG_CATEGORY_STR "Effect"
 #define AAX_DOES_AUDIOSUITE 1
 
@@ -59,6 +59,15 @@
 #define ROBOTO_FN "Roboto-Regular.ttf"
 
 #define BACKGROUND_FN "Background.svg"
+#define PAGEMAIN_FN "MainPage.svg"
+#define PAGEEXTRAS_FN "ExtrasPage.svg"
+
+#define NEXTEXTRAS_FN "ExtrasNext.svg"
+#define NEXTMAIN_FN "MainNext.svg"
+
+#define PREVEXTRAS_FN "ExtrasPrev.svg"
+#define PREVMAIN_FN "MainPrev.svg"
+
 #define NEEDLE_FN "NeedleDial.svg"
 #define NEEDLEBG_FN "NeedleDial-bg.svg"
 #define NEEDLEFG1_FN "NeedleDialFG1.png"

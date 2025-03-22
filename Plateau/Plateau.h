@@ -10,6 +10,7 @@
 #include "./controls/LEDButton.cpp"
 #include "./controls/LEDSwitch.cpp"
 #include "./controls/LEDRadio.cpp"
+#include "./controls/NavigatorButton.cpp"
 
 const int kNumPresets = 1;
 
@@ -55,9 +56,10 @@ enum EParams
     kNumParams
 };
 
-const int kNumKnobs = 12;
+const int kNumKnobs = 13;
 const int kNumSwitches = 5;
 const int kNumButtons = 2;
+const int kNumPages = 2;
 
 using namespace iplug;
 using namespace igraphics;
@@ -72,6 +74,8 @@ public:
 
 #if IPLUG_DSP // http://bit.ly/2S64BDd
   void ProcessBlock(sample** inputs, sample** outputs, int nFrames) override;
+  void ChangePage(int direction, const ISVG PageBackgrounds[kNumPages], const ISVG NextButtons[kNumPages], const ISVG PreviousButtons[kNumPages]);
+  void UpdatePageVisibility();
   void OnParamChange(int index) override;
   void SelectTank(bool tank2);
   void ProcessReverb(sample** inputs, sample** outputs, int nFrames, int nChans, Dattorro& reverb, LinearEnvelope& envelope, bool& clear, bool& cleared, bool& fadeOut, bool& fadeIn, bool& frozen, int kClear, int kFreeze, int kWet);
@@ -94,7 +98,15 @@ public:
         bool frozen2 = false;
 
 		bool tank2Selected = false;
+		ISVGControl* PageBackgroundControl;
+        NavigatorButton* NextButtonControl;
+        NavigatorButton* PrevButtonControl;
+
+
         NeedleKnob* Knobs[kNumKnobs];
         LEDSwitch* Switches[kNumSwitches];
         LEDButton* Buttons[kNumButtons];
+
+
+        int currentPage = 0;
 };

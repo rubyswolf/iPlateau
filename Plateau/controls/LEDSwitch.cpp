@@ -24,12 +24,7 @@ public:
 
     virtual ~LEDSwitch() {}
     void Draw(IGraphics& g) override { g.DrawSVG(GetValue() >= 1. ? (tank2 ? mSVGOn2 : mSVGOn1) : mSVGOff, mRECT, &mBlend); }
-    void OnMouseDown(float x, float y, const IMouseMod& mod) {
-		//if (child) { // If this is a child, don't allow it to be toggled when the parent forces it on
-		//	if (linkedParent->GetValue() == 1.) {
-		//		return;
-		//	}
-        //}
+    void OnMouseDown(float x, float y, const IMouseMod& mod) override {
         SetValue(GetValue() + 1.);
         if (GetValue() > 1.) {
             SetValue(0.);

@@ -65,6 +65,14 @@ Plateau::Plateau(const InstanceInfo& info)
 
     pGraphics->AttachCornerResizer(EUIResizerMode::Scale, false);
     pGraphics->AttachSVGBackground(BACKGROUND_FN);
+
+    ISVG PageBackgrounds[kNumPages] = { pGraphics->LoadSVG(PAGEMAIN_FN), pGraphics->LoadSVG(PAGEEXTRAS_FN) };
+	ISVG NextButtons[kNumPages] = { pGraphics->LoadSVG(NEXTEXTRAS_FN), pGraphics->LoadSVG(NEXTMAIN_FN) };
+	ISVG PrevButtons[kNumPages] = { pGraphics->LoadSVG(PREVEXTRAS_FN), pGraphics->LoadSVG(PREVMAIN_FN) };
+
+    PageBackgroundControl = new ISVGControl(pGraphics->GetBounds(), PageBackgrounds[0]);
+    pGraphics->AttachControl(PageBackgroundControl);
+
     pGraphics->LoadFont("Roboto-Regular", ROBOTO_FN);
     const ISVG NeedleSVG = pGraphics->LoadSVG(NEEDLE_FN);
     const ISVG NeedleBGSVG = pGraphics->LoadSVG(NEEDLEBG_FN);
@@ -73,7 +81,6 @@ Plateau::Plateau(const InstanceInfo& info)
 
     Knobs[0] = new NeedleKnob(IRECT::MakeXYWH(89 - 40, 141 + 50, 42, 42), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDry, kDry);
     Knobs[1] = new NeedleKnob(IRECT::MakeXYWH(180+40, 141+50, 42, 42), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kWet1, kWet2);
-    //Knobs[0] = new NeedleKnob(IRECT::MakeXYWH(140, 87, 35, 35), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPreDelay1, kPreDelay2));
     Knobs[2] = new NeedleKnob(IRECT::MakeXYWH(93, 230, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInputLowDamp1, kInputLowDamp2);
     Knobs[3] = new NeedleKnob(IRECT::MakeXYWH(166, 230, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInputHighDamp1, kInputHighDamp2);
     Knobs[4] = new NeedleKnob(IRECT::MakeXYWH(56, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kSize1, kSize2);
@@ -84,10 +91,21 @@ Plateau::Plateau(const InstanceInfo& info)
     Knobs[9] = new NeedleKnob(IRECT::MakeXYWH(56, 518, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModSpeed1, kModSpeed2);
     Knobs[10] = new NeedleKnob(IRECT::MakeXYWH(203, 518, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModDepth1, kModDepth2);
     Knobs[11] = new NeedleKnob(IRECT::MakeXYWH(130, 543, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModShape1, kModShape2);
+
+    Knobs[12] = new NeedleKnob(IRECT::MakeXYWH(140, 140, 35, 35), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPreDelay1, kPreDelay2);
     
-	for (int i = 0; i < kNumKnobs; i++) {
+	for (int i = 0; i <= 11; i++) {
 		pGraphics->AttachControl(Knobs[i]);
 	}
+    
+    for (int i = 12; i <= 12; i++) {
+		pGraphics->AttachControl(Knobs[i]);
+		Knobs[i]->Hide(true);
+	}
+    NextButtonControl = new NavigatorButton(IRECT::MakeXYWH(220.572, 125.695, 82.306, 30), [this, PageBackgrounds, NextButtons, PrevButtons](IControl* pCaller) {
+        ChangePage(1, PageBackgrounds, NextButtons, PrevButtons);
+        }, pGraphics->LoadSVG(NEXTEXTRAS_FN));
+    pGraphics->AttachControl(NextButtonControl);
 
     float LEDScale = 0.2453054f;
 
@@ -151,6 +169,42 @@ void Plateau::SelectTank(bool tank2) {
 	}
     IEditorDelegate::SendCurrentParamValuesFromDelegate();
 }
+
+void Plateau::ChangePage(int direction, const ISVG PageBackgrounds[kNumPages], const ISVG NextButtons[kNumPages], const ISVG PreviousButtons[kNumPages])
+{
+    currentPage += direction;
+    if (currentPage < 0) currentPage = kNumPages-1; // Wrap around
+    if (currentPage > kNumPages - 1) currentPage = 0;
+
+	PageBackgroundControl->SetSVG(PageBackgrounds[currentPage]);
+	PageBackgroundControl->SetDirty(false);
+
+	NextButtonControl->SetSVG(NextButtons[currentPage]);
+
+	//PrevButtonControl->SetSVG(PreviousButtons[currentPage]);
+
+    UpdatePageVisibility();
+}
+
+void Plateau::UpdatePageVisibility()
+{
+    //Main page
+    for (int i = 0; i <= 11; i++) {
+        Knobs[i]->Hide(currentPage!=0);
+    }
+    for (int i = 0; i <= 4; i++) {
+        Switches[i]->Hide(currentPage != 0);
+    }
+    for (int i = 0; i <= 1; i++) {
+        Buttons[i]->Hide(currentPage != 0);
+    }
+
+	//Extras page
+    for (int i = 12; i <= 12; i++) {
+        Knobs[i]->Hide(currentPage != 1);
+    }
+}
+
 
 void Plateau::OnParamChange(int index)
 {
