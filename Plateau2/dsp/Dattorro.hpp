@@ -190,10 +190,10 @@ public:
 
 private:
     double preDelayTime = 0.0;
-    static constexpr long kInApf1Time = 141;
-    static constexpr long kInApf2Time = 107;
-    static constexpr long kInApf3Time = 379;
-    static constexpr long kInApf4Time = 277;
+    static constexpr double kInApf1Time = 141;
+    static constexpr double kInApf2Time = 107;
+    static constexpr double kInApf3Time = 379;
+    static constexpr double kInApf4Time = 277;
 
     static constexpr double dattorroSampleRate = 29761.0;
     double sampleRate = 44100.0;

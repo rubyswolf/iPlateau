@@ -78,7 +78,6 @@ public:
   void UpdatePageVisibility();
   void OnParamChange(int index) override;
   void SelectTank(bool tank2);
-  void ProcessReverb(sample** inputs, sample** outputs, int nFrames, int nChans, Dattorro& reverb, LinearEnvelope& envelope, bool& clear, bool& cleared, bool& fadeOut, bool& fadeIn, bool& frozen, int kClear, int kFreeze, int kWet);
 #endif
     private:
         Dattorro reverb1;

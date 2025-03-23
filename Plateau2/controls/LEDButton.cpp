@@ -6,7 +6,7 @@ BEGIN_IGRAPHICS_NAMESPACE
 class LEDButton : public IButtonControlBase
 {
 public:
-    LEDButton(const IRECT& bounds, float hitboxScaleFactor, const ISVG& svgOff, const ISVG& svgOn1, const ISVG& svgOn2, IActionFunction aF, IControl* linkedControl = nullptr)
+    LEDButton(const IRECT& bounds, double hitboxScaleFactor, const ISVG& svgOff, const ISVG& svgOn1, const ISVG& svgOn2, IActionFunction aF, IControl* linkedControl = nullptr)
         : IButtonControlBase(bounds, aF)
 		, mSVGOff(svgOff)
 		, mSVGOn1(svgOn1)
@@ -38,7 +38,7 @@ public:
         SetDirty(false);
     }
 
-    float hitboxScale = 1.0f;
+    double hitboxScale = 1.0f;
 protected:
     ISVG mSVGOff;
     ISVG mSVGOn1;

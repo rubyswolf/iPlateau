@@ -102,35 +102,35 @@ Plateau2::Plateau2(const InstanceInfo& info)
 		pGraphics->AttachControl(Knobs[i]);
 		Knobs[i]->Hide(true);
 	}
-    NextButtonControl = new NavigatorButton(IRECT::MakeXYWH(220.572, 125.695, 82.306, 30), [this, PageBackgrounds, NextButtons, PrevButtons](IControl* pCaller) {
+    NextButtonControl = new NavigatorButton(IRECT::MakeXYWH(220.572f, 125.695f, 82.306f, 30.f), [this, PageBackgrounds, NextButtons, PrevButtons](IControl* pCaller) {
         ChangePage(1, PageBackgrounds, NextButtons, PrevButtons);
         }, pGraphics->LoadSVG(NEXTEXTRAS_FN));
     pGraphics->AttachControl(NextButtonControl);
 
-    float LEDScale = 0.2453054f;
+    double LEDScale = 0.2453054f;
 
     const ISVG LedOffSVG = pGraphics->LoadSVG(LEDOFF_FN);
     const ISVG LedOn1SVG = pGraphics->LoadSVG(LEDON1_FN);
     const ISVG LedOn2SVG = pGraphics->LoadSVG(LEDON2_FN);
     const ISVG LedOnBothSVG = pGraphics->LoadSVG(LEDONBOTH_FN);
 
-    Switches[0] = new LEDSwitch(IRECT::MakeXYWH(-24+12.474, 470-65.198-45, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, kFreeze, kFreeze);
-    Switches[1] = new LEDSwitch(IRECT::MakeXYWH(-24+12.474, 470-65.198+30, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kFreeze1, kFreeze2);
+    Switches[0] = new LEDSwitch(IRECT::MakeXYWH(-11.526f, 404.802f-45, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, kFreeze, kFreeze);
+    Switches[1] = new LEDSwitch(IRECT::MakeXYWH(-11.526f, 404.802f+30, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kFreeze1, kFreeze2);
     Switches[2] = new LEDSwitch(IRECT::MakeXYWH(-14, 216, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kTunedMode1, kTunedMode2);
     Switches[3] = new LEDSwitch(IRECT::MakeXYWH(228, 216, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kDiffuseInput1, kDiffuseInput2);
 
-    LEDButton* clearButton = new LEDButton(IRECT::MakeXYWH(238 - 12.474, 470 - 65.198 + 30, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, [this](IControl* clearControl) {SetParameterValue(kClear1, 1);});
+    LEDButton* clearButton = new LEDButton(IRECT::MakeXYWH(225.526f, 404.802f + 30, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, [this](IControl* clearControl) {SetParameterValue(kClear1, 1);});
 
     Buttons[0] = clearButton;
 
-    Buttons[1] = new LEDButton(IRECT::MakeXYWH(238 - 12.474, 470 - 65.198 - 45, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this, clearButton](IControl* clearControl) {SetParameterValue(kClear, 1);clearButton->SetValue(1.);clearButton->SetDirty();}, clearButton);
+    Buttons[1] = new LEDButton(IRECT::MakeXYWH(225.526f, 404.802f - 45, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this, clearButton](IControl* clearControl) {SetParameterValue(kClear, 1);clearButton->SetValue(1.);clearButton->SetDirty();}, clearButton);
 
 	for (int i = 0; i < kNumButtons; i++) {
 		pGraphics->AttachControl(Buttons[i]);
 	}
 
 	//Tank Enable Button
-    Switches[4] = new LEDSwitch(IRECT::MakeXYWH(106.5, 112, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kEnable1, kEnable2);
+    Switches[4] = new LEDSwitch(IRECT::MakeXYWH(106.5f, 112, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kEnable1, kEnable2);
     Switches[4]->SetValue(1);
 
 	for (int i = 0; i < kNumSwitches; i++) {
@@ -244,13 +244,13 @@ void Plateau2::OnParamChange(int index)
         case kSize1:
         case kTunedMode1:
         {
-            float size = GetParam(kSize1)->Value();
+            double size = GetParam(kSize1)->Value();
             bool tunedMode = GetParam(kTunedMode1)->Value();
             if (tunedMode) {
                 reverb1.setTimeScale(0.0025f * powf(2.f, size * 5.f));
             }
             else {
-                reverb1.setTimeScale(scale(size * size, 0.f, 1.f, 0.01f, 4.0f));
+                reverb1.setTimeScale(scale<double>(size * size, 0.f, 1.f, 0.01f, 4.0f));
             }
             break;
         }
@@ -259,7 +259,7 @@ void Plateau2::OnParamChange(int index)
             break;
         case kDecay1:
         {
-            float decay = GetParam(index)->Value();
+            double decay = GetParam(index)->Value();
             reverb1.setDecay(2.f * decay - decay * decay);
             break;
         }
@@ -271,7 +271,7 @@ void Plateau2::OnParamChange(int index)
             break;
         case kModSpeed1:
         {
-            float modSpeed = GetParam(index)->Value();
+            double modSpeed = GetParam(index)->Value();
             reverb1.setTankModSpeed(modSpeed * modSpeed * 99.f + 1.f);
             break;
         }
@@ -297,13 +297,13 @@ void Plateau2::OnParamChange(int index)
         case kSize2:
         case kTunedMode2:
         {
-            float size = GetParam(kSize2)->Value();
+            double size = GetParam(kSize2)->Value();
             bool tunedMode = GetParam(kTunedMode2)->Value();
             if (tunedMode) {
                 reverb2.setTimeScale(0.0025f * powf(2.f, size * 5.f));
             }
             else {
-                reverb2.setTimeScale(scale(size * size, 0.f, 1.f, 0.01f, 4.0f));
+                reverb2.setTimeScale(scale<double>(size * size, 0.f, 1.f, 0.01f, 4.0f));
             }
             break;
         }
@@ -312,7 +312,7 @@ void Plateau2::OnParamChange(int index)
             break;
         case kDecay2:
         {
-            float decay = GetParam(index)->Value();
+            double decay = GetParam(index)->Value();
             reverb2.setDecay(2.f * decay - decay * decay);
             break;
         }
@@ -324,7 +324,7 @@ void Plateau2::OnParamChange(int index)
             break;
         case kModSpeed2:
         {
-            float modSpeed = GetParam(index)->Value();
+            double modSpeed = GetParam(index)->Value();
             reverb2.setTankModSpeed(modSpeed * modSpeed * 99.f + 1.f);
             break;
         }

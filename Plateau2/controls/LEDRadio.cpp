@@ -6,7 +6,7 @@ BEGIN_IGRAPHICS_NAMESPACE
 class LEDRadio : public IButtonControlBase
 {
 public:
-    LEDRadio(const IRECT& bounds, float hitboxScaleFactor, const ISVG& svgOff, const ISVG& svgOn, IActionFunction aF)
+    LEDRadio(const IRECT& bounds, double hitboxScaleFactor, const ISVG& svgOff, const ISVG& svgOn, IActionFunction aF)
         : IButtonControlBase(bounds, aF)
         , mSVGOff(svgOff)
         , mSVGOn(svgOn)
@@ -45,7 +45,7 @@ public:
 		}
 	}
 
-    float hitboxScale = 1.0f;
+    double hitboxScale = 1.0f;
 protected:
     ISVG mSVGOff;
     ISVG mSVGOn;

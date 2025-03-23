@@ -11,7 +11,7 @@ public:
      * @param bounds The control's bounds
      * @param bitmap The bitmap resource for the control
      * @param paramIdx The parameter index to link this control to */
-    LEDSwitch(const IRECT& bounds, float hitboxScaleFactor, const ISVG& svgOff, const ISVG& svgOn1, const ISVG& svgOn2, int param1Idx = kNoParameter, int param2Idx = kNoParameter)
+    LEDSwitch(const IRECT& bounds, double hitboxScaleFactor, const ISVG& svgOff, const ISVG& svgOn1, const ISVG& svgOn2, int param1Idx = kNoParameter, int param2Idx = kNoParameter)
         : ISwitchControlBase(bounds, param1Idx, nullptr, 3)
         , mSVGOff(svgOff)
         , mSVGOn1(svgOn1)
@@ -50,7 +50,7 @@ public:
         SetParamIdx(tank2 ? mParam2Idx : mParam1Idx, 0, true);
     }
 
-    float hitboxScale = 1.0f;
+    double hitboxScale = 1.0f;
 
     void Update() {
 		SetValue(tank2 ? preferedState2 : preferedState1);
