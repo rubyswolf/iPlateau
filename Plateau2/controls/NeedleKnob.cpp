@@ -20,7 +20,7 @@ public:
     void Draw(IGraphics& g) override
     {
         g.DrawSVG(mDialBg, mRECT);
-        g.DrawRotatedSVG(mDialPointer, mRECT.MW(), mRECT.MH(), mRECT.W(), mRECT.H(), mStartAngle + GetValue() * (mEndAngle - mStartAngle), &mBlend);
+        g.DrawRotatedSVG(mDialPointer, mRECT.MW(), mRECT.MH(), mRECT.W(), mRECT.H(), StartAngle + GetValue() * (EndAngle - StartAngle), &mBlend);
         g.DrawFittedBitmap(tank2 ? mDialFg2 : mDialFg1, mRECT);
     }
 
@@ -34,13 +34,14 @@ public:
 		SetParamIdx(tank2 ? mParam2Idx : mParam1Idx, 0, true);
 	}
 
+    float StartAngle = -135.f;
+    float EndAngle = 135.f;
+
 private:
     IBitmap mDialFg1;
     IBitmap mDialFg2;
     ISVG mDialBg;
     ISVG mDialPointer;
-    float mStartAngle = -135.f;
-    float mEndAngle = 135.f;
 	int mParam1Idx;
 	int mParam2Idx;
 	bool tank2 = false;

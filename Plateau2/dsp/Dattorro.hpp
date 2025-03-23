@@ -33,6 +33,8 @@ public:
     void setLowCutFrequency(const double frequency);
 
     void setDiffusion(const double diffusion);
+	void setDiffusionNesting(const bool nesting);
+    void setDiffusionDecay(const double diffusionDecay);
 
     void clear();
 
@@ -178,6 +180,8 @@ public:
 
     void setDecay(double newDecay);
     void setTankDiffusion(const double diffusion);
+    void setTankDiffusionNesting(const bool nesting);
+    void setTankDiffusionDecay(const double diffusionDecay);
     void setTankFilterHighCutFrequency(const double frequency);
     void setTankFilterLowCutFrequency(const double frequency);
 

@@ -61,19 +61,23 @@ void Dattorro1997Tank::process(const double leftIn, const double rightIn,
     leftOutDCBlock.input = leftApf1.output;
     leftOutDCBlock.input += leftDelay1.tap(scaledOutputTaps[L_DELAY_1_L_TAP_1]);
     leftOutDCBlock.input += leftDelay1.tap(scaledOutputTaps[L_DELAY_1_L_TAP_2]);
-    leftOutDCBlock.input -= leftApf2.delay.tap(scaledOutputTaps[L_APF_2_L_TAP]);
+    leftOutDCBlock.input -= leftApf2.delay1.tap(scaledOutputTaps[L_APF_2_L_TAP]);
+    leftOutDCBlock.input -= leftApf2.delay2.tap(scaledOutputTaps[L_APF_2_L_TAP]);
     leftOutDCBlock.input += leftDelay2.tap(scaledOutputTaps[L_DELAY_2_L_TAP]);
     leftOutDCBlock.input -= rightDelay1.tap(scaledOutputTaps[R_DELAY_1_L_TAP]);
-    leftOutDCBlock.input -= rightApf2.delay.tap(scaledOutputTaps[R_APF_2_L_TAP]);
+    leftOutDCBlock.input -= rightApf2.delay1.tap(scaledOutputTaps[R_APF_2_L_TAP]);
+    leftOutDCBlock.input -= rightApf2.delay2.tap(scaledOutputTaps[R_APF_2_L_TAP]);
     leftOutDCBlock.input -= rightDelay2.tap(scaledOutputTaps[R_DELAY_2_L_TAP]);
 
     rightOutDCBlock.input = rightApf1.output;
     rightOutDCBlock.input += rightDelay1.tap(scaledOutputTaps[R_DELAY_1_R_TAP_1]);
     rightOutDCBlock.input += rightDelay1.tap(scaledOutputTaps[R_DELAY_1_R_TAP_2]);
-    rightOutDCBlock.input -= rightApf2.delay.tap(scaledOutputTaps[R_APF_2_R_TAP]);
+    rightOutDCBlock.input -= rightApf2.delay1.tap(scaledOutputTaps[R_APF_2_R_TAP]);
+    rightOutDCBlock.input -= rightApf2.delay2.tap(scaledOutputTaps[R_APF_2_R_TAP]);
     rightOutDCBlock.input += rightDelay2.tap(scaledOutputTaps[R_DELAY_2_R_TAP]);
     rightOutDCBlock.input -= leftDelay1.tap(scaledOutputTaps[L_DELAY_1_R_TAP]);
-    rightOutDCBlock.input -= leftApf2.delay.tap(scaledOutputTaps[L_APF_2_R_TAP]);
+    rightOutDCBlock.input -= leftApf2.delay1.tap(scaledOutputTaps[L_APF_2_R_TAP]);
+    rightOutDCBlock.input -= leftApf2.delay2.tap(scaledOutputTaps[L_APF_2_R_TAP]);
     rightOutDCBlock.input -= leftDelay2.tap(scaledOutputTaps[L_DELAY_2_R_TAP]);
 
     *leftOut = leftOutDCBlock.process() * 0.5;
@@ -162,10 +166,24 @@ void Dattorro1997Tank::setDiffusion(const double diffusion) {
     double diffusion1 = scale(diffusion, 0.0, 10.0, 0.0, maxDiffusion1);
     double diffusion2 = scale(diffusion, 0.0, 10.0, 0.0, maxDiffusion2);
 
-    leftApf1.setGain(-diffusion1);
-    leftApf2.setGain(diffusion2);
-    rightApf1.setGain(-diffusion1);
-    rightApf2.setGain(diffusion2);
+    leftApf1.setGain(-diffusion1, -diffusion1);
+    leftApf2.setGain(diffusion2, diffusion2);
+    rightApf1.setGain(-diffusion1, -diffusion1);
+    rightApf2.setGain(diffusion2, diffusion2);
+}
+
+void Dattorro1997Tank::setDiffusionNesting(const bool nesting) {
+	leftApf1.nested = nesting;
+	leftApf2.nested = nesting;
+	rightApf1.nested = nesting;
+	rightApf2.nested = nesting;
+}
+
+void Dattorro1997Tank::setDiffusionDecay(const double diffusionDecay) {
+	leftApf1.setDecay(diffusionDecay, diffusionDecay);
+	leftApf2.setDecay(diffusionDecay, diffusionDecay);
+	rightApf1.setDecay(diffusionDecay, diffusionDecay);
+	rightApf2.setDecay(diffusionDecay, diffusionDecay);
 }
 
 void Dattorro1997Tank::clear() {
@@ -218,10 +236,14 @@ void Dattorro1997Tank::initialiseDelaysAndApfs() {
 }
 
 void Dattorro1997Tank::tickApfModulation() {
-    leftApf1.delay.setDelayTime(lfo1.process() * lfoExcursion + scaledLeftApf1Time);
-    leftApf2.delay.setDelayTime(lfo2.process() * lfoExcursion + scaledLeftApf2Time);
-    rightApf1.delay.setDelayTime(lfo3.process() * lfoExcursion + scaledRightApf1Time);
-    rightApf2.delay.setDelayTime(lfo4.process() * lfoExcursion + scaledRightApf2Time);
+    leftApf1.delay1.setDelayTime(lfo1.process() * lfoExcursion + scaledLeftApf1Time);
+    leftApf1.delay2.setDelayTime(lfo1.process() * lfoExcursion + scaledLeftApf1Time);
+    leftApf2.delay1.setDelayTime(lfo2.process() * lfoExcursion + scaledLeftApf2Time);
+    leftApf2.delay2.setDelayTime(lfo2.process() * lfoExcursion + scaledLeftApf2Time);
+    rightApf1.delay1.setDelayTime(lfo3.process() * lfoExcursion + scaledRightApf1Time);
+    rightApf1.delay2.setDelayTime(lfo3.process() * lfoExcursion + scaledRightApf1Time);
+    rightApf2.delay1.setDelayTime(lfo4.process() * lfoExcursion + scaledRightApf2Time);
+    rightApf2.delay2.setDelayTime(lfo4.process() * lfoExcursion + scaledRightApf2Time);
 }
 
 void Dattorro1997Tank::rescaleApfAndDelayTimes() {
@@ -323,10 +345,10 @@ void Dattorro::setSampleRate(double newSampleRate) {
     tank.setSampleRate(sampleRate);
     dattorroScaleFactor = sampleRate / dattorroSampleRate;
     setPreDelay(preDelayTime);
-    inApf1.delay.setDelayTime(dattorroScale(kInApf1Time));
-    inApf2.delay.setDelayTime(dattorroScale(kInApf2Time));
-    inApf3.delay.setDelayTime(dattorroScale(kInApf3Time));
-    inApf4.delay.setDelayTime(dattorroScale(kInApf4Time));
+    inApf1.delay1.setDelayTime(dattorroScale(kInApf1Time));
+    inApf2.delay1.setDelayTime(dattorroScale(kInApf2Time));
+    inApf3.delay1.setDelayTime(dattorroScale(kInApf3Time));
+    inApf4.delay1.setDelayTime(dattorroScale(kInApf4Time));
 
     leftInputDCBlock.setSampleRate(sampleRate);
     rightInputDCBlock.setSampleRate(sampleRate);
@@ -360,6 +382,13 @@ void Dattorro::setDecay(double newDecay) {
 
 void Dattorro::setTankDiffusion(const double diffusion) {
     tank.setDiffusion(diffusion);
+}
+
+void Dattorro::setTankDiffusionNesting(const bool nesting) {
+	tank.setDiffusionNesting(nesting);
+}
+void Dattorro::setTankDiffusionDecay(const double diffusionDecay) {
+	tank.setDiffusionDecay(diffusionDecay);
 }
 
 void Dattorro::setTankFilterHighCutFrequency(const double pitch) {

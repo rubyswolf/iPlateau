@@ -77,3 +77,5 @@
 #define LEDON1_FN "LEDButtonOn1.svg"
 #define LEDON2_FN "LEDButtonOn2.svg"
 #define LEDONBOTH_FN "LEDButtonGradient.svg"
+#define DANGEROFF_FN "DangerOff.svg"
+#define DANGERON_FN "DangerOn.svg"

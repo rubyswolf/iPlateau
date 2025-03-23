@@ -36,6 +36,10 @@ enum EParams
     kTunedMode1,
     kDiffuseInput1,
     kPreDelay1,
+    kNesting1,
+    kInputNesting1,
+	kDiffusionDecay1,
+
     kEnable2,
     kWet2,
     kInputLowDamp2,
@@ -53,11 +57,17 @@ enum EParams
     kTunedMode2,
     kDiffuseInput2,
     kPreDelay2,
+    kNesting2,
+    kInputNesting2,
+    kDiffusionDecay2,
+
+    kDanger,
+
     kNumParams
 };
 
-const int kNumKnobs = 13;
-const int kNumSwitches = 5;
+const int kNumKnobs = 14;
+const int kNumSwitches = 7;
 const int kNumButtons = 2;
 const int kNumPages = 2;
 
