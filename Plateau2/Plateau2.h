@@ -39,6 +39,10 @@ enum EParams
     kNesting1,
     kInputNesting1,
 	kDiffusionDecay1,
+    kInput1,
+    kStereoSource1,
+    kWidth1,
+    kPan1,
 
     kEnable2,
     kWet2,
@@ -60,16 +64,20 @@ enum EParams
     kNesting2,
     kInputNesting2,
     kDiffusionDecay2,
+	kInput2,
+	kStereoSource2,
+	kWidth2,
+	kPan2,
 
     kDanger,
 
     kNumParams
 };
 
-const int kNumKnobs = 14;
+const int kNumKnobs = 18;
 const int kNumSwitches = 7;
 const int kNumButtons = 2;
-const int kNumPages = 2;
+const int kNumPages = 3;
 
 using namespace iplug;
 using namespace igraphics;

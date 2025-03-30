@@ -127,8 +127,7 @@ void Dattorro1997Tank::setTimeScale(const double newTimeScale) {
 }
 
 void Dattorro1997Tank::setDecay(const double newDecay) {
-    decayParam = (double)(newDecay > 1.0 ? 1.0 :
-                         (newDecay < 0.0 ? 0.0 : newDecay));
+    decayParam = newDecay;
 }
 
 void Dattorro1997Tank::setModSpeed(const double newModSpeed) {
@@ -293,7 +292,10 @@ Dattorro::Dattorro(const double initMaxSampleRate,
     rightInputDCBlock.setCutoffFreq(20.0);
 }
 
-void Dattorro::process(double leftInput, double rightInput) {
+void Dattorro::process(std::tuple<double, double> input) {
+    double leftInput = std::get<0>(input);
+    double rightInput = std::get<1>(input);
+
     leftInputDCBlock.input = leftInput;
     rightInputDCBlock.input = rightInput;
     inputLpf.setCutoffFreq(inputHighCut);
@@ -376,7 +378,7 @@ void Dattorro::enableInputDiffusion(bool enable) {
 
 void Dattorro::setDecay(double newDecay) {
     decay = newDecay;
-    assert(decay <= 1.0);
+    //assert(decay <= 1.0);
     tank.setDecay(decay);
 }
 

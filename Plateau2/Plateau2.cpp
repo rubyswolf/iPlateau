@@ -28,8 +28,11 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kPreDelay1)->InitSeconds("Pre Delay 1", 0., 0., 0.5, 0.01);
   GetParam(kNesting1)->InitBool("Nested Tank Diffusion 1", false);
   GetParam(kInputNesting1)->InitBool("Nested Input Diffusion 1", false);
-  //GetParam(kDiffusionDecay1)->InitPercentage("Tank Diffusion Decay 1", 75, 20, 130);
   GetParam(kDiffusionDecay1)->InitPercentage("Tank Diffusion Decay 1", 100);
+  GetParam(kInput1)->InitPercentage("Input 1", 100);
+  GetParam(kStereoSource1)->InitPercentage("Stereo Source 1", 0, -100, 100);
+  GetParam(kWidth1)->InitPercentage("Stereo Width 1", 100, 0, 200);
+  GetParam(kPan1)->InitPercentage("Pan 1", 0, -100, 100);
 
 
   GetParam(kEnable2)->InitBool("Tank 2 Enable", false);
@@ -52,6 +55,10 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kNesting2)->InitBool("Nested Tank Diffusion 2", false);
   GetParam(kInputNesting2)->InitBool("Nested Input Diffusion 2", false);
   GetParam(kDiffusionDecay2)->InitPercentage("Tank Diffusion Decay 2", 100);
+  GetParam(kInput2)->InitPercentage("Input 2", 100);
+  GetParam(kStereoSource2)->InitPercentage("Stereo Source 2", 0, -100, 100);
+  GetParam(kWidth2)->InitPercentage("Stereo Width 2", 100, 0, 200);
+  GetParam(kPan2)->InitPercentage("Pan 2", 0, -100, 100);
 
 
   GetParam(kDanger)->InitBool("DANGER! Allow Unsafe Feedback Settings", false);
@@ -77,9 +84,9 @@ Plateau2::Plateau2(const InstanceInfo& info)
     pGraphics->AttachCornerResizer(EUIResizerMode::Scale, false);
     pGraphics->AttachSVGBackground(BACKGROUND_FN);
 
-    ISVG PageBackgrounds[kNumPages] = { pGraphics->LoadSVG(PAGEMAIN_FN), pGraphics->LoadSVG(PAGEEXTRAS_FN) };
-	ISVG NextButtons[kNumPages] = { pGraphics->LoadSVG(NEXTEXTRAS_FN), pGraphics->LoadSVG(NEXTMAIN_FN) };
-	ISVG PrevButtons[kNumPages] = { pGraphics->LoadSVG(PREVEXTRAS_FN), pGraphics->LoadSVG(PREVMAIN_FN) };
+    ISVG PageBackgrounds[kNumPages] = { pGraphics->LoadSVG(PAGEMAIN_FN), pGraphics->LoadSVG(PAGEEXTRAS_FN), pGraphics->LoadSVG(PAGEROUTING_FN) };
+	ISVG NextButtons[kNumPages] = { pGraphics->LoadSVG(NEXTEXTRAS_FN), pGraphics->LoadSVG(NEXTROUTING_FN),  pGraphics->LoadSVG(NEXTMAIN_FN) };
+	ISVG PrevButtons[kNumPages] = { pGraphics->LoadSVG(PREVROUTING_FN), pGraphics->LoadSVG(PREVMAIN_FN),  pGraphics->LoadSVG(PREVEXTRAS_FN) };
 
     PageBackgroundControl = new ISVGControl(pGraphics->GetBounds(), PageBackgrounds[0]);
     pGraphics->AttachControl(PageBackgroundControl);
@@ -108,19 +115,31 @@ Plateau2::Plateau2(const InstanceInfo& info)
 	}
 
     Knobs[12] = new NeedleKnob(IRECT::MakeXYWH(140, 140, 35, 35), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPreDelay1, kPreDelay2);
-    Knobs[13] = new NeedleKnob(IRECT::MakeXYWH(203, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDiffusionDecay1, kDiffusionDecay2);
+
+    Knobs[13] = new NeedleKnob(IRECT::MakeXYWH(233, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDiffusionDecay1, kDiffusionDecay2);
     Knobs[13]->StartAngle = -72.6923f;
     Knobs[13]->EndAngle = 72.6923f;
+
+    Knobs[14] = new NeedleKnob(IRECT::MakeXYWH(93, 160, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInput1, kInput2);
+    Knobs[15] = new NeedleKnob(IRECT::MakeXYWH(166, 160, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kStereoSource1, kStereoSource2);
+
+    Knobs[16] = new NeedleKnob(IRECT::MakeXYWH(93, 250, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kWidth1, kWidth2);
+    Knobs[17] = new NeedleKnob(IRECT::MakeXYWH(166, 250, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPan1, kPan2);
     
-    for (int i = 12; i <= 13; i++) {
+    for (int i = 12; i <= 17; i++) {
 		pGraphics->AttachControl(Knobs[i]);
 		Knobs[i]->Hide(true);
 	}
 
-    NextButtonControl = new NavigatorButton(IRECT::MakeXYWH(220.572f, 125.695f, 82.306f, 30.f), [this, PageBackgrounds, NextButtons, PrevButtons](IControl* pCaller) {
+    NextButtonControl = new NavigatorButton(IRECT::MakeXYWH(213, 125.695f, 90, 30), [this, PageBackgrounds, NextButtons, PrevButtons](IControl* pCaller) {
         ChangePage(1, PageBackgrounds, NextButtons, PrevButtons);
-        }, pGraphics->LoadSVG(NEXTEXTRAS_FN));
+    }, NextButtons[0]);
     pGraphics->AttachControl(NextButtonControl);
+
+    PrevButtonControl = new NavigatorButton(IRECT::MakeXYWH(12, 125.695f, 90, 30), [this, PageBackgrounds, NextButtons, PrevButtons](IControl* pCaller) {
+    ChangePage(-1, PageBackgrounds, NextButtons, PrevButtons);
+    }, PrevButtons[0]);
+    pGraphics->AttachControl(PrevButtonControl);
 
     double LEDScale = 0.2453054f;
 
@@ -157,10 +176,10 @@ Plateau2::Plateau2(const InstanceInfo& info)
 		pGraphics->AttachControl(Switches[i]);
 	}
 
-    Switches[5] = new LEDSwitch(IRECT::MakeXYWH(228, 216, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kNesting1, kNesting2);
+    Switches[5] = new LEDSwitch(IRECT::MakeXYWH(210, 170, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kNesting1, kNesting2);
 
     //DANGER switch
-    Switches[6] = new LEDSwitch(IRECT::MakeXYWH(130, 329, 56, 56).GetScaledAboutCentre(2), 1, DangerOffSVG, DangerOnSVG, DangerOnSVG, kDanger, kDanger);
+    Switches[6] = new LEDSwitch(IRECT::MakeXYWH(102, 301, 112, 112), 1, DangerOffSVG, DangerOnSVG, DangerOnSVG, kDanger, kDanger);
 
     for (int i = 5; i <= 6; i++) {
         pGraphics->AttachControl(Switches[i]);
@@ -189,7 +208,7 @@ void Plateau2::SelectTank(bool tank2) {
     for (int i = 0; i < kNumKnobs; i++) {
         Knobs[i]->SelectTank(tank2);
         //Knobs[i]->SetValue(GetParam(Knobs[i]->GetParamIdx())->Value());
-		IEditorDelegate::SendParameterValueFromDelegate(Knobs[i]->GetParamIdx(), GetParam(Knobs[i]->GetParamIdx())->GetNormalized(), true);
+		//IEditorDelegate::SendParameterValueFromDelegate(Knobs[i]->GetParamIdx(), GetParam(Knobs[i]->GetParamIdx())->GetNormalized(), true);
     }
 	for (int i = 0; i < kNumSwitches; i++) {
 		Switches[i]->SelectTank(tank2);
@@ -210,8 +229,7 @@ void Plateau2::ChangePage(int direction, const ISVG PageBackgrounds[kNumPages], 
 	PageBackgroundControl->SetDirty(false);
 
 	NextButtonControl->SetSVG(NextButtons[currentPage]);
-
-	//PrevButtonControl->SetSVG(PreviousButtons[currentPage]);
+	PrevButtonControl->SetSVG(PreviousButtons[currentPage]);
 
     UpdatePageVisibility();
 }
@@ -236,6 +254,11 @@ void Plateau2::UpdatePageVisibility()
     for (int i = 5; i <= 6; i++) {
         Switches[i]->Hide(currentPage != 1);
     }
+
+	//Routing page
+	for (int i = 14; i <= 17; i++) {
+		Knobs[i]->Hide(currentPage != 2);
+	}
 }
 
 
@@ -244,16 +267,16 @@ void Plateau2::OnParamChange(int index)
     switch (index) {
         case kClear:
             if (initalizedInterface) {
-			    if (GetParam(kClear)->Value() >= 1) {
-                        SetParameterValue(kClear1, GetParam(kClear)->Value());
-                        SetParameterValue(kClear2, GetParam(kClear)->Value());
+			    if (GetParam(kClear)->Value() >= 0.5) {
+                    SetParameterValue(kClear1, GetParam(kClear)->Value());
+                    SetParameterValue(kClear2, GetParam(kClear)->Value());
                 }
             }
             break;
         case kFreeze:
             if (initalizedInterface)
             {
-                if (GetParam(kFreeze)->Value() >= 1) {
+                if (GetParam(kFreeze)->Value() >= 0.5) {
                     SetParameterValue(tank2Selected ? kFreeze1 : kFreeze2, 1.);
 				    Switches[1]->SetValue(1.);
                 }
@@ -293,7 +316,7 @@ void Plateau2::OnParamChange(int index)
         case kDecay1:
         {
             double decay = GetParam(index)->Value();
-            reverb1.setDecay(2.f * decay - decay * decay);
+            reverb1.setDecay(2 * decay - decay * decay);
             break;
         }
         case kReverbLowDamp1:
@@ -442,6 +465,7 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 
         const bool tank1Enabled = GetParam(kEnable1)->Value();
         const bool tank2Enabled = GetParam(kEnable2)->Value();
+        const double input1 = GetParam(kInput1)->Value() / 100;
 
         outputs[0][s] = inputs[0][s] * dryParam;
         if (nChans > 1)
@@ -494,13 +518,16 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 reverb1.freeze(frozen1);
             }
 
-            reverb1.process((double)(inputs[0][s] * envelope1._value), (double)(inputs[nChans > 1 ? 1 : 0][s] * envelope1._value));
+            reverb1.process(balance((double)(inputs[0][s] * envelope1._value * input1), (double)(inputs[nChans > 1 ? 1 : 0][s] * envelope1._value * input1), GetParam(kStereoSource1)->Value()/100));
 
-            outputs[0][s] += reverb1.getLeftOutput() * wet1Param;
+            std::tuple<double, double> output = seperation(reverb1.getLeftOutput() * wet1Param, reverb1.getRightOutput() * wet1Param, GetParam(kWidth1)->Value()/100);
+            output = balance(std::get<0>(output), std::get<1>(output), GetParam(kPan1)->Value()/100);
+
+            outputs[0][s] += std::get<0>(output);
 
             if (nChans > 1)
             {
-                outputs[1][s] += reverb1.getRightOutput() * wet1Param;
+                outputs[1][s] += std::get<1>(output);
             }
         }
 
@@ -509,6 +536,7 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             const bool clear2Param = GetParam(kClear2)->Value() || GetParam(kClear)->Value();
             const bool freeze2Param = GetParam(kFreeze2)->Value();
             const double wet2Param = GetParam(kWet2)->Value() / 100;
+			const double input2 = GetParam(kInput2)->Value() / 100;
 
             if (clear2Param && !clear2 && cleared2) {
                 cleared2 = false;
@@ -550,13 +578,16 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 reverb2.freeze(frozen2);
             }
 
-            reverb2.process((double)(inputs[0][s] * envelope2._value), (double)(inputs[nChans > 1 ? 1 : 0][s] * envelope2._value));
+            reverb2.process(balance((double)(inputs[0][s] * envelope2._value * input2), (double)(inputs[nChans > 1 ? 1 : 0][s] * envelope2._value * input2), GetParam(kStereoSource2)->Value() / 100));
 
-            outputs[0][s] += reverb2.getLeftOutput() * wet2Param;
+			std::tuple<double, double> output = seperation(reverb2.getLeftOutput() * wet2Param, reverb2.getRightOutput() * wet2Param, GetParam(kWidth2)->Value()/100);
+            output = balance(std::get<0>(output), std::get<1>(output), GetParam(kPan2)->Value()/100);
+
+            outputs[0][s] += std::get<0>(output);
 
             if (nChans > 1)
             {
-                outputs[1][s] += reverb2.getRightOutput() * wet2Param;
+                outputs[1][s] += std::get<1>(output);
             }
         }
   }

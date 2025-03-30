@@ -61,12 +61,15 @@
 #define BACKGROUND_FN "Background.svg"
 #define PAGEMAIN_FN "MainPage.svg"
 #define PAGEEXTRAS_FN "ExtrasPage.svg"
+#define PAGEROUTING_FN "RoutingPage.svg"
 
 #define NEXTEXTRAS_FN "ExtrasNext.svg"
 #define NEXTMAIN_FN "MainNext.svg"
+#define NEXTROUTING_FN "RoutingNext.svg"
 
-#define PREVEXTRAS_FN "ExtrasPrev.svg"
 #define PREVMAIN_FN "MainPrev.svg"
+#define PREVEXTRAS_FN "ExtrasPrev.svg"
+#define PREVROUTING_FN "RoutingPrev.svg"
 
 #define NEEDLE_FN "NeedleDial.svg"
 #define NEEDLEBG_FN "NeedleDial-bg.svg"

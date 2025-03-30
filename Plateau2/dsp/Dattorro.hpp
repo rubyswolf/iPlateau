@@ -165,7 +165,7 @@ public:
     Dattorro(const double initMaxSampleRate = 44100.0,
              const double initMaxLfoDepth = 16.0,
              const double initMaxTimeScale = 1.0);
-    void process(double leftInput, double rightInput);
+    void process(std::tuple<double, double> input);
     void clear();
 
     void setTimeScale(double timeScale);

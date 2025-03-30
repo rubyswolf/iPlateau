@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.4 (86a8ad7, 2024-10-11)"
-   sodipodi:docname="MainPrev.svg"
+   sodipodi:docname="NavigatorTemplate.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -49,10 +49,16 @@
          id="path26"
          style="fill:#ffffff;fill-opacity:1;stroke-width:0.435288" />
     </g>
-    <path
-       d="m 162.40316,42.228262 v -3.532819 h 0.50677 l 1.01353,2.303486 0.99171,-2.303486 h 0.50677 v 3.532819 h -0.53586 V 40.02419 h -0.01 l -0.73954,1.69973 h -0.44615 l -0.73954,-1.69973 h -0.0121 v 2.204072 z m 5.05312,0.0097 v -0.223074 h -0.01 q -0.0703,0.130935 -0.21095,0.189128 -0.15033,0.06304 -0.3928,0.06304 -0.41706,-0.0097 -0.63043,-0.223074 -0.23278,-0.213376 -0.23278,-0.545563 0,-0.315214 0.20126,-0.528589 0.20125,-0.213376 0.59405,-0.218225 h 0.68135 v -0.266719 q 0.002,-0.334612 -0.50192,-0.324913 -0.17458,0 -0.29096,0.0388 -0.11397,0.05092 -0.17216,0.157607 l -0.38795,-0.305515 q 0.28126,-0.375831 0.82683,-0.366133 0.45827,-0.0048 0.73711,0.17943 0.27399,0.191553 0.27884,0.649825 v 1.723977 z m 0,-0.885023 v -0.184279 h -0.58921 q -0.4316,0.01212 -0.42675,0.305515 0,0.126086 0.11154,0.218225 0.10669,0.09941 0.35158,0.09941 0.31037,0.0048 0.43645,-0.07517 0.11639,-0.08002 0.11639,-0.363708 z m 1.06688,0.875324 v -2.516861 h 0.50676 v 2.516861 z m 0,-3.026052 v -0.506767 h 0.50676 v 0.506767 z m 1.17599,3.026052 v -2.516861 h 0.50676 v 0.269145 h 0.01 q 0.2352,-0.298241 0.65468,-0.298241 0.29339,0 0.56496,0.223074 0.27399,0.223075 0.27399,0.649826 v 1.673057 h -0.50677 v -1.498478 q 0,-0.254595 -0.14305,-0.397654 -0.14064,-0.143058 -0.35159,-0.143058 -0.21822,0 -0.36128,0.143058 -0.14064,0.143059 -0.14064,0.397654 v 1.498478 z"
-       id="text2"
-       style="font-size:4.96583px;font-family:'Alte DIN 1451 Mittelschrift';-inkscape-font-specification:'Alte DIN 1451 Mittelschrift';fill:#ffffff;stroke-width:0.33858"
-       aria-label="Main" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.96583px;font-family:'Alte DIN 1451 Mittelschrift';-inkscape-font-specification:'Alte DIN 1451 Mittelschrift';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.33858"
+       x="162.02733"
+       y="42.225838"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="text-align:start;text-anchor:start;stroke-width:0.33858"
+         x="162.02733"
+         y="42.225838">Text</tspan></text>
   </g>
 </svg>

@@ -3,6 +3,8 @@
 #include <string>
 #include <cmath>
 
+#define _TAU 6.283185307179586
+
 //Linearly interpolates from a to b for parameter f from 0 to 1
 template<typename T>
 T linterp(T a, T b, T f) {
@@ -22,6 +24,26 @@ T scale(T a, T inMin, T inMax, T outMin, T outMax) {
 template<typename T>
 T semitone(T x) {
     return ((int)(x * 12)) * 0.0833333f;
+}
+
+std::tuple<double, double> balance(double left, double right, double pan) {
+    //Circular Equal Power Panning from pan -1 to 1
+    return {
+        left * std::cos((pan + 1) * _TAU / 8),
+        right * std::sin((pan + 1) * _TAU / 8)
+    };
+}
+
+std::tuple<double, double> seperation(double left, double right, double width) {
+    double mid = (left + right) * 0.5;  // Mid (Mono)
+    double side = (left - right) * 0.5;  // Side (Stereo Width)
+
+    side *= width; // Adjust stereo width (1.0 = original, 0.0 = mono, >1.0 = widened)
+
+    double newLeft = mid + side;
+    double newRight = mid - side;
+
+    return { newLeft, newRight };
 }
 
 float pitch2freq(const float pitch);
