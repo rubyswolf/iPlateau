@@ -95,6 +95,10 @@ Plateau2::Plateau2(const InstanceInfo& info)
     PageBackgroundControl = new ISVGControl(pGraphics->GetBounds(), PageBackgrounds[0]);
     pGraphics->AttachControl(PageBackgroundControl);
 
+    SVGs[3] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 471.9415f, 192.880f, 190.783), pGraphics->LoadSVG(DANGERPANEL_FN));
+	pGraphics->AttachControl(SVGs[3]);
+	SVGs[3]->Hide(true);
+
     pGraphics->LoadFont("Roboto-Regular", ROBOTO_FN);
     const ISVG NeedleSVG = pGraphics->LoadSVG(NEEDLE_FN);
     const ISVG NeedleBGSVG = pGraphics->LoadSVG(NEEDLEBG_FN);
@@ -124,16 +128,15 @@ Plateau2::Plateau2(const InstanceInfo& info)
     Knobs[13]->StartAngle = -72.6923f;
     Knobs[13]->EndAngle = 72.6923f;
 
-    Knobs[14] = new NeedleKnob(IRECT::MakeXYWH(93, 160, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInput1, kInput2);
-    Knobs[15] = new NeedleKnob(IRECT::MakeXYWH(166, 160, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kStereoSource1, kStereoSource2);
+    Knobs[14] = new NeedleKnob(IRECT::MakeXYWH(93, 170, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInput1, kInput2);
+    Knobs[15] = new NeedleKnob(IRECT::MakeXYWH(166, 170, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kStereoSource1, kStereoSource2);
 
-    Knobs[16] = new NeedleKnob(IRECT::MakeXYWH(93, 250, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kWidth1, kWidth2);
-    Knobs[17] = new NeedleKnob(IRECT::MakeXYWH(166, 250, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPan1, kPan2);
+    Knobs[16] = new NeedleKnob(IRECT::MakeXYWH(93, 294, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kWidth1, kWidth2);
+    Knobs[17] = new NeedleKnob(IRECT::MakeXYWH(166, 294, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPan1, kPan2);
 
-    Knobs[18] = new NeedleKnob(IRECT::MakeXYWH(93, 340, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG1PNG, k1to2Level, k1to2Level);
-    Knobs[19] = new NeedleKnob(IRECT::MakeXYWH(166, 340, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG2PNG, NeedleFG2PNG, k2to1Level, k2to1Level);
+    Knobs[18] = new NeedleKnob(IRECT::MakeXYWH(130, 454, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2Level, k2to1Level);
     
-    for (int i = 12; i <= 19; i++) {
+    for (int i = 12; i <= 18; i++) {
 		pGraphics->AttachControl(Knobs[i]);
 		Knobs[i]->Hide(true);
 	}
@@ -189,14 +192,21 @@ Plateau2::Plateau2(const InstanceInfo& info)
     Switches[6] = new LEDSwitch(IRECT::MakeXYWH(102, 301, 112, 112), 1, DangerOffSVG, DangerOnSVG, DangerOnSVG, kDanger, kDanger);
 
 	//Routing page Switches
-	Switches[7] = new LEDSwitch(IRECT::MakeXYWH(106.5 - 20, 430, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn1SVG, k1to2, k1to2);
-	Switches[8] = new LEDSwitch(IRECT::MakeXYWH(106.5 + 20, 430, 102, 102), LEDScale, LedOffSVG, LedOn2SVG, LedOn2SVG, k2to1, k2to1);
+	Switches[7] = new LEDSwitch(IRECT::MakeXYWH(106.5, 374, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, k1to2, k2to1);
 
-    for (int i = 5; i <= 8; i++) {
+    for (int i = 5; i <= 7; i++) {
         pGraphics->AttachControl(Switches[i]);
 		Switches[i]->Hide(true);
     }
 
+    SVGs[0] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 395, 86.109f, 14.207f), pGraphics->LoadSVG(SEND1TO2_FN));
+    SVGs[1] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 395, 89.227f, 17.208f), pGraphics->LoadSVG(SEND2TO1_FN));
+    SVGs[2] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 480, 162.106f, 45.576f), pGraphics->LoadSVG(REQUIRESDANGER_FN));
+
+    for (int i = 0; i <= 2; i++) {
+        pGraphics->AttachControl(SVGs[i]);
+        SVGs[i]->Hide(true);
+    }
 
 
     LEDRadio* tank1Select = new LEDRadio(IRECT::MakeXYWH(106.5 - 20, 40, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, [this](IControl* radioControl) {SelectTank(false);});
@@ -228,6 +238,9 @@ void Plateau2::SelectTank(bool tank2) {
 	for (int i = 0; i < kNumButtons; i++) {
 		Buttons[i]->SelectTank(tank2);
 	}
+
+    UpdateSendVisibility();
+
     IEditorDelegate::SendCurrentParamValuesFromDelegate();
 }
 
@@ -268,12 +281,24 @@ void Plateau2::UpdatePageVisibility()
     }
 
 	//Routing page
-	for (int i = 14; i <= 19; i++) {
+	for (int i = 14; i <= 17; i++) {
 		Knobs[i]->Hide(currentPage != 2);
 	}
-	for (int i = 7; i <= 8; i++) {
-		Switches[i]->Hide(currentPage != 2);
-	}
+    UpdateSendVisibility();
+}
+
+void Plateau2::UpdateSendVisibility() {
+    for (int i = 7; i <= 7; i++) {
+        Switches[i]->Hide(currentPage != 2);
+    }
+    bool dangerous = GetParam(kDanger)->Value();
+    for (int i = 18; i <= 18; i++) {
+        Knobs[i]->Hide(currentPage != 2 || (!dangerous && tank2Selected));
+    }
+    SVGs[0]->Hide(currentPage != 2 || tank2Selected);
+    SVGs[1]->Hide(currentPage != 2 || !tank2Selected);
+    SVGs[2]->Hide(currentPage != 2 || !tank2Selected || dangerous);
+    SVGs[3]->Hide(currentPage != 2 || !tank2Selected);
 }
 
 
@@ -464,6 +489,7 @@ void Plateau2::OnParamChange(int index)
 			if (initalizedInterface) {
                 Knobs[13]->SetValue((tank2Selected ? GetParam(kDiffusionDecay2)->Value() : GetParam(kDiffusionDecay1)->Value()) / 100);
                 Knobs[13]->SetDirty(false);
+                UpdateSendVisibility();
 			}
             break;
     }
@@ -493,7 +519,7 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             const double wet1Param = GetParam(kWet1)->Value() / 100;
             const double input1 = GetParam(kInput1)->Value() / 100;
 			const double level2to1 = GetParam(k2to1Level)->Value() / 100;
-			const bool send2to1 = tank2Enabled && GetParam(k2to1)->Value();
+			const bool send2to1 = tank2Enabled && GetParam(k2to1)->Value() && GetParam(kDanger)->Value();
 
             if (clear1Param && !clear1 && cleared1) {
                 cleared1 = false;

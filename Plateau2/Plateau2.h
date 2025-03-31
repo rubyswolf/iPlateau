@@ -78,10 +78,11 @@ enum EParams
     kNumParams
 };
 
-const int kNumKnobs = 20;
-const int kNumSwitches = 9;
+const int kNumKnobs = 19;
+const int kNumSwitches = 8;
 const int kNumButtons = 2;
 const int kNumPages = 3;
+const int kNumSVGs = 4;
 
 using namespace iplug;
 using namespace igraphics;
@@ -98,6 +99,7 @@ public:
   void ProcessBlock(sample** inputs, sample** outputs, int nFrames) override;
   void ChangePage(int direction, const ISVG PageBackgrounds[kNumPages], const ISVG NextButtons[kNumPages], const ISVG PreviousButtons[kNumPages]);
   void UpdatePageVisibility();
+  void UpdateSendVisibility();
   void OnParamChange(int index) override;
   void SelectTank(bool tank2);
 #endif
@@ -129,6 +131,7 @@ public:
         NeedleKnob* Knobs[kNumKnobs];
         LEDSwitch* Switches[kNumSwitches];
         LEDButton* Buttons[kNumButtons];
+		ISVGControl* SVGs[kNumSVGs];
 
 
         int currentPage = 0;
