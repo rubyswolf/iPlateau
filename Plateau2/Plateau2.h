@@ -43,10 +43,8 @@ enum EParams
     kStereoSource1,
     kWidth1,
     kPan1,
-    kL1toL2,
-    kR1toL2,
-    kL1toR2,
-    kR1toR2,
+    k1to2,
+    k1to2Level,
 
     kEnable2,
     kWet2,
@@ -72,10 +70,8 @@ enum EParams
 	kStereoSource2,
 	kWidth2,
 	kPan2,
-    kL2toL1,
-    kR2toL1,
-    kL2toR1,
-    kR2toR1,
+    k2to1,
+    k2to1Level,
 
     kDanger,
 
@@ -83,7 +79,7 @@ enum EParams
 };
 
 const int kNumKnobs = 20;
-const int kNumSwitches = 7;
+const int kNumSwitches = 9;
 const int kNumButtons = 2;
 const int kNumPages = 3;
 
