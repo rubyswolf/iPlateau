@@ -33,6 +33,10 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kStereoSource1)->InitPercentage("Stereo Source 1", 0, -100, 100);
   GetParam(kWidth1)->InitPercentage("Stereo Width 1", 100, 0, 200);
   GetParam(kPan1)->InitPercentage("Pan 1", 0, -100, 100);
+  GetParam(kL1toL2)->InitPercentage("Send Left 1 to Left 2");
+  GetParam(kR1toL2)->InitPercentage("Send Right 1 to Left 2");
+  GetParam(kL1toR2)->InitPercentage("Send Left 1 to Right 2");
+  GetParam(kR1toR2)->InitPercentage("Send Right 1 to Right 2");
 
 
   GetParam(kEnable2)->InitBool("Tank 2 Enable", false);
@@ -59,6 +63,10 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kStereoSource2)->InitPercentage("Stereo Source 2", 0, -100, 100);
   GetParam(kWidth2)->InitPercentage("Stereo Width 2", 100, 0, 200);
   GetParam(kPan2)->InitPercentage("Pan 2", 0, -100, 100);
+  GetParam(kL2toL1)->InitPercentage("Send Left 2 to Left 1");
+  GetParam(kR2toL1)->InitPercentage("Send Right 2 to Left 1");
+  GetParam(kL2toR1)->InitPercentage("Send Left 2 to Right 1");
+  GetParam(kR2toR1)->InitPercentage("Send Right 2 to Right 1");
 
 
   GetParam(kDanger)->InitBool("DANGER! Allow Unsafe Feedback Settings", false);
@@ -125,8 +133,11 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
     Knobs[16] = new NeedleKnob(IRECT::MakeXYWH(93, 250, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kWidth1, kWidth2);
     Knobs[17] = new NeedleKnob(IRECT::MakeXYWH(166, 250, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPan1, kPan2);
+
+    Knobs[18] = new NeedleKnob(IRECT::MakeXYWH(93, 340, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kL1toL2, kL2toL1);
+    Knobs[19] = new NeedleKnob(IRECT::MakeXYWH(166, 340, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kR1toR2, kR2toR1);
     
-    for (int i = 12; i <= 17; i++) {
+    for (int i = 12; i <= 19; i++) {
 		pGraphics->AttachControl(Knobs[i]);
 		Knobs[i]->Hide(true);
 	}
@@ -256,7 +267,7 @@ void Plateau2::UpdatePageVisibility()
     }
 
 	//Routing page
-	for (int i = 14; i <= 17; i++) {
+	for (int i = 14; i <= 19; i++) {
 		Knobs[i]->Hide(currentPage != 2);
 	}
 }
@@ -465,7 +476,6 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 
         const bool tank1Enabled = GetParam(kEnable1)->Value();
         const bool tank2Enabled = GetParam(kEnable2)->Value();
-        const double input1 = GetParam(kInput1)->Value() / 100;
 
         outputs[0][s] = inputs[0][s] * dryParam;
         if (nChans > 1)
@@ -477,6 +487,7 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             const bool clear1Param = GetParam(kClear1)->Value() || GetParam(kClear)->Value();
             const bool freeze1Param = GetParam(kFreeze1)->Value();
             const double wet1Param = GetParam(kWet1)->Value() / 100;
+            const double input1 = GetParam(kInput1)->Value() / 100;
 
             if (clear1Param && !clear1 && cleared1) {
                 cleared1 = false;
@@ -518,16 +529,18 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 reverb1.freeze(frozen1);
             }
 
-            reverb1.process(balance((double)(inputs[0][s] * envelope1._value * input1), (double)(inputs[nChans > 1 ? 1 : 0][s] * envelope1._value * input1), GetParam(kStereoSource1)->Value()/100));
+            reverb1.process(balance((double)(envelope1._value * (inputs[0][s] * input1 + (tank2Enabled ? (std::get<0>(reverbOut2) * (GetParam(kL2toL1)->Value() / 100) + std::get<1>(reverbOut2) * (GetParam(kR2toL1)->Value() / 100)) : 0))), (double)(envelope1._value * (inputs[nChans > 1 ? 1 : 0][s] * input1 + (tank2Enabled ? (std::get<0>(reverbOut2) * (GetParam(kL2toR1)->Value() / 100) + std::get<1>(reverbOut2) * (GetParam(kR2toR1)->Value() / 100)) : 0))), GetParam(kStereoSource1)->Value() / 100));
 
-            std::tuple<double, double> output = seperation(reverb1.getLeftOutput() * wet1Param, reverb1.getRightOutput() * wet1Param, GetParam(kWidth1)->Value()/100);
-            output = balance(std::get<0>(output), std::get<1>(output), GetParam(kPan1)->Value()/100);
+            reverbOut1 = { reverb1.getLeftOutput(), reverb1.getRightOutput() };
 
-            outputs[0][s] += std::get<0>(output);
+            std::tuple<double,double> out = seperation(std::get<0>(reverbOut1), std::get<1>(reverbOut1), GetParam(kWidth1)->Value() / 100);
+            out = balance(std::get<0>(out), std::get<1>(out), GetParam(kPan1)->Value()/100);
+
+            outputs[0][s] += std::get<0>(out) * wet1Param;
 
             if (nChans > 1)
             {
-                outputs[1][s] += std::get<1>(output);
+                outputs[1][s] += std::get<1>(out) * wet1Param;
             }
         }
 
@@ -578,16 +591,18 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 reverb2.freeze(frozen2);
             }
 
-            reverb2.process(balance((double)(inputs[0][s] * envelope2._value * input2), (double)(inputs[nChans > 1 ? 1 : 0][s] * envelope2._value * input2), GetParam(kStereoSource2)->Value() / 100));
+            reverb2.process(balance((double)(envelope2._value * (inputs[0][s] * input2 + (tank1Enabled ? (std::get<0>(reverbOut1) * (GetParam(kL1toL2)->Value() / 100) + std::get<1>(reverbOut1) * (GetParam(kR1toL2)->Value() / 100)) : 0))), (double)(envelope2._value*(inputs[nChans > 1 ? 1 : 0][s] * input2 + (tank1Enabled ? (std::get<0>(reverbOut1) * (GetParam(kL1toR2)->Value() / 100) + std::get<1>(reverbOut1) * (GetParam(kR1toR2)->Value() / 100)) : 0))), GetParam(kStereoSource2)->Value() / 100));
 
-			std::tuple<double, double> output = seperation(reverb2.getLeftOutput() * wet2Param, reverb2.getRightOutput() * wet2Param, GetParam(kWidth2)->Value()/100);
-            output = balance(std::get<0>(output), std::get<1>(output), GetParam(kPan2)->Value()/100);
+            reverbOut2 = { reverb2.getLeftOutput(), reverb2.getRightOutput() };
 
-            outputs[0][s] += std::get<0>(output);
+            std::tuple<double, double> out = seperation(std::get<0>(reverbOut2), std::get<1>(reverbOut2), GetParam(kWidth2)->Value()/100);
+            out = balance(std::get<0>(out), std::get<1>(out), GetParam(kPan2)->Value()/100);
+
+            outputs[0][s] += std::get<0>(out) * wet2Param;
 
             if (nChans > 1)
             {
-                outputs[1][s] += std::get<1>(output);
+                outputs[1][s] += std::get<1>(out) * wet2Param;
             }
         }
   }

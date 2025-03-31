@@ -43,6 +43,10 @@ enum EParams
     kStereoSource1,
     kWidth1,
     kPan1,
+    kL1toL2,
+    kR1toL2,
+    kL1toR2,
+    kR1toR2,
 
     kEnable2,
     kWet2,
@@ -68,13 +72,17 @@ enum EParams
 	kStereoSource2,
 	kWidth2,
 	kPan2,
+    kL2toL1,
+    kR2toL1,
+    kL2toR1,
+    kR2toR1,
 
     kDanger,
 
     kNumParams
 };
 
-const int kNumKnobs = 18;
+const int kNumKnobs = 20;
 const int kNumSwitches = 7;
 const int kNumButtons = 2;
 const int kNumPages = 3;
@@ -99,6 +107,7 @@ public:
 #endif
     private:
         Dattorro reverb1;
+        std::tuple<double, double> reverbOut1 = {0,0};
         LinearEnvelope envelope1;
         bool clear1 = false;
         bool cleared1 = true;
@@ -107,6 +116,7 @@ public:
         bool frozen1 = false;
         
         Dattorro reverb2;
+        std::tuple<double, double> reverbOut2 = { 0,0 };
         LinearEnvelope envelope2;
         bool clear2 = false;
         bool cleared2 = true;
