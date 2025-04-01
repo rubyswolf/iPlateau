@@ -111,7 +111,8 @@ public:
         std::tuple<double, double> sourceBalance1 = { 0, 0 };
         std::tuple<double, double> panBalance1 = { 0, 0 };
         LinearEnvelope envelope1;
-        InterpDelay<double> send1To2Delay;
+        InterpDelay<double> send1To2LeftDelay;
+        InterpDelay<double> send1To2RightDelay;
         bool clear1 = false;
         bool cleared1 = true;
         bool fadeOut1 = false;
@@ -123,7 +124,8 @@ public:
         std::tuple<double, double> sourceBalance2 = { 0, 0 };
         std::tuple<double, double> panBalance2 = { 0, 0 };
         LinearEnvelope envelope2;
-        InterpDelay<double> send2To1Delay;
+        InterpDelay<double> send2To1LeftDelay;
+        InterpDelay<double> send2To1RightDelay;
         bool clear2 = false;
         bool cleared2 = true;
         bool fadeOut2 = false;

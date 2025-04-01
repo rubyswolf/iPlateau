@@ -35,6 +35,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kPan1)->InitPercentage("Pan 1", 0, -100, 100);
   GetParam(k1to2)->InitBool("Send Tank 1 to 2", false);
   GetParam(k1to2Level)->InitPercentage("Tank 1 to 2 Level");
+  GetParam(k1to2Delay)->InitSeconds("Tank 1 to 2 Delay", 0., 0., 0.5, 0.01);
 
 
   GetParam(kEnable2)->InitBool("Tank 2 Enable", false);
@@ -63,6 +64,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kPan2)->InitPercentage("Pan 2", 0, -100, 100);
   GetParam(k2to1)->InitBool("Send Tank 2 to 1", false);
   GetParam(k2to1Level)->InitPercentage("Tank 1 to 2 Level");
+  GetParam(k2to1Delay)->InitSeconds("Tank 2 to 1 Delay", 0., 0., 0.5, 0.01);
 
 
   GetParam(kDanger)->InitBool("DANGER! Allow Unsafe Feedback Settings", false);
@@ -77,6 +79,13 @@ Plateau2::Plateau2(const InstanceInfo& info)
   envelope2.setSampleRate(GetSampleRate());
   envelope2.setTime(0.004f);
   envelope2._value = 1.f;
+
+  uint16_t MaxSendDelay = std::ceil(GetSampleRate()/2);
+
+  send1To2LeftDelay = InterpDelay<double>(MaxSendDelay, 0);
+  send1To2RightDelay = InterpDelay<double>(MaxSendDelay, 0);
+  send2To1LeftDelay = InterpDelay<double>(MaxSendDelay, 0);
+  send2To1RightDelay = InterpDelay<double>(MaxSendDelay, 0);
 
 #if IPLUG_EDITOR // http://bit.ly/2S64BDd
   mMakeGraphicsFunc = [&]() {
@@ -398,6 +407,13 @@ void Plateau2::OnParamChange(int index)
         case kPan1:
             panBalance1 = balanceFactors(GetParam(kPan1)->Value()/100);
             break;
+        case k1to2Delay:
+        {
+            double delay1 = GetParam(k1to2Delay)->Value()*GetSampleRate();
+            send1To2LeftDelay.setDelayTime(delay1);
+            send1To2RightDelay.setDelayTime(delay1);
+            break;
+        }
 
         case kPreDelay2:
             reverb2.setPreDelay(GetParam(index)->Value());
@@ -468,6 +484,13 @@ void Plateau2::OnParamChange(int index)
         case kPan2:
             panBalance2 = balanceFactors(GetParam(kPan2)->Value()/100);
             break;
+        case k2to1Delay:
+        {
+            double delay2 = GetParam(k2to1Delay)->Value() * GetSampleRate();
+            send2To1LeftDelay.setDelayTime(delay2);
+            send2To1RightDelay.setDelayTime(delay2);
+            break;
+        }
 
 		case kDanger:
 			if (GetParam(kDanger)->Value()) {
@@ -587,6 +610,14 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             {
                 outputs[1][s] += std::get<1>(out) * wet1Param;
             }
+
+            if (tank2Enabled) {
+				send1To2LeftDelay.input = std::get<0>(reverbOut1);
+				send1To2RightDelay.input = std::get<1>(reverbOut1);
+				send1To2LeftDelay.process();
+				send1To2RightDelay.process();
+				reverbOut1 = { send1To2LeftDelay.output, send1To2RightDelay.output };
+            }
         }
 
         //I can't find a way to make tank 2 work without just copying and pasting everything
@@ -650,6 +681,14 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             if (nChans > 1)
             {
                 outputs[1][s] += std::get<1>(out) * wet2Param;
+            }
+
+            if (tank1Enabled) {
+                send2To1LeftDelay.input = std::get<0>(reverbOut2);
+                send2To1RightDelay.input = std::get<1>(reverbOut2);
+                send2To1LeftDelay.process();
+                send2To1RightDelay.process();
+                reverbOut2 = { send2To1LeftDelay.output, send2To1RightDelay.output };
             }
         }
   }

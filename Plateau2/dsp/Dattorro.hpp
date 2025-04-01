@@ -11,9 +11,7 @@
 
 class Dattorro1997Tank {
 public:
-    Dattorro1997Tank(const double initMaxSampleRate = 44100.0,
-                     const double initMaxLfoDepth = 0.0,
-                     const double initMaxTimeScale = 1.0);
+    Dattorro1997Tank();
 
     void process(const double leftInput, const double rightIn,
                  double* leftOut, double* rightOut);
@@ -107,11 +105,9 @@ private:
 
     std::array<long, 7> scaledOutputTaps;
 
-    double maxSampleRate = 44100.;
-    double sampleRate = maxSampleRate;
+    double sampleRate;
     double sampleRateScale = sampleRate / dattorroSampleRate;
 
-    double maxTimeScale = 1.0;
     double timeScale = 1.0;
 
     double modDepth = 0.0;
@@ -162,9 +158,7 @@ private:
 
 class Dattorro {
 public:
-    Dattorro(const double initMaxSampleRate = 44100.0,
-             const double initMaxLfoDepth = 16.0,
-             const double initMaxTimeScale = 1.0);
+    Dattorro();
     void process(double leftInput, double rightInput);
     void clear();
 
