@@ -26,13 +26,14 @@ T semitone(T x) {
     return ((int)(x * 12)) * 0.0833333f;
 }
 
-std::tuple<double, double> balance(double left, double right, double pan) {
+std::tuple<double, double> balanceFactors(double pan) {
     //Circular Equal Power Panning from pan -1 to 1
     return {
-        left * std::cos((pan + 1) * _TAU / 8),
-        right * std::sin((pan + 1) * _TAU / 8)
+        std::cos((pan + 1) * _TAU / 8),
+        std::sin((pan + 1) * _TAU / 8)
     };
 }
+
 
 std::tuple<double, double> seperation(double left, double right, double width) {
     double mid = (left + right) * 0.5;  // Mid (Mono)

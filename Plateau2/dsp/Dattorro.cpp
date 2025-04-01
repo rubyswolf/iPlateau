@@ -292,10 +292,7 @@ Dattorro::Dattorro(const double initMaxSampleRate,
     rightInputDCBlock.setCutoffFreq(20.0);
 }
 
-void Dattorro::process(std::tuple<double, double> input) {
-    double leftInput = std::get<0>(input);
-    double rightInput = std::get<1>(input);
-
+void Dattorro::process(double leftInput, double rightInput) {
     leftInputDCBlock.input = leftInput;
     rightInputDCBlock.input = rightInput;
     inputLpf.setCutoffFreq(inputHighCut);

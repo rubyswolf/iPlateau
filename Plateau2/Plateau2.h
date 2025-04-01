@@ -45,6 +45,7 @@ enum EParams
     kPan1,
     k1to2,
     k1to2Level,
+    k1to2Delay,
 
     kEnable2,
     kWet2,
@@ -72,13 +73,14 @@ enum EParams
 	kPan2,
     k2to1,
     k2to1Level,
+    k2to1Delay,
 
     kDanger,
 
     kNumParams
 };
 
-const int kNumKnobs = 19;
+const int kNumKnobs = 20;
 const int kNumSwitches = 8;
 const int kNumButtons = 2;
 const int kNumPages = 3;
@@ -105,8 +107,11 @@ public:
 #endif
     private:
         Dattorro reverb1;
-        std::tuple<double, double> reverbOut1 = {0,0};
+        std::tuple<double, double> reverbOut1 = { 0,0 };
+        std::tuple<double, double> sourceBalance1 = { 0, 0 };
+        std::tuple<double, double> panBalance1 = { 0, 0 };
         LinearEnvelope envelope1;
+        InterpDelay<double> send1To2Delay;
         bool clear1 = false;
         bool cleared1 = true;
         bool fadeOut1 = false;
@@ -115,7 +120,10 @@ public:
         
         Dattorro reverb2;
         std::tuple<double, double> reverbOut2 = { 0,0 };
+        std::tuple<double, double> sourceBalance2 = { 0, 0 };
+        std::tuple<double, double> panBalance2 = { 0, 0 };
         LinearEnvelope envelope2;
+        InterpDelay<double> send2To1Delay;
         bool clear2 = false;
         bool cleared2 = true;
         bool fadeOut2 = false;

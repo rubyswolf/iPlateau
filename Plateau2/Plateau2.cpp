@@ -134,9 +134,10 @@ Plateau2::Plateau2(const InstanceInfo& info)
     Knobs[16] = new NeedleKnob(IRECT::MakeXYWH(93, 294, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kWidth1, kWidth2);
     Knobs[17] = new NeedleKnob(IRECT::MakeXYWH(166, 294, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPan1, kPan2);
 
-    Knobs[18] = new NeedleKnob(IRECT::MakeXYWH(130, 454, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2Level, k2to1Level);
+    Knobs[18] = new NeedleKnob(IRECT::MakeXYWH(93, 454, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2Level, k2to1Level);
+    Knobs[19] = new NeedleKnob(IRECT::MakeXYWH(166, 454, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2Delay, k2to1Delay);
     
-    for (int i = 12; i <= 18; i++) {
+    for (int i = 12; i <= 19; i++) {
 		pGraphics->AttachControl(Knobs[i]);
 		Knobs[i]->Hide(true);
 	}
@@ -292,7 +293,7 @@ void Plateau2::UpdateSendVisibility() {
         Switches[i]->Hide(currentPage != 2);
     }
     bool dangerous = GetParam(kDanger)->Value();
-    for (int i = 18; i <= 18; i++) {
+    for (int i = 18; i <= 19; i++) {
         Knobs[i]->Hide(currentPage != 2 || (!dangerous && tank2Selected));
     }
     SVGs[0]->Hide(currentPage != 2 || tank2Selected);
@@ -391,6 +392,12 @@ void Plateau2::OnParamChange(int index)
                 reverb1.setTankDiffusionDecay(scale<double>(GetParam(index)->Value(), 0, 100, .3, 1));
             }
 			break;
+        case kStereoSource1:
+            sourceBalance1 = balanceFactors(GetParam(kStereoSource1)->Value()/100);
+            break;
+        case kPan1:
+            panBalance1 = balanceFactors(GetParam(kPan1)->Value()/100);
+            break;
 
         case kPreDelay2:
             reverb2.setPreDelay(GetParam(index)->Value());
@@ -454,6 +461,12 @@ void Plateau2::OnParamChange(int index)
             else {
                 reverb2.setTankDiffusionDecay(scale<double>(GetParam(index)->Value(), 0, 100, .3, 1));
             }
+            break;
+        case kStereoSource2:
+            sourceBalance2 = balanceFactors(GetParam(kStereoSource2)->Value()/100);
+            break;
+        case kPan2:
+            panBalance2 = balanceFactors(GetParam(kPan2)->Value()/100);
             break;
 
 		case kDanger:
@@ -561,12 +574,12 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 reverb1.freeze(frozen1);
             }
 
-            reverb1.process(balance((double)(envelope1._value * (inputs[0][s] * input1 + (send2to1 ? (std::get<0>(reverbOut2) * level2to1) : 0))), (double)(envelope1._value * (inputs[nChans > 1 ? 1 : 0][s] * input1 + (send2to1 ? (std::get<1>(reverbOut2) * level2to1) : 0))), GetParam(kStereoSource1)->Value() / 100));
+            reverb1.process((double)(std::get<0>(sourceBalance1) * envelope1._value * (inputs[0][s] * input1 + (send2to1 ? (std::get<0>(reverbOut2) * level2to1) : 0))), (double)(std::get<1>(sourceBalance1) * envelope1._value * (inputs[nChans > 1 ? 1 : 0][s] * input1 + (send2to1 ? (std::get<1>(reverbOut2) * level2to1) : 0))));
 
             reverbOut1 = { reverb1.getLeftOutput(), reverb1.getRightOutput() };
 
             std::tuple<double,double> out = seperation(std::get<0>(reverbOut1), std::get<1>(reverbOut1), GetParam(kWidth1)->Value() / 100);
-            out = balance(std::get<0>(out), std::get<1>(out), GetParam(kPan1)->Value()/100);
+            out = { std::get<0>(panBalance1) * std::get<0>(out), std::get<1>(panBalance1)* std::get<1>(out) };
 
             outputs[0][s] += std::get<0>(out) * wet1Param;
 
@@ -625,12 +638,12 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 reverb2.freeze(frozen2);
             }
 
-            reverb2.process(balance((double)(envelope2._value * (inputs[0][s] * input2 + (send1to2 ? (std::get<0>(reverbOut1) * level1to2) : 0))), (double)(envelope2._value*(inputs[nChans > 1 ? 1 : 0][s] * input2 + (send1to2 ? (std::get<1>(reverbOut1) * level1to2) : 0))), GetParam(kStereoSource2)->Value() / 100));
+            reverb2.process((double)(std::get<0>(sourceBalance2) * envelope2._value * (inputs[0][s] * input2 + (send1to2 ? (std::get<0>(reverbOut1) * level1to2) : 0))), (double)(std::get<1>(sourceBalance2) * envelope2._value*(inputs[nChans > 1 ? 1 : 0][s] * input2 + (send1to2 ? (std::get<1>(reverbOut1) * level1to2) : 0))));
 
             reverbOut2 = { reverb2.getLeftOutput(), reverb2.getRightOutput() };
 
             std::tuple<double, double> out = seperation(std::get<0>(reverbOut2), std::get<1>(reverbOut2), GetParam(kWidth2)->Value()/100);
-            out = balance(std::get<0>(out), std::get<1>(out), GetParam(kPan2)->Value()/100);
+            out = { std::get<0>(panBalance2) * std::get<0>(out), std::get<1>(panBalance2) * std::get<1>(out) };
 
             outputs[0][s] += std::get<0>(out) * wet2Param;
 
