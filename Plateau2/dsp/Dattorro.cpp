@@ -272,7 +272,7 @@ Dattorro::Dattorro()
 {
 }
 
-void Dattorro::process(double leftInput, double rightInput) {
+void Dattorro::process(double leftInput, double rightInput, double sent) {
     leftInputDCBlock.input = leftInput;
     rightInputDCBlock.input = rightInput;
     inputLpf.setCutoffFreq(inputHighCut);
@@ -282,6 +282,7 @@ void Dattorro::process(double leftInput, double rightInput) {
     inputHpf.process();
     preDelay.input = inputHpf.output;
     preDelay.process();
+	preDelay.output += sent;
     inApf1.input = preDelay.output;
     inApf2.input = inApf1.process();
     inApf3.input = inApf2.process();
@@ -320,7 +321,7 @@ void Dattorro::setSampleRate(double newSampleRate) {
 
     sampleRate = newSampleRate;
 
-    preDelay = InterpDelay<double>(std::ceil(sampleRate*0.5), 0);
+    preDelay = InterpDelay<double>(std::ceil(sampleRate/2)+1, 0);
 
     inputLpf = OnePoleLPFilter(22000.0);
     inputHpf = OnePoleHPFilter(0.0);

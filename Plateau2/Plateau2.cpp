@@ -80,12 +80,10 @@ Plateau2::Plateau2(const InstanceInfo& info)
   envelope2.setTime(0.004f);
   envelope2._value = 1.f;
 
-  uint16_t MaxSendDelay = std::ceil(GetSampleRate()/2);
+  uint16_t MaxSendDelay = std::ceil(GetSampleRate()/2)+1;
 
-  send1To2LeftDelay = InterpDelay<double>(MaxSendDelay, 0);
-  send1To2RightDelay = InterpDelay<double>(MaxSendDelay, 0);
-  send2To1LeftDelay = InterpDelay<double>(MaxSendDelay, 0);
-  send2To1RightDelay = InterpDelay<double>(MaxSendDelay, 0);
+  send1To2Delay = InterpDelay<double>(MaxSendDelay, 0);
+  send2To1Delay = InterpDelay<double>(MaxSendDelay, 0);
 
 #if IPLUG_EDITOR // http://bit.ly/2S64BDd
   mMakeGraphicsFunc = [&]() {
@@ -408,12 +406,8 @@ void Plateau2::OnParamChange(int index)
             panBalance1 = balanceFactors(GetParam(kPan1)->Value()/100);
             break;
         case k1to2Delay:
-        {
-            double delay1 = GetParam(k1to2Delay)->Value()*GetSampleRate();
-            send1To2LeftDelay.setDelayTime(delay1);
-            send1To2RightDelay.setDelayTime(delay1);
+            send1To2Delay.setDelayTime(GetParam(k1to2Delay)->Value() * GetSampleRate());
             break;
-        }
 
         case kPreDelay2:
             reverb2.setPreDelay(GetParam(index)->Value());
@@ -485,12 +479,8 @@ void Plateau2::OnParamChange(int index)
             panBalance2 = balanceFactors(GetParam(kPan2)->Value()/100);
             break;
         case k2to1Delay:
-        {
-            double delay2 = GetParam(k2to1Delay)->Value() * GetSampleRate();
-            send2To1LeftDelay.setDelayTime(delay2);
-            send2To1RightDelay.setDelayTime(delay2);
+            send2To1Delay.setDelayTime(GetParam(k2to1Delay)->Value() * GetSampleRate());
             break;
-        }
 
 		case kDanger:
 			if (GetParam(kDanger)->Value()) {
@@ -543,6 +533,9 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
         const bool tank1Enabled = GetParam(kEnable1)->Value();
         const bool tank2Enabled = GetParam(kEnable2)->Value();
 
+		const bool send2to1 = tank2Enabled && GetParam(k2to1)->Value() && GetParam(kDanger)->Value();
+        const bool send1to2 = tank1Enabled && GetParam(k1to2)->Value();
+
         outputs[0][s] = inputs[0][s] * dryParam;
         if (nChans > 1)
         {
@@ -555,7 +548,6 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             const double wet1Param = GetParam(kWet1)->Value() / 100;
             const double input1 = GetParam(kInput1)->Value() / 100;
 			const double level2to1 = GetParam(k2to1Level)->Value() / 100;
-			const bool send2to1 = tank2Enabled && GetParam(k2to1)->Value() && GetParam(kDanger)->Value();
 
             if (clear1Param && !clear1 && cleared1) {
                 cleared1 = false;
@@ -597,11 +589,9 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 reverb1.freeze(frozen1);
             }
 
-            reverb1.process((double)(std::get<0>(sourceBalance1) * envelope1._value * (inputs[0][s] * input1 + (send2to1 ? (std::get<0>(reverbOut2) * level2to1) : 0))), (double)(std::get<1>(sourceBalance1) * envelope1._value * (inputs[nChans > 1 ? 1 : 0][s] * input1 + (send2to1 ? (std::get<1>(reverbOut2) * level2to1) : 0))));
+            reverb1.process((double)(std::get<0>(sourceBalance1) * envelope1._value * inputs[0][s] * input1), (double)(std::get<1>(sourceBalance1) * envelope1._value * (inputs[nChans > 1 ? 1 : 0][s] * input1)), (send2to1 ? (envelope1._value * level2to1 * reverbOut2) : 0));
 
-            reverbOut1 = { reverb1.getLeftOutput(), reverb1.getRightOutput() };
-
-            std::tuple<double,double> out = seperation(std::get<0>(reverbOut1), std::get<1>(reverbOut1), GetParam(kWidth1)->Value() / 100);
+            std::tuple<double,double> out = seperation(reverb1.getLeftOutput(), reverb1.getRightOutput(), GetParam(kWidth1)->Value() / 100);
             out = { std::get<0>(panBalance1) * std::get<0>(out), std::get<1>(panBalance1)* std::get<1>(out) };
 
             outputs[0][s] += std::get<0>(out) * wet1Param;
@@ -611,12 +601,10 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 outputs[1][s] += std::get<1>(out) * wet1Param;
             }
 
-            if (tank2Enabled) {
-				send1To2LeftDelay.input = std::get<0>(reverbOut1);
-				send1To2RightDelay.input = std::get<1>(reverbOut1);
-				send1To2LeftDelay.process();
-				send1To2RightDelay.process();
-				reverbOut1 = { send1To2LeftDelay.output, send1To2RightDelay.output };
+            if (send1to2) {
+				send1To2Delay.input = 0.707 * (reverb1.getLeftOutput() + reverb1.getRightOutput());
+				send1To2Delay.process();
+                reverbOut1 = send1To2Delay.output;
             }
         }
 
@@ -627,7 +615,6 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             const double wet2Param = GetParam(kWet2)->Value() / 100;
 			const double input2 = GetParam(kInput2)->Value() / 100;
 			const double level1to2 = GetParam(k1to2Level)->Value() / 100;
-			const bool send1to2 = tank1Enabled && GetParam(k1to2)->Value();
 
             if (clear2Param && !clear2 && cleared2) {
                 cleared2 = false;
@@ -669,11 +656,10 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 reverb2.freeze(frozen2);
             }
 
-            reverb2.process((double)(std::get<0>(sourceBalance2) * envelope2._value * (inputs[0][s] * input2 + (send1to2 ? (std::get<0>(reverbOut1) * level1to2) : 0))), (double)(std::get<1>(sourceBalance2) * envelope2._value*(inputs[nChans > 1 ? 1 : 0][s] * input2 + (send1to2 ? (std::get<1>(reverbOut1) * level1to2) : 0))));
+            reverb2.process((double)(std::get<0>(sourceBalance2)* envelope2._value* inputs[0][s] * input2), (double)(std::get<1>(sourceBalance2)* envelope2._value* (inputs[nChans > 1 ? 1 : 0][s] * input2)), (send1to2 ? (envelope2._value * level1to2 * reverbOut1) : 0));
 
-            reverbOut2 = { reverb2.getLeftOutput(), reverb2.getRightOutput() };
 
-            std::tuple<double, double> out = seperation(std::get<0>(reverbOut2), std::get<1>(reverbOut2), GetParam(kWidth2)->Value()/100);
+            std::tuple<double, double> out = seperation(reverb2.getLeftOutput(), reverb2.getRightOutput(), GetParam(kWidth2)->Value()/100);
             out = { std::get<0>(panBalance2) * std::get<0>(out), std::get<1>(panBalance2) * std::get<1>(out) };
 
             outputs[0][s] += std::get<0>(out) * wet2Param;
@@ -683,12 +669,10 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 outputs[1][s] += std::get<1>(out) * wet2Param;
             }
 
-            if (tank1Enabled) {
-                send2To1LeftDelay.input = std::get<0>(reverbOut2);
-                send2To1RightDelay.input = std::get<1>(reverbOut2);
-                send2To1LeftDelay.process();
-                send2To1RightDelay.process();
-                reverbOut2 = { send2To1LeftDelay.output, send2To1RightDelay.output };
+            if (send2to1) {
+                send2To1Delay.input = 0.707 * (reverb2.getLeftOutput()+reverb2.getRightOutput());
+                send2To1Delay.process();
+                reverbOut2 = send2To1Delay.output;
             }
         }
   }

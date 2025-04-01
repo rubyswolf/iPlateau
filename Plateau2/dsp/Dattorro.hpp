@@ -159,7 +159,7 @@ private:
 class Dattorro {
 public:
     Dattorro();
-    void process(double leftInput, double rightInput);
+    void process(double leftInput, double rightInput, double sent);
     void clear();
 
     void setTimeScale(double timeScale);
