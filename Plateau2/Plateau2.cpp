@@ -106,9 +106,9 @@ Plateau2::Plateau2(const InstanceInfo& info)
     PageBackgroundControl = new ISVGControl(pGraphics->GetBounds(), PageBackgrounds[0]);
     pGraphics->AttachControl(PageBackgroundControl);
 
-    SVGs[3] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 471.9415f, 192.880f, 190.783), pGraphics->LoadSVG(DANGERPANEL_FN));
-	pGraphics->AttachControl(SVGs[3]);
-	SVGs[3]->Hide(true);
+    SVGs[0] = new ISVGControl(IRECT::MakeXYWH(61.06f, 376.55f, 192.880f, 235), pGraphics->LoadSVG(DANGERPANEL_FN));
+	pGraphics->AttachControl(SVGs[0]);
+	SVGs[0]->Hide(true);
 
     pGraphics->LoadFont("Roboto-Regular", ROBOTO_FN);
     const ISVG NeedleSVG = pGraphics->LoadSVG(NEEDLE_FN);
@@ -132,6 +132,10 @@ Plateau2::Plateau2(const InstanceInfo& info)
 	for (int i = 0; i <= 11; i++) {
 		pGraphics->AttachControl(Knobs[i]);
 	}
+
+    SVGs[4] = new ISVGControl(IRECT::MakeXYWH(94.119f, 488.230, 126.762f, 116.922f), pGraphics->LoadSVG(SENDLABELS_FN));
+	pGraphics->AttachControl(SVGs[4]);
+	SVGs[4]->Hide(true);
 
     Knobs[12] = new NeedleKnob(IRECT::MakeXYWH(140, 140, 35, 35), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPreDelay1, kPreDelay2);
 
@@ -213,11 +217,11 @@ Plateau2::Plateau2(const InstanceInfo& info)
 		Switches[i]->Hide(true);
     }
 
-    SVGs[0] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 395, 86.109f, 14.207f), pGraphics->LoadSVG(SEND1TO2_FN));
-    SVGs[1] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 395, 89.227f, 17.208f), pGraphics->LoadSVG(SEND2TO1_FN));
-    SVGs[2] = new ISVGControl(IRECT::MakeXYWH(76.447f, 457.212, 162.106f, 45.576f), pGraphics->LoadSVG(REQUIRESDANGER_FN));
+    SVGs[1] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 395, 86.109f, 14.207f), pGraphics->LoadSVG(SEND1TO2_FN));
+    SVGs[2] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 395, 89.227f, 17.208f), pGraphics->LoadSVG(SEND2TO1_FN));
+    SVGs[3] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 510, 162.106f, 45.576f), pGraphics->LoadSVG(REQUIRESDANGER_FN));
 
-    for (int i = 0; i <= 2; i++) {
+    for (int i = 1; i <= 3; i++) {
         pGraphics->AttachControl(SVGs[i]);
         SVGs[i]->Hide(true);
     }
@@ -309,10 +313,11 @@ void Plateau2::UpdateSendVisibility() {
     for (int i = 18; i <= 21; i++) {
         Knobs[i]->Hide(currentPage != 2 || (!dangerous && tank2Selected));
     }
-    SVGs[0]->Hide(currentPage != 2 || tank2Selected);
-    SVGs[1]->Hide(currentPage != 2 || !tank2Selected);
-    SVGs[2]->Hide(currentPage != 2 || !tank2Selected || dangerous);
-    SVGs[3]->Hide(currentPage != 2 || !tank2Selected);
+    SVGs[0]->Hide(currentPage != 2 || !tank2Selected);
+    SVGs[1]->Hide(currentPage != 2 || tank2Selected);
+    SVGs[2]->Hide(currentPage != 2 || !tank2Selected);
+    SVGs[3]->Hide(currentPage != 2 || !tank2Selected || dangerous);
+    SVGs[4]->Hide(currentPage != 2 || (!dangerous && tank2Selected));
 }
 
 

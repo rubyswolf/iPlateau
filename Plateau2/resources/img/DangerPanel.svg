@@ -2,12 +2,12 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="51.032963mm"
-   height="50.477547mm"
-   viewBox="0 0 51.032963 50.477547"
+   width="51.032829mm"
+   height="62.177078mm"
+   viewBox="0 0 51.032829 62.177078"
    version="1.1"
    id="svg1675"
-   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
    sodipodi:docname="DangerPanel.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -25,11 +25,11 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.1893044"
-     inkscape:cx="-59.698762"
-     inkscape:cy="236.27256"
-     inkscape:window-width="1440"
-     inkscape:window-height="837"
+     inkscape:zoom="3.3638608"
+     inkscape:cx="73.130255"
+     inkscape:cy="139.12585"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -40,13 +40,13 @@
        inkscape:collect="always"
        xlink:href="#linearGradient8"
        id="linearGradient1387"
-       x1="296.86469"
-       y1="956.85156"
-       x2="307.4827"
-       y2="967.4696"
+       x1="296.87555"
+       y1="956.84064"
+       x2="302.70145"
+       y2="962.66656"
        gradientUnits="userSpaceOnUse"
-       spreadMethod="repeat"
-       gradientTransform="matrix(0.26458333,0,0,0.26458333,85.662713,-24.759052)" />
+       spreadMethod="reflect"
+       gradientTransform="matrix(0.26381017,0,0,0.3267769,85.853632,-75.906059)" />
     <linearGradient
        id="linearGradient8"
        inkscape:collect="always">
@@ -56,11 +56,11 @@
          id="stop8" />
       <stop
          style="stop-color:#a50000;stop-opacity:1;"
-         offset="0.5"
+         offset="0.46909276"
          id="stop10" />
       <stop
          style="stop-color:#ff6868;stop-opacity:1;"
-         offset="0.5"
+         offset="0.53788638"
          id="stop11" />
       <stop
          style="stop-color:#ff6868;stop-opacity:1;"
@@ -72,15 +72,15 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-125.50047,-192.47733)">
+     transform="translate(-125.50044,-192.47734)">
     <rect
-       style="font-size:20.3719px;font-family:'Alte DIN 1451 Mittelschrift';-inkscape-font-specification:'Alte DIN 1451 Mittelschrift';text-align:center;text-anchor:middle;opacity:0.96114;fill:url(#linearGradient1387);fill-opacity:1;stroke:#350404;stroke-width:1.32292;stroke-miterlimit:1.7;stroke-dasharray:none;stroke-opacity:1"
+       style="font-size:20.3719px;font-family:'Alte DIN 1451 Mittelschrift';-inkscape-font-specification:'Alte DIN 1451 Mittelschrift';text-align:center;text-anchor:middle;opacity:0.96114;fill:url(#linearGradient1387);fill-opacity:1;stroke:#350404;stroke-width:1.46805;stroke-miterlimit:1.7;stroke-dasharray:none;stroke-opacity:1"
        id="rect823"
-       width="49.710041"
-       height="49.154625"
-       x="126.16193"
-       y="193.13879"
-       rx="5.2916665"
-       ry="5.2916665" />
+       width="49.564777"
+       height="60.70903"
+       x="126.23447"
+       y="193.21136"
+       rx="5.2762027"
+       ry="6.5355377" />
   </g>
 </svg>

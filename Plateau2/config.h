@@ -85,3 +85,4 @@
 #define SEND2TO1_FN "Send2To1.svg"
 #define REQUIRESDANGER_FN "RequiresDanger.svg"
 #define DANGERPANEL_FN "DangerPanel.svg"
+#define SENDLABELS_FN "SendLabels.svg"

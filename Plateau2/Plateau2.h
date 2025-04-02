@@ -88,7 +88,7 @@ const int kNumKnobs = 22;
 const int kNumSwitches = 8;
 const int kNumButtons = 2;
 const int kNumPages = 3;
-const int kNumSVGs = 4;
+const int kNumSVGs = 5;
 
 using namespace iplug;
 using namespace igraphics;
