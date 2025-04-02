@@ -131,7 +131,7 @@ public:
   void UpdatePageVisibility();
   void UpdateSendVisibility();
   void OnParamChange(int index) override;
-  bool Plateau2::WindowIsOpen();
+  bool WindowIsOpen();
   void SelectTank(bool tank2);
 #endif
     private:
