@@ -97,16 +97,13 @@ class Plateau2 final : public Plugin
 {
 public:
   Plateau2(const InstanceInfo& info);
-
-  bool initalizedInterface = false;
-
-
 #if IPLUG_DSP // http://bit.ly/2S64BDd
   void ProcessBlock(sample** inputs, sample** outputs, int nFrames) override;
   void ChangePage(int direction, const ISVG PageBackgrounds[kNumPages], const ISVG NextButtons[kNumPages], const ISVG PreviousButtons[kNumPages]);
   void UpdatePageVisibility();
   void UpdateSendVisibility();
   void OnParamChange(int index) override;
+  bool Plateau2::WindowIsOpen();
   void SelectTank(bool tank2);
 #endif
     private:

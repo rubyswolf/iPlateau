@@ -237,8 +237,6 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
     pGraphics->AttachControl(tank1Select);
     pGraphics->AttachControl(tank2Select);
-
-    initalizedInterface = true;
   };
 #endif
 }
@@ -320,12 +318,16 @@ void Plateau2::UpdateSendVisibility() {
     SVGs[4]->Hide(currentPage != 2 || (!dangerous && tank2Selected));
 }
 
+bool Plateau2::WindowIsOpen() {
+	IGraphics* pGraphics = GetUI();
+	return pGraphics && pGraphics->WindowIsOpen();
+}
 
 void Plateau2::OnParamChange(int index)
 {
     switch (index) {
         case kClear:
-            if (initalizedInterface) {
+            if (WindowIsOpen()) {
 			    if (GetParam(kClear)->Value() >= 0.5) {
                     SetParameterValue(kClear1, GetParam(kClear)->Value());
                     SetParameterValue(kClear2, GetParam(kClear)->Value());
@@ -333,7 +335,7 @@ void Plateau2::OnParamChange(int index)
             }
             break;
         case kFreeze:
-            if (initalizedInterface)
+            if (WindowIsOpen())
             {
                 if (GetParam(kFreeze)->Value() >= 0.5) {
                     SetParameterValue(tank2Selected ? kFreeze1 : kFreeze2, 1.);
@@ -510,11 +512,11 @@ void Plateau2::OnParamChange(int index)
 			break;
 
 		case kDanger:
-			if (!GetParam(kDanger)->Value()) {
+			if (GetParam(kDanger)->Value()<=0.5) {
 				//Reset the plugin when danger is turned off for safety
                 SetParameterValue(kClear, 1);
 			}
-			if (initalizedInterface) {
+			if (WindowIsOpen()) {
                 UpdateSendVisibility();
                 Knobs[13]->Bound = GetParam(kDanger)->Value() ? 135.f : 72.6923f;
 
