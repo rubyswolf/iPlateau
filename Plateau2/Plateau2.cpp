@@ -28,7 +28,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kPreDelay1)->InitSeconds("Pre Delay 1", 0., 0., 0.5, 0.01);
   GetParam(kNesting1)->InitBool("Nested Tank Diffusion 1", false);
   GetParam(kInputNesting1)->InitBool("Nested Input Diffusion 1", false);
-  GetParam(kDiffusionDecay1)->InitPercentage("Tank Diffusion Decay 1", 100);
+  GetParam(kDiffusionDecay1)->InitPercentage("Tank Diffusion Decay 1", 76.9230);
   GetParam(kInput1)->InitPercentage("Input 1", 100);
   GetParam(kStereoSource1)->InitPercentage("Stereo Source 1", 0, -100, 100);
   GetParam(kWidth1)->InitPercentage("Stereo Width 1", 100, 0, 200);
@@ -36,6 +36,8 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(k1to2)->InitBool("Send Tank 1 to 2", false);
   GetParam(k1to2Level)->InitPercentage("Tank 1 to 2 Level");
   GetParam(k1to2Delay)->InitSeconds("Tank 1 to 2 Delay", 0., 0., 0.5, 0.01);
+  GetParam(k1to2LowDamp)->InitDouble("Tank 1 to 2 Low Damp", 10., 0., 10., 0.01);
+  GetParam(k1to2HighDamp)->InitDouble("Tank 1 to 2 High Damp", 10., 0., 10., 0.01);
 
 
   GetParam(kEnable2)->InitBool("Tank 2 Enable", false);
@@ -57,7 +59,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kPreDelay2)->InitSeconds("Pre Delay 2", 0., 0., 0.5, 0.01);
   GetParam(kNesting2)->InitBool("Nested Tank Diffusion 2", false);
   GetParam(kInputNesting2)->InitBool("Nested Input Diffusion 2", false);
-  GetParam(kDiffusionDecay2)->InitPercentage("Tank Diffusion Decay 2", 100);
+  GetParam(kDiffusionDecay2)->InitPercentage("Tank Diffusion Decay 2", 76.9230);
   GetParam(kInput2)->InitPercentage("Input 2", 100);
   GetParam(kStereoSource2)->InitPercentage("Stereo Source 2", 0, -100, 100);
   GetParam(kWidth2)->InitPercentage("Stereo Width 2", 100, 0, 200);
@@ -65,6 +67,8 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(k2to1)->InitBool("Send Tank 2 to 1", false);
   GetParam(k2to1Level)->InitPercentage("Tank 1 to 2 Level");
   GetParam(k2to1Delay)->InitSeconds("Tank 2 to 1 Delay", 0., 0., 0.5, 0.01);
+  GetParam(k2to1LowDamp)->InitDouble("Tank 2 to 1 Low Damp", 10., 0., 10., 0.01);
+  GetParam(k2to1HighDamp)->InitDouble("Tank 2 to 1 High Damp", 10., 0., 10., 0.01);
 
 
   GetParam(kDanger)->InitBool("DANGER! Allow Unsafe Feedback Settings", false);
@@ -132,8 +136,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
     Knobs[12] = new NeedleKnob(IRECT::MakeXYWH(140, 140, 35, 35), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPreDelay1, kPreDelay2);
 
     Knobs[13] = new NeedleKnob(IRECT::MakeXYWH(233, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDiffusionDecay1, kDiffusionDecay2);
-    Knobs[13]->StartAngle = -72.6923f;
-    Knobs[13]->EndAngle = 72.6923f;
+    Knobs[13]->Bound = 72.6923f;
 
     Knobs[14] = new NeedleKnob(IRECT::MakeXYWH(93, 170, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInput1, kInput2);
     Knobs[15] = new NeedleKnob(IRECT::MakeXYWH(166, 170, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kStereoSource1, kStereoSource2);
@@ -141,10 +144,13 @@ Plateau2::Plateau2(const InstanceInfo& info)
     Knobs[16] = new NeedleKnob(IRECT::MakeXYWH(93, 294, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kWidth1, kWidth2);
     Knobs[17] = new NeedleKnob(IRECT::MakeXYWH(166, 294, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPan1, kPan2);
 
-    Knobs[18] = new NeedleKnob(IRECT::MakeXYWH(93, 454, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2Level, k2to1Level);
-    Knobs[19] = new NeedleKnob(IRECT::MakeXYWH(166, 454, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2Delay, k2to1Delay);
+    Knobs[18] = new NeedleKnob(IRECT::MakeXYWH(93, 440, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2Level, k2to1Level);
+    Knobs[19] = new NeedleKnob(IRECT::MakeXYWH(166, 440, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2Delay, k2to1Delay);
+
+	Knobs[20] = new NeedleKnob(IRECT::MakeXYWH(93, 530, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2LowDamp, k2to1LowDamp);
+	Knobs[21] = new NeedleKnob(IRECT::MakeXYWH(166, 530, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2HighDamp, k2to1HighDamp);
     
-    for (int i = 12; i <= 19; i++) {
+    for (int i = 12; i <= 21; i++) {
 		pGraphics->AttachControl(Knobs[i]);
 		Knobs[i]->Hide(true);
 	}
@@ -209,7 +215,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
     SVGs[0] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 395, 86.109f, 14.207f), pGraphics->LoadSVG(SEND1TO2_FN));
     SVGs[1] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 395, 89.227f, 17.208f), pGraphics->LoadSVG(SEND2TO1_FN));
-    SVGs[2] = new ISVGControl(IRECT::MakeMidXYWH(157.5f, 480, 162.106f, 45.576f), pGraphics->LoadSVG(REQUIRESDANGER_FN));
+    SVGs[2] = new ISVGControl(IRECT::MakeXYWH(76.447f, 457.212, 162.106f, 45.576f), pGraphics->LoadSVG(REQUIRESDANGER_FN));
 
     for (int i = 0; i <= 2; i++) {
         pGraphics->AttachControl(SVGs[i]);
@@ -300,7 +306,7 @@ void Plateau2::UpdateSendVisibility() {
         Switches[i]->Hide(currentPage != 2);
     }
     bool dangerous = GetParam(kDanger)->Value();
-    for (int i = 18; i <= 19; i++) {
+    for (int i = 18; i <= 21; i++) {
         Knobs[i]->Hide(currentPage != 2 || (!dangerous && tank2Selected));
     }
     SVGs[0]->Hide(currentPage != 2 || tank2Selected);
@@ -391,14 +397,16 @@ void Plateau2::OnParamChange(int index)
 		case kNesting1:
 			reverb1.setTankDiffusionNesting(GetParam(index)->Value());
             break;
-		case kDiffusionDecay1:
-            if (GetParam(kDanger)->Value()) {
-                reverb1.setTankDiffusionDecay(scale<double>(GetParam(index)->Value(), 0, 100, 0, 1.3));
+        case kDiffusionDecay1:
+        {
+            double scaled = scale<double>(GetParam(index)->Value(), 0, 100, 0, 1.3);
+            if (!GetParam(kDanger)->Value()) {
+				//Clip to safe values
+                scaled = clip<double>(scaled, 0.3, 1);
             }
-            else {
-                reverb1.setTankDiffusionDecay(scale<double>(GetParam(index)->Value(), 0, 100, .3, 1));
-            }
-			break;
+			reverb1.setTankDiffusionDecay(scaled);
+            break;
+        }
         case kStereoSource1:
             sourceBalance1 = balanceFactors(GetParam(kStereoSource1)->Value()/100);
             break;
@@ -408,6 +416,12 @@ void Plateau2::OnParamChange(int index)
         case k1to2Delay:
             send1To2Delay.setDelayTime(GetParam(k1to2Delay)->Value() * GetSampleRate());
             break;
+		case k1to2LowDamp:
+			send1To2HP.setCutoffFreq(pitch2freq(10.f - GetParam(index)->Value()));
+			break;
+		case k1to2HighDamp:
+			send1To2LP.setCutoffFreq(pitch2freq(GetParam(index)->Value()));
+			break;
 
         case kPreDelay2:
             reverb2.setPreDelay(GetParam(index)->Value());
@@ -465,13 +479,15 @@ void Plateau2::OnParamChange(int index)
             reverb2.setTankDiffusionNesting(GetParam(index)->Value());
             break;
         case kDiffusionDecay2:
-            if (GetParam(kDanger)->Value()) {
-                reverb2.setTankDiffusionDecay(scale<double>(GetParam(index)->Value(), 0, 100, 0, 1.3));
+        {
+            double scaled = scale<double>(GetParam(index)->Value(), 0, 100, 0, 1.3);
+            if (!GetParam(kDanger)->Value()) {
+                //Clip to safe values
+                scaled = clip<double>(scaled, 0.3, 1);
             }
-            else {
-                reverb2.setTankDiffusionDecay(scale<double>(GetParam(index)->Value(), 0, 100, .3, 1));
-            }
+            reverb2.setTankDiffusionDecay(scaled);
             break;
+        }
         case kStereoSource2:
             sourceBalance2 = balanceFactors(GetParam(kStereoSource2)->Value()/100);
             break;
@@ -481,41 +497,27 @@ void Plateau2::OnParamChange(int index)
         case k2to1Delay:
             send2To1Delay.setDelayTime(GetParam(k2to1Delay)->Value() * GetSampleRate());
             break;
+		case k2to1LowDamp:
+			send2To1HP.setCutoffFreq(pitch2freq(10.f - GetParam(index)->Value()));
+			break;
+		case k2to1HighDamp:
+			send2To1LP.setCutoffFreq(pitch2freq(GetParam(index)->Value()));
+			break;
 
 		case kDanger:
-			if (GetParam(kDanger)->Value()) {
-				//Allow the user to set the diffusion decay to unsafe values
-			    GetParam(kDiffusionDecay1)->SetDefault(76.9230);
-				GetParam(kDiffusionDecay2)->SetDefault(76.9230);
-
-                SetParameterValue(kDiffusionDecay1, scale<double>(GetParam(kDiffusionDecay1)->Value(), 0, 100, .230769, .7692307));
-                GetParam(kDiffusionDecay2)->Set(scale<double>(GetParam(kDiffusionDecay2)->Value(), 0, 100, 23.0769, 76.92307));
-
-                if (initalizedInterface)
-                {
-                    Knobs[13]->StartAngle = -135.f;
-                    Knobs[13]->EndAngle = 135.f;
-                }
-			}
-			else {
-			    GetParam(kDiffusionDecay1)->SetDefault(100);
-			    GetParam(kDiffusionDecay2)->SetDefault(100);
-
-                SetParameterValue(kDiffusionDecay1, clip<double>(scale<double>(GetParam(kDiffusionDecay1)->Value(), 23.0769, 76.92307, 0, 1),0,100));
-                GetParam(kDiffusionDecay2)->Set(clip<double>(scale<double>(GetParam(kDiffusionDecay2)->Value(), 23.0769, 76.92307, 0, 100),0,100));
-
+			if (!GetParam(kDanger)->Value()) {
+				//Reset the plugin when danger is turned off for safety
                 SetParameterValue(kClear, 1);
-
-                if (initalizedInterface)
-                {
-                    Knobs[13]->StartAngle = -72.6923f;
-                    Knobs[13]->EndAngle = 72.6923f;
-                }
 			}
 			if (initalizedInterface) {
-                Knobs[13]->SetValue((tank2Selected ? GetParam(kDiffusionDecay2)->Value() : GetParam(kDiffusionDecay1)->Value()) / 100);
-                Knobs[13]->SetDirty(false);
                 UpdateSendVisibility();
+                Knobs[13]->Bound = GetParam(kDanger)->Value() ? 135.f : 72.6923f;
+
+                SetParameterValue(kDiffusionDecay1, clip<double>(GetParam(kDiffusionDecay1)->Value(), 23.0769, 76.92307)/100);
+                SetParameterValue(kDiffusionDecay2, clip<double>(GetParam(kDiffusionDecay2)->Value(), 23.0769, 76.92307)/100);
+
+                Knobs[13]->SetValue((tank2Selected ? GetParam(kDiffusionDecay2)->Value() : GetParam(kDiffusionDecay1)->Value()) / 100);
+				Knobs[13]->SetDirty(false);
 			}
             break;
     }
@@ -604,7 +606,11 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             if (send1to2) {
 				send1To2Delay.input = 0.707 * (reverb1.getLeftOutput() + reverb1.getRightOutput());
 				send1To2Delay.process();
-                reverbOut1 = send1To2Delay.output;
+				send1To2LP.input = send1To2Delay.output;
+				send1To2LP.process();
+				send1To2HP.input = send1To2LP.output;
+				send1To2HP.process();
+				reverbOut1 = send1To2HP.output;
             }
         }
 
@@ -672,7 +678,11 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             if (send2to1) {
                 send2To1Delay.input = 0.707 * (reverb2.getLeftOutput()+reverb2.getRightOutput());
                 send2To1Delay.process();
-                reverbOut2 = send2To1Delay.output;
+				send2To1LP.input = send2To1Delay.output;
+				send2To1LP.process();
+				send2To1HP.input = send2To1LP.output;
+				send2To1HP.process();
+				reverbOut2 = send2To1HP.output;
             }
         }
   }

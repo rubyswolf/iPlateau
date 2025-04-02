@@ -46,6 +46,8 @@ enum EParams
     k1to2,
     k1to2Level,
     k1to2Delay,
+	k1to2LowDamp,
+	k1to2HighDamp,
 
     kEnable2,
     kWet2,
@@ -74,13 +76,15 @@ enum EParams
     k2to1,
     k2to1Level,
     k2to1Delay,
+	k2to1LowDamp,
+	k2to1HighDamp,
 
     kDanger,
 
     kNumParams
 };
 
-const int kNumKnobs = 20;
+const int kNumKnobs = 22;
 const int kNumSwitches = 8;
 const int kNumButtons = 2;
 const int kNumPages = 3;
@@ -112,6 +116,8 @@ public:
         std::tuple<double, double> panBalance1 = { 0, 0 };
         LinearEnvelope envelope1;
         InterpDelay<double> send1To2Delay;
+		OnePoleLPFilter send1To2LP = OnePoleLPFilter(22000.0);
+		OnePoleHPFilter send1To2HP = OnePoleHPFilter(0.0);
         bool clear1 = false;
         bool cleared1 = true;
         bool fadeOut1 = false;
@@ -124,6 +130,8 @@ public:
         std::tuple<double, double> panBalance2 = { 0, 0 };
         LinearEnvelope envelope2;
         InterpDelay<double> send2To1Delay;
+		OnePoleLPFilter send2To1LP = OnePoleLPFilter(22000.0);
+		OnePoleHPFilter send2To1HP = OnePoleHPFilter(0.0);
         bool clear2 = false;
         bool cleared2 = true;
         bool fadeOut2 = false;

@@ -352,11 +352,11 @@ void Dattorro::freeze(bool freezeFlag) {
 }
 
 void Dattorro::setInputFilterLowCutoffPitch(double pitch) {
-    inputLowCut = 440.0 * std::pow(2.0, pitch - 5.0);
+    inputLowCut = pitch2freq(pitch);
 }
 
 void Dattorro::setInputFilterHighCutoffPitch(double pitch) {
-    inputHighCut = 440.0 * std::pow(2.0, pitch - 5.0);
+    inputHighCut = pitch2freq(pitch);
 }
 
 void Dattorro::enableInputDiffusion(bool enable) {
@@ -381,13 +381,11 @@ void Dattorro::setTankDiffusionDecay(const double diffusionDecay) {
 }
 
 void Dattorro::setTankFilterHighCutFrequency(const double pitch) {
-    auto frequency = 440.0 * std::pow(2.0, pitch - 5.0);
-    tank.setHighCutFrequency(frequency);
+    tank.setHighCutFrequency(pitch2freq(pitch));
 }
 
 void Dattorro::setTankFilterLowCutFrequency(const double pitch) {
-    auto frequency = 440.0 * std::pow(2.0, pitch - 5.0);
-    tank.setLowCutFrequency(frequency);
+    tank.setLowCutFrequency(pitch2freq(pitch));
 }
 
 void Dattorro::setTankModSpeed(const double modSpeed) {

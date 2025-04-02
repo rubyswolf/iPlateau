@@ -47,7 +47,9 @@ std::tuple<double, double> seperation(double left, double right, double width) {
     return { newLeft, newRight };
 }
 
-float pitch2freq(const float pitch);
+float pitch2freq(const double pitch) {
+    return 440.0 * std::pow(2.0, pitch - 5.0);
+}
 
 uint32_t mwcRand(uint32_t& w, uint32_t& z);
 
