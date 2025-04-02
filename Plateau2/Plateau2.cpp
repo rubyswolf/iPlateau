@@ -21,6 +21,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kModSpeed1)->InitDouble("Modulation Speed 1", 0., 0., 1., 0.01);
   GetParam(kModDepth1)->InitDouble("Modulation Depth 1", 0.5, 0., 16., 0.01);
   GetParam(kModShape1)->InitDouble("Modulation Shape 1", 0.5, 0., 1., 0.01);
+  GetParam(kModVariance1)->InitDouble("Modulation Variance 1", 1., 0., 1., 0.01);
   GetParam(kFreeze1)->InitBool("Freeze 1", false);
   GetParam(kClear1)->InitBool("Clear 1", false);
   GetParam(kTunedMode1)->InitBool("Tuned Mode 1", false);
@@ -52,6 +53,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kModSpeed2)->InitDouble("Modulation Speed 2", 0., 0., 1., 0.01);
   GetParam(kModDepth2)->InitDouble("Modulation Depth 2", 0.5, 0., 16., 0.01);
   GetParam(kModShape2)->InitDouble("Modulation Shape 2", 0.5, 0., 1., 0.01);
+  GetParam(kModVariance2)->InitDouble("Modulation Variance 2", 1., 0., 1., 0.01);
   GetParam(kFreeze2)->InitBool("Freeze 2", false);
   GetParam(kClear2)->InitBool("Clear 2", false);
   GetParam(kTunedMode2)->InitBool("Tuned Mode 2", false);
@@ -116,18 +118,19 @@ Plateau2::Plateau2(const InstanceInfo& info)
     const IBitmap NeedleFG1PNG = pGraphics->LoadBitmap(NEEDLEFG1_FN);
     const IBitmap NeedleFG2PNG = pGraphics->LoadBitmap(NEEDLEFG2_FN);
 
-    Knobs[0] = new NeedleKnob(IRECT::MakeXYWH(89 - 40, 141 + 50, 42, 42), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDry, kDry);
-    Knobs[1] = new NeedleKnob(IRECT::MakeXYWH(180+40, 141+50, 42, 42), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kWet1, kWet2);
-    Knobs[2] = new NeedleKnob(IRECT::MakeXYWH(93, 230, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInputLowDamp1, kInputLowDamp2);
-    Knobs[3] = new NeedleKnob(IRECT::MakeXYWH(166, 230, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInputHighDamp1, kInputHighDamp2);
-    Knobs[4] = new NeedleKnob(IRECT::MakeXYWH(56, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kSize1, kSize2);
-    Knobs[5] = new NeedleKnob(IRECT::MakeXYWH(130, 329, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDiffusion1, kDiffusion2);
-    Knobs[6] = new NeedleKnob(IRECT::MakeXYWH(203, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDecay1, kDecay2);
-    Knobs[7] = new NeedleKnob(IRECT::MakeXYWH(93, 446, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kReverbLowDamp1, kReverbLowDamp2);
-    Knobs[8] = new NeedleKnob(IRECT::MakeXYWH(166, 446, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kReverbHighDamp1, kReverbHighDamp2);
-    Knobs[9] = new NeedleKnob(IRECT::MakeXYWH(56, 518, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModSpeed1, kModSpeed2);
-    Knobs[10] = new NeedleKnob(IRECT::MakeXYWH(203, 518, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModDepth1, kModDepth2);
-    Knobs[11] = new NeedleKnob(IRECT::MakeXYWH(130, 543, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModShape1, kModShape2);
+	//Main Page Knobs
+    Knobs[kDryKnob] = new NeedleKnob(IRECT::MakeXYWH(89 - 40, 141 + 50, 42, 42), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDry, kDry);
+    Knobs[kWetKnob] = new NeedleKnob(IRECT::MakeXYWH(180+40, 141+50, 42, 42), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kWet1, kWet2);
+    Knobs[kInputLowDampKnob] = new NeedleKnob(IRECT::MakeXYWH(93, 230, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInputLowDamp1, kInputLowDamp2);
+    Knobs[kInputHighDampKnob] = new NeedleKnob(IRECT::MakeXYWH(166, 230, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInputHighDamp1, kInputHighDamp2);
+    Knobs[kSizeKnob] = new NeedleKnob(IRECT::MakeXYWH(56, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kSize1, kSize2);
+    Knobs[kDiffusionKnob] = new NeedleKnob(IRECT::MakeXYWH(130, 329, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDiffusion1, kDiffusion2);
+    Knobs[kDecayKnob] = new NeedleKnob(IRECT::MakeXYWH(203, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDecay1, kDecay2);
+    Knobs[kReverbLowDampKnob] = new NeedleKnob(IRECT::MakeXYWH(93, 446, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kReverbLowDamp1, kReverbLowDamp2);
+    Knobs[kReverbHighDampKnob] = new NeedleKnob(IRECT::MakeXYWH(166, 446, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kReverbHighDamp1, kReverbHighDamp2);
+    Knobs[kModSpeedKnob] = new NeedleKnob(IRECT::MakeXYWH(56, 518, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModSpeed1, kModSpeed2);
+    Knobs[kModDepthKnob] = new NeedleKnob(IRECT::MakeXYWH(203, 518, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModDepth1, kModDepth2);
+    Knobs[kModShapeKnob] = new NeedleKnob(IRECT::MakeXYWH(130, 543, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModShape1, kModShape2);
     
 	for (int i = 0; i <= 11; i++) {
 		pGraphics->AttachControl(Knobs[i]);
@@ -137,24 +140,28 @@ Plateau2::Plateau2(const InstanceInfo& info)
 	pGraphics->AttachControl(SVGs[4]);
 	SVGs[4]->Hide(true);
 
-    Knobs[12] = new NeedleKnob(IRECT::MakeXYWH(140, 140, 35, 35), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPreDelay1, kPreDelay2);
+	//Extras Page Knobs
+    Knobs[kPreDelayKnob] = new NeedleKnob(IRECT::MakeXYWH(140, 140, 35, 35), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPreDelay1, kPreDelay2);
 
-    Knobs[13] = new NeedleKnob(IRECT::MakeXYWH(233, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDiffusionDecay1, kDiffusionDecay2);
-    Knobs[13]->Bound = 72.6923f;
+    Knobs[kDiffusionDecayKnob] = new NeedleKnob(IRECT::MakeXYWH(233, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDiffusionDecay1, kDiffusionDecay2);
+    Knobs[kDiffusionDecayKnob]->Bound = 72.6923f;
 
-    Knobs[14] = new NeedleKnob(IRECT::MakeXYWH(93, 170, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInput1, kInput2);
-    Knobs[15] = new NeedleKnob(IRECT::MakeXYWH(166, 170, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kStereoSource1, kStereoSource2);
+	Knobs[kModVarianceKnob] = new NeedleKnob(IRECT::MakeXYWH(233, 518, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModVariance1, kModVariance2);
 
-    Knobs[16] = new NeedleKnob(IRECT::MakeXYWH(93, 294, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kWidth1, kWidth2);
-    Knobs[17] = new NeedleKnob(IRECT::MakeXYWH(166, 294, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPan1, kPan2);
+	//Routing Page Knobs
+    Knobs[kInputKnob] = new NeedleKnob(IRECT::MakeXYWH(93, 170, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInput1, kInput2);
+    Knobs[kStereoSourceKnob] = new NeedleKnob(IRECT::MakeXYWH(166, 170, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kStereoSource1, kStereoSource2);
 
-    Knobs[18] = new NeedleKnob(IRECT::MakeXYWH(93, 440, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2Level, k2to1Level);
-    Knobs[19] = new NeedleKnob(IRECT::MakeXYWH(166, 440, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2Delay, k2to1Delay);
+    Knobs[kWidthKnob] = new NeedleKnob(IRECT::MakeXYWH(93, 294, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kWidth1, kWidth2);
+    Knobs[kPanKnob] = new NeedleKnob(IRECT::MakeXYWH(166, 294, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPan1, kPan2);
 
-	Knobs[20] = new NeedleKnob(IRECT::MakeXYWH(93, 530, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2LowDamp, k2to1LowDamp);
-	Knobs[21] = new NeedleKnob(IRECT::MakeXYWH(166, 530, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2HighDamp, k2to1HighDamp);
+    Knobs[kSendLevel] = new NeedleKnob(IRECT::MakeXYWH(93, 440, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2Level, k2to1Level);
+    Knobs[kSendDelay] = new NeedleKnob(IRECT::MakeXYWH(166, 440, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2Delay, k2to1Delay);
+
+	Knobs[kSendLowDamp] = new NeedleKnob(IRECT::MakeXYWH(93, 530, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2LowDamp, k2to1LowDamp);
+	Knobs[kSendHighDamp] = new NeedleKnob(IRECT::MakeXYWH(166, 530, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, k1to2HighDamp, k2to1HighDamp);
     
-    for (int i = 12; i <= 21; i++) {
+    for (int i = kPreDelayKnob; i <= kSendHighDamp; i++) {
 		pGraphics->AttachControl(Knobs[i]);
 		Knobs[i]->Hide(true);
 	}
@@ -278,7 +285,7 @@ void Plateau2::ChangePage(int direction, const ISVG PageBackgrounds[kNumPages], 
 void Plateau2::UpdatePageVisibility()
 {
     //Main page
-    for (int i = 0; i <= 11; i++) {
+    for (int i = kDryKnob; i <= kModShapeKnob; i++) {
         Knobs[i]->Hide(currentPage!=0);
     }
     for (int i = 0; i <= 4; i++) {
@@ -289,7 +296,7 @@ void Plateau2::UpdatePageVisibility()
     }
 
 	//Extras page
-    for (int i = 12; i <= 13; i++) {
+    for (int i = kPreDelayKnob; i <= kModVarianceKnob; i++) {
         Knobs[i]->Hide(currentPage != 1);
     }
     for (int i = 5; i <= 6; i++) {
@@ -297,7 +304,7 @@ void Plateau2::UpdatePageVisibility()
     }
 
 	//Routing page
-	for (int i = 14; i <= 17; i++) {
+	for (int i = kInputKnob; i <= kPanKnob; i++) {
 		Knobs[i]->Hide(currentPage != 2);
 	}
     UpdateSendVisibility();
@@ -308,7 +315,7 @@ void Plateau2::UpdateSendVisibility() {
         Switches[i]->Hide(currentPage != 2);
     }
     bool dangerous = GetParam(kDanger)->Value();
-    for (int i = 18; i <= 21; i++) {
+    for (int i = kSendLevel; i <= kSendHighDamp; i++) {
         Knobs[i]->Hide(currentPage != 2 || (!dangerous && tank2Selected));
     }
     SVGs[0]->Hide(currentPage != 2 || !tank2Selected);
@@ -428,6 +435,9 @@ void Plateau2::OnParamChange(int index)
 		case k1to2HighDamp:
 			send1To2LP.setCutoffFreq(pitch2freq(GetParam(index)->Value()));
 			break;
+		case kModVariance1:
+			reverb1.setTankModVariance(GetParam(index)->Value());
+			break;
 
         case kPreDelay2:
             reverb2.setPreDelay(GetParam(index)->Value());
@@ -481,7 +491,7 @@ void Plateau2::OnParamChange(int index)
             reverb2.enableInputDiffusion(GetParam(index)->Value()>=0.5);
             break;
         case kNesting2:
-            reverb2.setTankDiffusionNesting(GetParam(index)->Value()>=0.5);
+            reverb2.setTankDiffusionNesting(GetParam(index)->Value());
             break;
         case kDiffusionDecay2:
         {
@@ -508,6 +518,9 @@ void Plateau2::OnParamChange(int index)
 		case k2to1HighDamp:
 			send2To1LP.setCutoffFreq(pitch2freq(GetParam(index)->Value()));
 			break;
+		case kModVariance2:
+			reverb2.setTankModVariance(GetParam(index)->Value());
+            break;
 
 		case kDanger:
 			if (GetParam(kDanger)->Value()<=0.5) {
@@ -516,13 +529,13 @@ void Plateau2::OnParamChange(int index)
 			}
 			if (WindowIsOpen()) {
                 UpdateSendVisibility();
-                Knobs[13]->Bound = GetParam(kDanger)->Value() ? 135.f : 72.6923f;
+                Knobs[kDiffusionDecayKnob]->Bound = GetParam(kDanger)->Value() ? 135.f : 72.6923f;
 
                 SetParameterValue(kDiffusionDecay1, clip<double>(GetParam(kDiffusionDecay1)->Value(), 23.0769, 76.92307)/100);
                 SetParameterValue(kDiffusionDecay2, clip<double>(GetParam(kDiffusionDecay2)->Value(), 23.0769, 76.92307)/100);
 
-                Knobs[13]->SetValue((tank2Selected ? GetParam(kDiffusionDecay2)->Value() : GetParam(kDiffusionDecay1)->Value()) / 100);
-				Knobs[13]->SetDirty(false);
+                Knobs[kDiffusionDecayKnob]->SetValue((tank2Selected ? GetParam(kDiffusionDecay2)->Value() : GetParam(kDiffusionDecay1)->Value()) / 100);
+				Knobs[kDiffusionDecayKnob]->SetDirty(false);
 			}
             break;
     }

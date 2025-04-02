@@ -31,6 +31,7 @@ enum EParams
     kModSpeed1,
     kModDepth1,
     kModShape1,
+    kModVariance1,
     kFreeze1,
     kClear1,
     kTunedMode1,
@@ -61,6 +62,7 @@ enum EParams
     kModSpeed2,
     kModDepth2,
     kModShape2,
+	kModVariance2,
     kFreeze2,
     kClear2,
     kTunedMode2,
@@ -84,7 +86,33 @@ enum EParams
     kNumParams
 };
 
-const int kNumKnobs = 22;
+enum EKnobs {
+	kDryKnob,
+    kWetKnob,
+	kInputLowDampKnob,
+	kInputHighDampKnob,
+	kSizeKnob,
+	kDiffusionKnob,
+	kDecayKnob,
+	kReverbLowDampKnob,
+	kReverbHighDampKnob,
+	kModSpeedKnob,
+	kModDepthKnob,
+	kModShapeKnob,
+	kPreDelayKnob,
+	kDiffusionDecayKnob,
+	kModVarianceKnob,
+	kInputKnob,
+	kStereoSourceKnob,
+	kWidthKnob,
+	kPanKnob,
+	kSendLevel,
+	kSendDelay,
+	kSendLowDamp,
+	kSendHighDamp,
+	kNumKnobs
+};
+
 const int kNumSwitches = 8;
 const int kNumButtons = 2;
 const int kNumPages = 3;

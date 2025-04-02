@@ -14,9 +14,9 @@ Dattorro1997Tank::Dattorro1997Tank()
     lfo3.setFrequency(lfo3Freq);
     lfo4.setFrequency(lfo4Freq);
 
-    lfo2.setPhase(0.25);
-    lfo3.setPhase(0.5);
-    lfo4.setPhase(0.75);
+    //lfo2.setPhase(0.25);
+    //lfo3.setPhase(0.5);
+    //lfo4.setPhase(0.75);
 
     lfo1.setRevPoint(0.5);
     lfo2.setRevPoint(0.5);
@@ -127,10 +127,26 @@ void Dattorro1997Tank::setDecay(const double newDecay) {
 }
 
 void Dattorro1997Tank::setModSpeed(const double newModSpeed) {
-    lfo1.setFrequency(lfo1Freq * newModSpeed);
-    lfo2.setFrequency(lfo2Freq * newModSpeed);
-    lfo3.setFrequency(lfo3Freq * newModSpeed);
-    lfo4.setFrequency(lfo4Freq * newModSpeed);
+	modSpeed = newModSpeed;
+	updateLFOSpeeds();
+}
+
+void Dattorro1997Tank::setModVariance(const double newModVariance) {
+	modVariance = newModVariance;
+	lfo1.setPhase(0);
+	lfo2.setPhase(0);
+	lfo3.setPhase(0);
+	lfo4.setPhase(0);
+	updateLFOSpeeds();
+}
+
+void Dattorro1997Tank::updateLFOSpeeds() {
+	double avg1 = (lfo1Freq + lfo3Freq) / 2;
+	double avg2 = (lfo2Freq + lfo4Freq) / 2;
+	lfo1.setFrequency(linterp<double>(avg1, lfo1Freq, modVariance) * modSpeed);
+	lfo2.setFrequency(linterp<double>(avg2, lfo2Freq, modVariance) * modSpeed);
+	lfo3.setFrequency(linterp<double>(avg1, lfo3Freq, modVariance) * modSpeed);
+	lfo4.setFrequency(linterp<double>(avg2, lfo4Freq, modVariance) * modSpeed);
 }
 
 void Dattorro1997Tank::setModDepth(const double newModDepth) {
@@ -409,6 +425,10 @@ void Dattorro::setTankModDepth(const double modDepth) {
 
 void Dattorro::setTankModShape(const double modShape) {
     tank.setModShape(modShape);
+}
+
+void Dattorro::setTankModVariance(const double variance) {
+	tank.setModVariance(variance);
 }
 
 double Dattorro::getLeftOutput() const {

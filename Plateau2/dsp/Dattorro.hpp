@@ -26,6 +26,9 @@ public:
     void setModSpeed(const double newModSpeed);
     void setModDepth(const double newModDepth);
     void setModShape(const double shape);
+    void setModVariance(const double variance);
+
+    void updateLFOSpeeds();
 
     void setHighCutFrequency(const double frequency);
     void setLowCutFrequency(const double frequency);
@@ -45,18 +48,15 @@ private:
     static constexpr double leftApf2Time = 1800.0;
     static constexpr double leftDelay2Time = 3720.0;
 
-    static constexpr double rightApf1Time = 908.0;
-    static constexpr double rightDelay1Time = 4217.0;
-    static constexpr double rightApf2Time = 2656.0;
-    static constexpr double rightDelay2Time = 3163.0;
+    //static constexpr double rightApf1Time = 908.0;
+    //static constexpr double rightDelay1Time = 4217.0;
+    //static constexpr double rightApf2Time = 2656.0;
+    //static constexpr double rightDelay2Time = 3163.0;
 
-    static constexpr size_t leftDelay1RightTap1 = 266;
-    static constexpr size_t leftDelay1RightTap2 = 2974;
-    static constexpr size_t leftApf2RightTap1 = 1913;
-    static constexpr size_t leftDelay2RightTap = 1996;
-    static constexpr size_t rightDelay1RightTap = 1990;
-    static constexpr size_t rightApf2RightTap = 187;
-    static constexpr size_t rightDelay2RightTap = 1066;
+    static constexpr double rightApf1Time = 672.0;
+    static constexpr double rightDelay1Time = 4453.0;
+    static constexpr double rightApf2Time = 1800.0;
+    static constexpr double rightDelay2Time = 3720.0;
 
     enum LeftOutTaps {
         L_DELAY_1_L_TAP_1,
@@ -114,6 +114,8 @@ private:
     double decayParam = 0.0;
     double decay = 0.0;
 
+	double modSpeed;
+    double modVariance = 0.0;
     double lfoExcursion = 0.0;
 
     // Freeze Cross fade
@@ -182,6 +184,7 @@ public:
     void setTankModSpeed(const double modSpeed);
     void setTankModDepth(const double modDepth);
     void setTankModShape(const double modShape);
+	void setTankModVariance(const double variance);
 
     double getLeftOutput() const;
     double getRightOutput() const;
