@@ -172,6 +172,11 @@ void Dattorro1997Tank::setDiffusionNesting(const bool nesting) {
 	leftApf2.nested = nesting;
 	rightApf1.nested = nesting;
 	rightApf2.nested = nesting;
+
+	leftApf1.delay2.clear();
+	leftApf2.delay2.clear();
+	rightApf1.delay2.clear();
+	rightApf2.delay2.clear();
 }
 
 void Dattorro1997Tank::setDiffusionDecay(const double diffusionDecay) {
@@ -233,12 +238,13 @@ void Dattorro1997Tank::initialiseDelaysAndApfs() {
 void Dattorro1997Tank::tickApfModulation() {
     double scaleFactor = timeScale;
     leftApf1.delay1.setDelayTime(lfo1.process() * lfoExcursion * scaleFactor + scaledLeftApf1Time);
-    leftApf1.delay2.setDelayTime(lfo1.process() * lfoExcursion * scaleFactor + scaledLeftApf1Time);
     leftApf2.delay1.setDelayTime(lfo2.process() * lfoExcursion * scaleFactor + scaledLeftApf2Time);
-    leftApf2.delay2.setDelayTime(lfo2.process() * lfoExcursion * scaleFactor + scaledLeftApf2Time);
     rightApf1.delay1.setDelayTime(lfo3.process() * lfoExcursion * scaleFactor + scaledRightApf1Time);
-    rightApf1.delay2.setDelayTime(lfo3.process() * lfoExcursion * scaleFactor + scaledRightApf1Time);
     rightApf2.delay1.setDelayTime(lfo4.process() * lfoExcursion * scaleFactor + scaledRightApf2Time);
+
+    leftApf1.delay2.setDelayTime(lfo1.process() * lfoExcursion * scaleFactor + scaledLeftApf1Time);
+    leftApf2.delay2.setDelayTime(lfo2.process() * lfoExcursion * scaleFactor + scaledLeftApf2Time);
+    rightApf1.delay2.setDelayTime(lfo3.process() * lfoExcursion * scaleFactor + scaledRightApf1Time);
     rightApf2.delay2.setDelayTime(lfo4.process() * lfoExcursion * scaleFactor + scaledRightApf2Time);
 }
 
@@ -338,6 +344,11 @@ void Dattorro::setSampleRate(double newSampleRate) {
     inApf2.delay1.setDelayTime(dattorroScale(kInApf2Time));
     inApf3.delay1.setDelayTime(dattorroScale(kInApf3Time));
     inApf4.delay1.setDelayTime(dattorroScale(kInApf4Time));
+
+	inApf1.delay2.setDelayTime(dattorroScale(kInApf1Time));
+	inApf2.delay2.setDelayTime(dattorroScale(kInApf2Time));
+	inApf3.delay2.setDelayTime(dattorroScale(kInApf3Time));
+	inApf4.delay2.setDelayTime(dattorroScale(kInApf4Time));
 
     leftInputDCBlock.setSampleRate(sampleRate);
     rightInputDCBlock.setSampleRate(sampleRate);
