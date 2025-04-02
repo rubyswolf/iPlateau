@@ -362,8 +362,7 @@ void Plateau2::OnParamChange(int index)
         case kTunedMode1:
         {
             double size = GetParam(kSize1)->Value();
-            bool tunedMode = GetParam(kTunedMode1)->Value();
-            if (tunedMode) {
+            if (GetParam(kTunedMode1)->Value()>=0.5) {
                 reverb1.setTimeScale(0.0025f * powf(2.f, size * 5.f));
             }
             else {
@@ -399,10 +398,10 @@ void Plateau2::OnParamChange(int index)
             reverb1.setTankModShape(GetParam(index)->Value());
             break;
         case kDiffuseInput1:
-            reverb1.enableInputDiffusion(GetParam(index)->Value());
+            reverb1.enableInputDiffusion(GetParam(index)->Value()>=0.5);
             break;
 		case kNesting1:
-			reverb1.setTankDiffusionNesting(GetParam(index)->Value());
+			reverb1.setTankDiffusionNesting(GetParam(index)->Value()>=0.5);
             break;
         case kDiffusionDecay1:
         {
@@ -443,8 +442,7 @@ void Plateau2::OnParamChange(int index)
         case kTunedMode2:
         {
             double size = GetParam(kSize2)->Value();
-            bool tunedMode = GetParam(kTunedMode2)->Value();
-            if (tunedMode) {
+            if (GetParam(kTunedMode2)->Value()>=0.5) {
                 reverb2.setTimeScale(0.0025f * powf(2.f, size * 5.f));
             }
             else {
@@ -480,10 +478,10 @@ void Plateau2::OnParamChange(int index)
             reverb2.setTankModShape(GetParam(index)->Value());
             break;
         case kDiffuseInput2:
-            reverb2.enableInputDiffusion(GetParam(index)->Value());
+            reverb2.enableInputDiffusion(GetParam(index)->Value()>=0.5);
             break;
         case kNesting2:
-            reverb2.setTankDiffusionNesting(GetParam(index)->Value());
+            reverb2.setTankDiffusionNesting(GetParam(index)->Value()>=0.5);
             break;
         case kDiffusionDecay2:
         {
@@ -539,11 +537,11 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
   for (int s = 0; s < nFrames; s++) {
         const double dryParam = GetParam(kDry)->Value() / 100;
 
-        const bool tank1Enabled = GetParam(kEnable1)->Value();
-        const bool tank2Enabled = GetParam(kEnable2)->Value();
+        const bool tank1Enabled = GetParam(kEnable1)->Value()>=0.5;
+        const bool tank2Enabled = GetParam(kEnable2)->Value()>=0.5;
 
-		const bool send2to1 = tank2Enabled && GetParam(k2to1)->Value() && GetParam(kDanger)->Value();
-        const bool send1to2 = tank1Enabled && GetParam(k1to2)->Value();
+		const bool send2to1 = tank2Enabled && GetParam(k2to1)->Value() && GetParam(kDanger)->Value()>=0.5;
+        const bool send1to2 = tank1Enabled && GetParam(k1to2)->Value()>=0.5;
 
         outputs[0][s] = inputs[0][s] * dryParam;
         if (nChans > 1)
@@ -552,8 +550,8 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
         }
 
         if (tank1Enabled) {
-            const bool clear1Param = GetParam(kClear1)->Value() || GetParam(kClear)->Value();
-            const bool freeze1Param = GetParam(kFreeze1)->Value();
+            const bool clear1Param = GetParam(kClear1)->Value()>=0.5 || GetParam(kClear)->Value()>=0.5;
+            const bool freeze1Param = GetParam(kFreeze1)->Value() >= 0.5;
             const double wet1Param = GetParam(kWet1)->Value() / 100;
             const double input1 = GetParam(kInput1)->Value() / 100;
 			const double level2to1 = GetParam(k2to1Level)->Value() / 100;
