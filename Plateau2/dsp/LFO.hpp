@@ -70,7 +70,6 @@ private:
 class TriSawLFO {
 public:
     TriSawLFO(double sampleRate = 44100.0, double frequency = 1.0) {
-        phase = 0.0;
         _output = 0.0;
         _sampleRate = sampleRate;
         _step = 0.0;
@@ -137,7 +136,9 @@ public:
         return _output;
     }
 
-    double phase;
+	void setPhase(double phase) {
+        _step = phase;
+	}
 
 private:
     double _output;

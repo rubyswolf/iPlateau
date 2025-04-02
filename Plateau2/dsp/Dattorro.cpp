@@ -14,9 +14,9 @@ Dattorro1997Tank::Dattorro1997Tank()
     lfo3.setFrequency(lfo3Freq);
     lfo4.setFrequency(lfo4Freq);
 
-    lfo2.phase = 0.25;
-    lfo3.phase = 0.5;
-    lfo4.phase = 0.75;
+    lfo2.setPhase(0.25);
+    lfo3.setPhase(0.5);
+    lfo4.setPhase(0.75);
 
     lfo1.setRevPoint(0.5);
     lfo2.setRevPoint(0.5);
