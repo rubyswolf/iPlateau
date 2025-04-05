@@ -30,6 +30,8 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kNesting1)->InitBool("Nested Tank Diffusion 1", false);
   GetParam(kInputNesting1)->InitBool("Nested Input Diffusion 1", false);
   GetParam(kDiffusionDecay1)->InitPercentage("Tank Diffusion Decay 1", 76.9230);
+  GetParam(kVariance1)->InitDouble("Tank Variance 1", 1., 0., 1., 0.01);
+  GetParam(kSoftClip1)->InitBool("Soft Clip 1", false);
   GetParam(kInput1)->InitPercentage("Input 1", 100);
   GetParam(kStereoSource1)->InitPercentage("Stereo Source 1", 0, -100, 100);
   GetParam(kWidth1)->InitPercentage("Stereo Width 1", 100, 0, 200);
@@ -62,6 +64,8 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kNesting2)->InitBool("Nested Tank Diffusion 2", false);
   GetParam(kInputNesting2)->InitBool("Nested Input Diffusion 2", false);
   GetParam(kDiffusionDecay2)->InitPercentage("Tank Diffusion Decay 2", 76.9230);
+  GetParam(kVariance2)->InitDouble("Tank Variance 2", 1., 0., 1., 0.01);
+  GetParam(kSoftClip2)->InitBool("Soft Clip 2", false);
   GetParam(kInput2)->InitPercentage("Input 2", 100);
   GetParam(kStereoSource2)->InitPercentage("Stereo Source 2", 0, -100, 100);
   GetParam(kWidth2)->InitPercentage("Stereo Width 2", 100, 0, 200);
@@ -146,7 +150,9 @@ Plateau2::Plateau2(const InstanceInfo& info)
     Knobs[kDiffusionDecayKnob] = new NeedleKnob(IRECT::MakeXYWH(233, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDiffusionDecay1, kDiffusionDecay2);
     Knobs[kDiffusionDecayKnob]->Bound = 72.6923f;
 
-	Knobs[kModVarianceKnob] = new NeedleKnob(IRECT::MakeXYWH(233, 518, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModVariance1, kModVariance2);
+	Knobs[kModVarianceKnob] = new NeedleKnob(IRECT::MakeXYWH(130, 220, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModVariance1, kModVariance2);
+
+	Knobs[kVarianceKnob] = new NeedleKnob(IRECT::MakeXYWH(26, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kVariance1, kVariance2);
 
 	//Routing Page Knobs
     Knobs[kInputKnob] = new NeedleKnob(IRECT::MakeXYWH(93, 170, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kInput1, kInput2);
@@ -214,12 +220,14 @@ Plateau2::Plateau2(const InstanceInfo& info)
     Switches[5] = new LEDSwitch(IRECT::MakeXYWH(210, 170, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kNesting1, kNesting2);
 
     //DANGER switch
-    Switches[6] = new LEDSwitch(IRECT::MakeXYWH(102, 301, 112, 112), 1, DangerOffSVG, DangerOnSVG, DangerOnSVG, kDanger, kDanger);
+    Switches[6] = new LEDSwitch(IRECT::MakeXYWH(102, 321, 112, 112), 1, DangerOffSVG, DangerOnSVG, DangerOnSVG, kDanger, kDanger);
+
+    Switches[7] = new LEDSwitch(IRECT::MakeXYWH(3, 170, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kSoftClip1, kSoftClip2);
 
 	//Routing page Switches
-	Switches[7] = new LEDSwitch(IRECT::MakeXYWH(106.5, 374, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, k1to2, k2to1);
+	Switches[8] = new LEDSwitch(IRECT::MakeXYWH(106.5, 374, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, k1to2, k2to1);
 
-    for (int i = 5; i <= 7; i++) {
+    for (int i = 5; i <= 8; i++) {
         pGraphics->AttachControl(Switches[i]);
 		Switches[i]->Hide(true);
     }
@@ -296,24 +304,24 @@ void Plateau2::UpdatePageVisibility()
     }
 
 	//Extras page
-    for (int i = kPreDelayKnob; i <= kModVarianceKnob; i++) {
+    for (int i = kPreDelayKnob; i <= kVarianceKnob; i++) {
         Knobs[i]->Hide(currentPage != 1);
     }
-    for (int i = 5; i <= 6; i++) {
+    for (int i = 5; i <= 7; i++) {
         Switches[i]->Hide(currentPage != 1);
     }
 
 	//Routing page
+    Switches[8]->Hide(currentPage != 2);
+
 	for (int i = kInputKnob; i <= kPanKnob; i++) {
 		Knobs[i]->Hide(currentPage != 2);
 	}
+
     UpdateSendVisibility();
 }
 
 void Plateau2::UpdateSendVisibility() {
-    for (int i = 7; i <= 7; i++) {
-        Switches[i]->Hide(currentPage != 2);
-    }
     bool dangerous = GetParam(kDanger)->Value();
     for (int i = kSendLevel; i <= kSendHighDamp; i++) {
         Knobs[i]->Hide(currentPage != 2 || (!dangerous && tank2Selected));
@@ -420,6 +428,9 @@ void Plateau2::OnParamChange(int index)
 			reverb1.setTankDiffusionDecay(scaled);
             break;
         }
+		case kVariance1:
+			reverb1.setTankVariance(GetParam(index)->Value());
+			break;
         case kStereoSource1:
             sourceBalance1 = balanceFactors(GetParam(kStereoSource1)->Value()/100);
             break;
@@ -503,6 +514,9 @@ void Plateau2::OnParamChange(int index)
             reverb2.setTankDiffusionDecay(scaled);
             break;
         }
+		case kVariance2:
+			reverb2.setTankVariance(GetParam(index)->Value());
+			break;
         case kStereoSource2:
             sourceBalance2 = balanceFactors(GetParam(kStereoSource2)->Value()/100);
             break;
@@ -568,6 +582,7 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             const double wet1Param = GetParam(kWet1)->Value() / 100;
             const double input1 = GetParam(kInput1)->Value() / 100;
 			const double level2to1 = GetParam(k2to1Level)->Value() / 100;
+			const double softClip1 = GetParam(kSoftClip1)->Value() >= 0.5;
 
             if (clear1Param && !clear1 && cleared1) {
                 cleared1 = false;
@@ -616,9 +631,16 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 
             outputs[0][s] += std::get<0>(out) * wet1Param;
 
+			if (softClip1) {
+				outputs[0][s] = std::tanh(outputs[0][s]);
+			}
+
             if (nChans > 1)
             {
                 outputs[1][s] += std::get<1>(out) * wet1Param;
+                if (softClip1) {
+                    outputs[1][s] = std::tanh(outputs[1][s]);
+                }
             }
 
             if (send1to2) {
@@ -639,6 +661,7 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             const double wet2Param = GetParam(kWet2)->Value() / 100;
 			const double input2 = GetParam(kInput2)->Value() / 100;
 			const double level1to2 = GetParam(k1to2Level)->Value() / 100;
+			const double softClip2 = GetParam(kSoftClip2)->Value() >= 0.5;
 
             if (clear2Param && !clear2 && cleared2) {
                 cleared2 = false;
@@ -688,9 +711,16 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 
             outputs[0][s] += std::get<0>(out) * wet2Param;
 
+			if (softClip2) {
+				outputs[0][s] = std::tanh(outputs[0][s]);
+			}
+
             if (nChans > 1)
             {
                 outputs[1][s] += std::get<1>(out) * wet2Param;
+				if (softClip2) {
+					outputs[1][s] = std::tanh(outputs[1][s]);
+				}
             }
 
             if (send2to1) {

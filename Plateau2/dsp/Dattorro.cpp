@@ -14,10 +14,6 @@ Dattorro1997Tank::Dattorro1997Tank()
     lfo3.setFrequency(lfo3Freq);
     lfo4.setFrequency(lfo4Freq);
 
-    //lfo2.setPhase(0.25);
-    //lfo3.setPhase(0.5);
-    //lfo4.setPhase(0.75);
-
     lfo1.setRevPoint(0.5);
     lfo2.setRevPoint(0.5);
     lfo3.setRevPoint(0.5);
@@ -118,6 +114,12 @@ void Dattorro1997Tank::setSampleRate(const double newSampleRate) {
 void Dattorro1997Tank::setTimeScale(const double newTimeScale) {
     timeScale = newTimeScale;
     timeScale = timeScale < minTimeScale ? minTimeScale : timeScale;
+
+    rescaleApfAndDelayTimes();
+}
+
+void Dattorro1997Tank::setVariance(const double newVariance) {
+	variance = newVariance;
 
     rescaleApfAndDelayTimes();
 }
@@ -232,14 +234,14 @@ void Dattorro1997Tank::initialiseDelaysAndApfs() {
                                          maxScaledOutputTap + timePadding));
     };
 
-    const long kLeftApf1MaxTime = calcMaxTime(leftApf1Time);
-    const long kLeftDelay1MaxTime = calcMaxTime(leftDelay1Time);
-    const long kLeftApf2MaxTime = calcMaxTime(leftApf2Time);
-    const long kLeftDelay2MaxTime = calcMaxTime(leftDelay2Time);
-    const long kRightApf1MaxTime = calcMaxTime(rightApf1Time);
-    const long kRightDelay1MaxTime = calcMaxTime(rightDelay1Time);
-    const long kRightApf2MaxTime = calcMaxTime(rightApf2Time);
-    const long kRightDelay2MaxTime = calcMaxTime(rightDelay2Time);
+    const long kLeftApf1MaxTime = calcMaxTime(std::max({ leftApf1Time, (leftApf1Time + rightApf1Time) / 2 }));
+    const long kLeftDelay1MaxTime = calcMaxTime(std::max({ leftDelay1Time, (leftDelay1Time + rightDelay1Time) / 2 }));
+    const long kLeftApf2MaxTime = calcMaxTime(std::max({ leftApf2Time, (leftApf2Time + rightApf2Time) / 2 }));
+    const long kLeftDelay2MaxTime = calcMaxTime(std::max({ leftDelay2Time, (leftDelay2Time + rightDelay2Time) / 2 }));
+    const long kRightApf1MaxTime = calcMaxTime(std::max({ rightApf1Time, (leftApf1Time + rightApf1Time) / 2 }));
+    const long kRightDelay1MaxTime = calcMaxTime(std::max({ rightDelay1Time, (leftDelay1Time + rightDelay1Time) / 2 }));
+    const long kRightApf2MaxTime = calcMaxTime(std::max({ rightApf2Time, (leftApf2Time + rightApf2Time) / 2 }));
+    const long kRightDelay2MaxTime = calcMaxTime(std::max({ rightDelay2Time, (leftDelay2Time + rightDelay2Time) / 2 }));
 
     leftApf1 = AllpassFilter<double>(kLeftApf1MaxTime);
     leftDelay1 = InterpDelay<double>(kLeftDelay1MaxTime);
@@ -253,15 +255,17 @@ void Dattorro1997Tank::initialiseDelaysAndApfs() {
 
 void Dattorro1997Tank::tickApfModulation() {
     double scaleFactor = timeScale;
-    leftApf1.delay1.setDelayTime(lfo1.process() * lfoExcursion * scaleFactor + scaledLeftApf1Time);
-    leftApf2.delay1.setDelayTime(lfo2.process() * lfoExcursion * scaleFactor + scaledLeftApf2Time);
-    rightApf1.delay1.setDelayTime(lfo3.process() * lfoExcursion * scaleFactor + scaledRightApf1Time);
-    rightApf2.delay1.setDelayTime(lfo4.process() * lfoExcursion * scaleFactor + scaledRightApf2Time);
+	double avg1 = (scaledLeftApf1Time + scaledRightApf1Time) / 2;
+	double avg2 = (scaledLeftApf2Time + scaledRightApf2Time) / 2;
+    leftApf1.delay1.setDelayTime(lfo1.process() * lfoExcursion * scaleFactor + linterp<double>(avg1, scaledLeftApf1Time, variance));
+    leftApf2.delay1.setDelayTime(lfo2.process() * lfoExcursion * scaleFactor + linterp<double>(avg2, scaledLeftApf2Time, variance));
+    rightApf1.delay1.setDelayTime(lfo3.process() * lfoExcursion * scaleFactor + linterp<double>(avg1, scaledRightApf1Time, variance));
+    rightApf2.delay1.setDelayTime(lfo4.process() * lfoExcursion * scaleFactor + linterp<double>(avg2, scaledRightApf2Time, variance));
 
-    leftApf1.delay2.setDelayTime(lfo1.process() * lfoExcursion * scaleFactor + scaledLeftApf1Time);
-    leftApf2.delay2.setDelayTime(lfo2.process() * lfoExcursion * scaleFactor + scaledLeftApf2Time);
-    rightApf1.delay2.setDelayTime(lfo3.process() * lfoExcursion * scaleFactor + scaledRightApf1Time);
-    rightApf2.delay2.setDelayTime(lfo4.process() * lfoExcursion * scaleFactor + scaledRightApf2Time);
+    leftApf1.delay2.setDelayTime(lfo1.process() * lfoExcursion * scaleFactor + linterp<double>(avg1, scaledLeftApf1Time, variance));
+    leftApf2.delay2.setDelayTime(lfo2.process() * lfoExcursion * scaleFactor + linterp<double>(avg2, scaledLeftApf2Time, variance));
+    rightApf1.delay2.setDelayTime(lfo3.process() * lfoExcursion * scaleFactor + linterp<double>(avg1, scaledRightApf1Time, variance));
+    rightApf2.delay2.setDelayTime(lfo4.process() * lfoExcursion * scaleFactor + linterp<double>(avg2, scaledRightApf2Time, variance));
 }
 
 void Dattorro1997Tank::rescaleApfAndDelayTimes() {
@@ -277,10 +281,13 @@ void Dattorro1997Tank::rescaleApfAndDelayTimes() {
     scaledRightApf2Time = rightApf2Time * scaleFactor;
     scaledRightDelay2Time = rightDelay2Time * scaleFactor;
 
-    leftDelay1.setDelayTime(scaledLeftDelay1Time);
-    leftDelay2.setDelayTime(scaledLeftDelay2Time);
-    rightDelay1.setDelayTime(scaledRightDelay1Time);
-    rightDelay2.setDelayTime(scaledRightDelay2Time);
+	double avg1 = (scaledLeftDelay1Time + scaledRightDelay1Time) / 2;
+	double avg2 = (scaledLeftDelay2Time + scaledRightDelay2Time) / 2;
+
+    leftDelay1.setDelayTime(linterp<double>(avg1, scaledLeftDelay1Time, variance));
+    leftDelay2.setDelayTime(linterp<double>(avg2, scaledLeftDelay2Time, variance));
+    rightDelay1.setDelayTime(linterp<double>(avg1, scaledRightDelay1Time, variance));
+    rightDelay2.setDelayTime(linterp<double>(avg2, scaledRightDelay2Time, variance));
 }
 
 void Dattorro1997Tank::rescaleTapTimes() {
@@ -331,6 +338,10 @@ void Dattorro::clear() {
 
 void Dattorro::setTimeScale(double timeScale) {
     tank.setTimeScale(timeScale);
+}
+
+void Dattorro::setTankVariance(double variance) {
+	tank.setVariance(variance);
 }
 
 void Dattorro::setPreDelay(double t) {

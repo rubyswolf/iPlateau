@@ -20,6 +20,7 @@ public:
 
     void setSampleRate(const double newSampleRate);
     void setTimeScale(const double newTimeScale);
+    void setVariance(const double newVariance);
 
     void setDecay(const double newDecay);
 
@@ -48,15 +49,10 @@ private:
     static constexpr double leftApf2Time = 1800.0;
     static constexpr double leftDelay2Time = 3720.0;
 
-    //static constexpr double rightApf1Time = 908.0;
-    //static constexpr double rightDelay1Time = 4217.0;
-    //static constexpr double rightApf2Time = 2656.0;
-    //static constexpr double rightDelay2Time = 3163.0;
-
-    static constexpr double rightApf1Time = 672.0;
-    static constexpr double rightDelay1Time = 4453.0;
-    static constexpr double rightApf2Time = 1800.0;
-    static constexpr double rightDelay2Time = 3720.0;
+    static constexpr double rightApf1Time = 908.0;
+    static constexpr double rightDelay1Time = 4217.0;
+    static constexpr double rightApf2Time = 2656.0;
+    static constexpr double rightDelay2Time = 3163.0;
 
     enum LeftOutTaps {
         L_DELAY_1_L_TAP_1,
@@ -109,6 +105,7 @@ private:
     double sampleRateScale = sampleRate / dattorroSampleRate;
 
     double timeScale = 1.0;
+	double variance = 0.0;
 
     double modDepth = 0.0;
     double decayParam = 0.0;
@@ -165,6 +162,7 @@ public:
     void clear();
 
     void setTimeScale(double timeScale);
+    void setTankVariance(double variance);
     void setPreDelay(double time);
     void setSampleRate(double sampleRate);
 
