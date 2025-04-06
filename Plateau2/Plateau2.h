@@ -12,7 +12,7 @@
 #include "./controls/LEDRadio.cpp"
 #include "./controls/NavigatorButton.cpp"
 
-const int kNumPresets = 1;
+const int kNumPresets = 3;
 
 enum EParams
 {

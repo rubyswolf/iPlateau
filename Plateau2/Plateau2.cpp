@@ -79,6 +79,10 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
   GetParam(kDanger)->InitBool("DANGER! Allow Unsafe Feedback Settings", false);
 
+  MakePreset("Default", 100.000000, false, false, true, 50.000000, 10.000000, 10.000000, 0.500000, 10.000000, 0.700000, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false, 50.000000, 10.000000, 10.000000, 0.500000, 10.000000, 0.700000, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
+  MakePreset("Cave", 100.000000, false, false, true, 50.000000, 10.000000, 10.000000, 0.419643, 10.000000, 0.237998, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, true, 29.910714, 0.131696, 10.000000, 10.000000, true, 22.619048, 10.000000, 7.767857, 0.584821, 10.000000, 0.466990, 10.000000, 7.053571, 0.245536, 0.714286, 0.500000, 1.000000, false, false, false, true, 0.000000, true, false, 64.423000, 1.000000, false, 22.321429, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
+  MakePreset("Bass-ment", 68.452381, false, false, true, 92.261905, 10.000000, 4.866071, 0.473214, 3.571429, 0.377201, 10.000000, 6.875000, 0.272321, 1.285714, 0.500000, 1.000000, false, false, false, false, 0.000000, false, false, 99.244429, 0.982143, true, 100.000000, 0.000000, 131.250000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, true, 75.595238, 3.616071, 10.000000, 0.495536, 5.892857, 0.768296, 7.232143, 10.000000, 0.218750, 3.000000, 1.000000, 0.459821, false, false, false, true, 0.039286, true, false, 36.744499, 0.165179, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
+
 
   reverb1.setSampleRate(GetSampleRate());
   envelope1.setSampleRate(GetSampleRate());
@@ -207,6 +211,9 @@ Plateau2::Plateau2(const InstanceInfo& info)
 	for (int i = 0; i < kNumButtons; i++) {
 		pGraphics->AttachControl(Buttons[i]);
 	}
+
+	//Dump Preset Button
+    pGraphics->AttachControl((new LEDButton(IRECT::MakeXYWH(0, 40, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this](IControl* button) {DumpMakePresetSrc("C:/dev/Plugins/Plateau/Plateau2/preset.txt");})));
 
 	//Tank Enable Switch
     Switches[4] = new LEDSwitch(IRECT::MakeXYWH(106.5f, 112, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kEnable1, kEnable2);
@@ -703,7 +710,7 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 reverb2.freeze(frozen2);
             }
 
-            reverb2.process((double)(std::get<0>(sourceBalance2)* envelope2._value* inputs[0][s] * input2), (double)(std::get<1>(sourceBalance2)* envelope2._value* (inputs[nChans > 1 ? 1 : 0][s] * input2)), (send1to2 ? (envelope2._value * level1to2 * reverbOut1) : 0));
+            //reverb2.process((double)(std::get<0>(sourceBalance2)* envelope2._value* inputs[0][s] * input2), (double)(std::get<1>(sourceBalance2)* envelope2._value* (inputs[nChans > 1 ? 1 : 0][s] * input2)), (send1to2 ? (envelope2._value * level1to2 * reverbOut1) : 0));
 
 
             std::tuple<double, double> out = seperation(reverb2.getLeftOutput(), reverb2.getRightOutput(), GetParam(kWidth2)->Value()/100);
