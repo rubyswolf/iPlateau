@@ -15,7 +15,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kInputHighDamp1)->InitDouble("Input High Damp 1", 10., 0., 10., 0.01);
   GetParam(kSize1)->InitDouble("Size 1", 0.5, 0., 1., 0.01);
   GetParam(kDiffusion1)->InitDouble("Diffusion 1", 10., 0., 10., 0.01);
-  GetParam(kDecay1)->InitDouble("Decay 1", 0.7, 0.1, 0.9999, 0.01);
+  GetParam(kDecay1)->InitDouble("Decay 1", 0.45, 0.1, 0.9999, 0.01);
   GetParam(kReverbLowDamp1)->InitDouble("Reverb Low Damp 1", 10., 0., 10., 0.01);
   GetParam(kReverbHighDamp1)->InitDouble("Reverb High Damp 1", 10., 0., 10., 0.01);
   GetParam(kModSpeed1)->InitDouble("Modulation Speed 1", 0., 0., 1., 0.01);
@@ -49,7 +49,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kInputHighDamp2)->InitDouble("Input High Damp 2", 10., 0., 10., 0.01);
   GetParam(kSize2)->InitDouble("Size 2", 0.5, 0., 1., 0.01);
   GetParam(kDiffusion2)->InitDouble("Diffusion 2", 10., 0., 10., 0.01);
-  GetParam(kDecay2)->InitDouble("Decay 2", 0.7, 0.1, 0.9999, 0.01);
+  GetParam(kDecay2)->InitDouble("Decay 2", 0.45, 0.1, 0.9999, 0.01);
   GetParam(kReverbLowDamp2)->InitDouble("Reverb Low Damp 2", 10., 0., 10., 0.01);
   GetParam(kReverbHighDamp2)->InitDouble("Reverb High Damp 2", 10., 0., 10., 0.01);
   GetParam(kModSpeed2)->InitDouble("Modulation Speed 2", 0., 0., 1., 0.01);
@@ -77,11 +77,16 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(k2to1HighDamp)->InitDouble("Tank 2 to 1 High Damp", 10., 0., 10., 0.01);
 
 
-  GetParam(kDanger)->InitBool("DANGER! Allow Unsafe Feedback Settings", false);
+  GetParam(kDanger)->InitBool("DANGER! Allow Unsafe Feedback", false);
 
-  MakePreset("Cave", 100.000000, false, false, true, 50.000000, 10.000000, 10.000000, 0.419643, 10.000000, 0.237998, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, true, 29.910714, 0.131696, 10.000000, 10.000000, true, 22.619048, 10.000000, 7.767857, 0.584821, 10.000000, 0.466990, 10.000000, 7.053571, 0.245536, 0.714286, 0.500000, 1.000000, false, false, false, true, 0.000000, true, false, 64.423000, 1.000000, false, 22.321429, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
-  MakePreset("Bass-ment", 68.452381, false, false, true, 92.261905, 10.000000, 4.866071, 0.473214, 3.571429, 0.377201, 10.000000, 6.875000, 0.272321, 1.285714, 0.500000, 1.000000, false, false, false, false, 0.000000, false, false, 99.244429, 0.982143, true, 100.000000, 0.000000, 131.250000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, true, 75.595238, 3.616071, 10.000000, 0.495536, 5.892857, 0.768296, 7.232143, 10.000000, 0.218750, 3.000000, 1.000000, 0.459821, false, false, false, true, 0.039286, true, false, 36.744499, 0.165179, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
-
+  MakePreset("Default", 100.000000, false, false, true, 50.000000, 10.000000, 10.000000, 0.500000, 10.000000, 0.450000, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false, 50.000000, 10.000000, 10.000000, 0.500000, 10.000000, 0.450000, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
+  MakePreset("Bassment", 68.452381, false, false, true, 92.261905, 10.000000, 4.866071, 0.473214, 3.571429, 0.377201, 10.000000, 6.875000, 0.272321, 1.285714, 0.500000, 1.000000, false, false, false, false, 0.000000, false, false, 76.923070, 0.982143, true, 100.000000, 0.000000, 131.250000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, true, 47.619048, 3.616071, 10.000000, 0.553572, 5.892857, 0.591530, 7.232143, 10.000000, 0.218750, 3.000000, 0.299107, 0.459821, false, false, false, true, 0.039286, true, false, 36.744499, 0.165179, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
+  MakePreset("Polish", 100.000000, false, false, true, 29.166666, 10.000000, 8.169643, 0.191964, 6.473214, 0.300870, 10.000000, 7.366071, 0.272321, 1.285714, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923070, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false, 50.000000, 10.000000, 10.000000, 0.500000, 10.000000, 0.450000, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, true, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
+  MakePreset("Cave", 100.000000, false, false, true, 50.000000, 10.000000, 7.991071, 0.589286, 10.000000, 0.386642, 10.000000, 5.803571, 0.000000, 0.000000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, true, 29.910714, 0.131696, 10.000000, 10.000000, true, 22.619048, 10.000000, 7.767857, 0.584821, 10.000000, 0.466990, 10.000000, 7.053571, 0.245536, 0.714286, 0.500000, 1.000000, false, false, false, true, 0.000000, true, false, 64.423000, 1.000000, false, 22.321429, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
+  MakePreset("Canyon", 0.000000, false, false, true, 100.000000, 10.000000, 8.080357, 0.803571, 10.000000, 0.240609, 10.000000, 10.000000, 0.138393, 0.714286, 0.500000, 0.116071, false, false, false, true, 0.000000, true, false, 25.583714, 0.000000, false, 100.000000, 0.000000, 200.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false, 50.000000, 10.000000, 10.000000, 0.500000, 10.000000, 0.334416, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, true, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 0.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
+  MakePreset("ChorusVerb", 51.190476, false, false, true, 100.000000, 10.000000, 8.080357, 0.803571, 0.000000, 0.284801, 10.000000, 10.000000, 0.138393, 1.857143, 0.500000, 0.116071, false, false, false, false, 0.000000, true, false, 25.583714, 0.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, true, 100.000000, 0.082589, 7.366071, 10.000000, true, 11.309524, 10.000000, 10.000000, 0.500000, 10.000000, 0.495112, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 23.660714, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
+  MakePreset("Washout", 100.000000, false, false, true, 32.142857, 10.000000, 10.000000, 0.379464, 10.000000, 0.730733, 8.169643, 7.901786, 0.272321, 1.285714, 0.500000, 1.000000, false, false, false, true, 0.000000, true, false, 72.905213, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false, 50.000000, 10.000000, 10.000000, 0.500000, 10.000000, 0.450000, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
+  MakePreset("Totally Tubular", 61.904762, false, false, true, 51.785714, 10.000000, 6.026786, 0.191964, 6.473214, 0.497723, 10.000000, 8.348214, 0.272321, 1.285714, 0.500000, 1.000000, false, false, true, true, 0.000000, false, false, 76.923070, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, true, 32.589286, 0.049107, 10.000000, 4.285714, true, 32.142857, 6.517857, 8.080357, 0.294643, 10.000000, 0.591530, 7.232143, 10.000000, 0.232143, 1.071429, 0.723214, 1.000000, false, false, false, true, 0.000000, true, false, 47.458785, 1.000000, false, 100.000000, 0.000000, 58.928571, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
 
   reverb1.setSampleRate(GetSampleRate());
   envelope1.setSampleRate(GetSampleRate());
@@ -212,7 +217,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
 	}
 
 	//Dump Preset Button
-    pGraphics->AttachControl((new LEDButton(IRECT::MakeXYWH(0, 40, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this](IControl* button) {DumpMakePresetSrc("C:/dev/Plugins/Plateau/Plateau2/preset.txt");})));
+    //pGraphics->AttachControl((new LEDButton(IRECT::MakeXYWH(0, 40, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this](IControl* button) {DumpMakePresetSrc("C:/dev/Plugins/Plateau/Plateau2/preset.txt");})));
 
 	//Tank Enable Switch
     Switches[4] = new LEDSwitch(IRECT::MakeXYWH(106.5f, 112, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kEnable1, kEnable2);
