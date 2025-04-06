@@ -19,7 +19,7 @@ public:
     void Draw(IGraphics& g) override { g.DrawSVG(GetValue()>=1.?(tank2 ? mSVGOn2 : mSVGOn1) : mSVGOff, mRECT, &mBlend); }
     void OnMouseUp(float x, float y, const IMouseMod& mod) override {
         this->SetValue(0.);
-        SetDirty();
+        SetDirty(false);
         if (mLinkedControl)
         {
             mLinkedControl->SetValue(0.);

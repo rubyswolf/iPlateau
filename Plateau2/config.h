@@ -81,6 +81,7 @@
 #define LEDONBOTH_FN "LEDButtonGradient.svg"
 #define DANGEROFF_FN "DangerOff.svg"
 #define DANGERON_FN "DangerOn.svg"
+#define HELPBUTTON_FN "HelpButton.svg"
 #define SEND1TO2_FN "Send1To2.svg"
 #define SEND2TO1_FN "Send2To1.svg"
 #define REQUIRESDANGER_FN "RequiresDanger.svg"

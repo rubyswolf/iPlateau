@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="55.999992"
+   height="55.999973"
+   viewBox="0 0 14.816665 14.81666"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="HelpButton.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="9.0306504"
+     inkscape:cx="20.817991"
+     inkscape:cy="18.714045"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <linearGradient
+       id="linearGradient2"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#769cb4;stop-opacity:1;"
+         offset="0"
+         id="stop2" />
+      <stop
+         style="stop-color:#3b566b;stop-opacity:1;"
+         offset="0.38035893"
+         id="stop4" />
+      <stop
+         style="stop-color:#001122;stop-opacity:1;"
+         offset="1"
+         id="stop3" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2"
+       id="linearGradient3"
+       x1="173.27861"
+       y1="253.57823"
+       x2="173.27861"
+       y2="267.60402"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-165.87028,-253.1828)">
+    <ellipse
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.85208338;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+       id="ellipse1"
+       cx="173.27861"
+       cy="260.59113"
+       rx="6.6308026"
+       ry="6.6307998" />
+    <ellipse
+       style="fill:#0f2435;fill-opacity:1;stroke:url(#linearGradient3);stroke-width:0.764187;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+       id="path1"
+       cx="173.27861"
+       cy="260.59113"
+       rx="6.6308026"
+       ry="6.6307998" />
+    <path
+       d="m 172.47316,262.74502 v -0.72338 q 0,-0.32634 0.049,-0.56566 0.0545,-0.24474 0.23931,-0.50582 l 0.9899,-1.37605 q 0.27739,-0.37529 0.27739,-0.7397 0,-0.45688 -0.31546,-0.72339 -0.31545,-0.2665 -0.6418,-0.2665 -0.4188,0 -0.72339,0.27738 -0.29914,0.27195 -0.29914,0.93551 h -1.13674 v -0.223 q 0,-0.892 0.62548,-1.50659 0.63093,-0.62004 1.4794,-0.62004 0.82672,0 1.48483,0.58196 0.66356,0.58197 0.66356,1.55555 0,0.67986 -0.35352,1.16937 l -1.0171,1.39237 q -0.18492,0.26108 -0.18492,0.70164 v 0.63635 z m 0,1.95803 v -1.1313 h 1.13675 v 1.1313 z"
+       id="text3"
+       style="font-size:11.7671px;font-family:'Alte DIN 1451 Mittelschrift';-inkscape-font-specification:'Alte DIN 1451 Mittelschrift';text-align:center;text-anchor:middle;fill:#3b566b;stroke-width:0.986698;paint-order:stroke fill markers"
+       aria-label="?" />
+  </g>
+</svg>

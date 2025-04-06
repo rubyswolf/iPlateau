@@ -38,7 +38,6 @@ enum EParams
     kDiffuseInput1,
     kPreDelay1,
     kNesting1,
-    kInputNesting1,
 	kDiffusionDecay1,
 	kVariance1,
 	kSoftClip1,
@@ -71,7 +70,6 @@ enum EParams
     kDiffuseInput2,
     kPreDelay2,
     kNesting2,
-    kInputNesting2,
     kDiffusionDecay2,
 	kVariance2,
 	kSoftClip2,
@@ -119,7 +117,7 @@ enum EKnobs {
 };
 
 const int kNumSwitches = 9;
-const int kNumButtons = 2;
+const int kNumButtons = 3;
 const int kNumPages = 3;
 const int kNumSVGs = 5;
 

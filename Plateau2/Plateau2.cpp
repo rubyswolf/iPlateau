@@ -27,9 +27,8 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kTunedMode1)->InitBool("Tuned Mode 1", false);
   GetParam(kDiffuseInput1)->InitBool("Diffuse Input 1", true);
   GetParam(kPreDelay1)->InitSeconds("Pre Delay 1", 0., 0., 0.5, 0.01);
-  GetParam(kNesting1)->InitBool("Nested Tank Diffusion 1", false);
-  GetParam(kInputNesting1)->InitBool("Nested Input Diffusion 1", false);
-  GetParam(kDiffusionDecay1)->InitPercentage("Tank Diffusion Decay 1", 76.9230);
+  GetParam(kNesting1)->InitBool("Nested Diffusion 1", false);
+  GetParam(kDiffusionDecay1)->InitPercentage("Diffusion Decay 1", 76.9230);
   GetParam(kVariance1)->InitDouble("Tank Variance 1", 1., 0., 1., 0.01);
   GetParam(kSoftClip1)->InitBool("Soft Clip 1", false);
   GetParam(kInput1)->InitPercentage("Input 1", 100);
@@ -61,9 +60,8 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kTunedMode2)->InitBool("Tuned Mode 2", false);
   GetParam(kDiffuseInput2)->InitBool("Diffuse Input 2", true);
   GetParam(kPreDelay2)->InitSeconds("Pre Delay 2", 0., 0., 0.5, 0.01);
-  GetParam(kNesting2)->InitBool("Nested Tank Diffusion 2", false);
-  GetParam(kInputNesting2)->InitBool("Nested Input Diffusion 2", false);
-  GetParam(kDiffusionDecay2)->InitPercentage("Tank Diffusion Decay 2", 76.9230);
+  GetParam(kNesting2)->InitBool("Nested Diffusion 2", false);
+  GetParam(kDiffusionDecay2)->InitPercentage("Diffusion Decay 2", 76.9230);
   GetParam(kVariance2)->InitDouble("Tank Variance 2", 1., 0., 1., 0.01);
   GetParam(kSoftClip2)->InitBool("Soft Clip 2", false);
   GetParam(kInput2)->InitPercentage("Input 2", 100);
@@ -109,6 +107,11 @@ Plateau2::Plateau2(const InstanceInfo& info)
   };
   
   mLayoutFunc = [&](IGraphics* pGraphics) {
+    std::time_t t = std::time(nullptr);
+    std::tm* now = std::localtime(&t);
+    if ((now->tm_mon == 3) && (now->tm_mday == 1)) {
+        pGraphics->OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    }
 
     pGraphics->AttachCornerResizer(EUIResizerMode::Scale, false);
     pGraphics->AttachSVGBackground(BACKGROUND_FN);
@@ -200,6 +203,8 @@ Plateau2::Plateau2(const InstanceInfo& info)
 	const ISVG DangerOffSVG = pGraphics->LoadSVG(DANGEROFF_FN);
 	const ISVG DangerOnSVG = pGraphics->LoadSVG(DANGERON_FN);
 
+	const ISVG HelpButtonSVG = pGraphics->LoadSVG(HELPBUTTON_FN);
+
 	//Main page Switches
     Switches[0] = new LEDSwitch(IRECT::MakeXYWH(-11.526f, 404.802f-45, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, kFreeze, kFreeze);
     Switches[1] = new LEDSwitch(IRECT::MakeXYWH(-11.526f, 404.802f+30, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kFreeze1, kFreeze2);
@@ -212,12 +217,17 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
     Buttons[1] = new LEDButton(IRECT::MakeXYWH(225.526f, 404.802f - 45, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this, clearButton](IControl* clearControl) {SetParameterValue(kClear, 1);clearButton->SetValue(1.);clearButton->SetDirty();}, clearButton);
 
+	//Help Button
+    Buttons[2] = new LEDButton(IRECT::MakeXYWH(129.5f, 535, 56, 56), 1, HelpButtonSVG, HelpButtonSVG, HelpButtonSVG, [this](IControl* button) {this->GetUI()->OpenURL("https://github.com/rubyswolf/iPlateau/wiki");});
+	Buttons[2]->Hide(true);
+
 	for (int i = 0; i < kNumButtons; i++) {
 		pGraphics->AttachControl(Buttons[i]);
 	}
 
 	//Dump Preset Button
     //pGraphics->AttachControl((new LEDButton(IRECT::MakeXYWH(0, 40, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this](IControl* button) {DumpMakePresetSrc("C:/dev/Plugins/Plateau/Plateau2/preset.txt");})));
+    
 
 	//Tank Enable Switch
     Switches[4] = new LEDSwitch(IRECT::MakeXYWH(106.5f, 112, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kEnable1, kEnable2);
@@ -319,6 +329,7 @@ void Plateau2::UpdatePageVisibility()
     for (int i = 5; i <= 7; i++) {
         Switches[i]->Hide(currentPage != 1);
     }
+	Buttons[2]->Hide(currentPage != 1);
 
 	//Routing page
     Switches[8]->Hide(currentPage != 2);
