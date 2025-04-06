@@ -79,7 +79,6 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
   GetParam(kDanger)->InitBool("DANGER! Allow Unsafe Feedback Settings", false);
 
-  MakePreset("Default", 100.000000, false, false, true, 50.000000, 10.000000, 10.000000, 0.500000, 10.000000, 0.700000, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false, 50.000000, 10.000000, 10.000000, 0.500000, 10.000000, 0.700000, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
   MakePreset("Cave", 100.000000, false, false, true, 50.000000, 10.000000, 10.000000, 0.419643, 10.000000, 0.237998, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, true, 29.910714, 0.131696, 10.000000, 10.000000, true, 22.619048, 10.000000, 7.767857, 0.584821, 10.000000, 0.466990, 10.000000, 7.053571, 0.245536, 0.714286, 0.500000, 1.000000, false, false, false, true, 0.000000, true, false, 64.423000, 1.000000, false, 22.321429, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
   MakePreset("Bass-ment", 68.452381, false, false, true, 92.261905, 10.000000, 4.866071, 0.473214, 3.571429, 0.377201, 10.000000, 6.875000, 0.272321, 1.285714, 0.500000, 1.000000, false, false, false, false, 0.000000, false, false, 99.244429, 0.982143, true, 100.000000, 0.000000, 131.250000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, true, 75.595238, 3.616071, 10.000000, 0.495536, 5.892857, 0.768296, 7.232143, 10.000000, 0.218750, 3.000000, 1.000000, 0.459821, false, false, false, true, 0.039286, true, false, 36.744499, 0.165179, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
 
@@ -267,8 +266,6 @@ void Plateau2::SelectTank(bool tank2) {
 	tank2Selected = tank2;
     for (int i = 0; i < kNumKnobs; i++) {
         Knobs[i]->SelectTank(tank2);
-        //Knobs[i]->SetValue(GetParam(Knobs[i]->GetParamIdx())->Value());
-		//IEditorDelegate::SendParameterValueFromDelegate(Knobs[i]->GetParamIdx(), GetParam(Knobs[i]->GetParamIdx())->GetNormalized(), true);
     }
 	for (int i = 0; i < kNumSwitches; i++) {
 		Switches[i]->SelectTank(tank2);
@@ -348,6 +345,9 @@ bool Plateau2::WindowIsOpen() {
 void Plateau2::OnParamChange(int index)
 {
     switch (index) {
+        case kDry:
+            dryParam = GetParam(kDry)->Value() / 100;
+			break;
         case kClear:
             if (WindowIsOpen()) {
 			    if (GetParam(kClear)->Value() >= 0.5) {
@@ -371,6 +371,27 @@ void Plateau2::OnParamChange(int index)
             }
 		    break;
 
+        case kEnable1:
+            tank1Enabled = GetParam(kEnable1)->Value() >= 0.5;
+            break;
+        case kClear1:
+            clear1Param = GetParam(kClear1)->Value() >= 0.5 || GetParam(kClear)->Value() >= 0.5;
+            break;
+        case kFreeze1:
+            freeze1Param = GetParam(kFreeze1)->Value() >= 0.5;
+            break;
+		case kWet1:
+			wet1Param = GetParam(kWet1)->Value() / 100;
+			break;
+        case kInput1:
+            input1Param = GetParam(kInput1)->Value() / 100;
+            break;
+        case kSoftClip1:
+            softClip1Param = GetParam(kSoftClip1)->Value() >= 0.5;
+            break;
+		case kWidth1:
+			width1Param = GetParam(kWidth1)->Value() / 100;
+			break;
         case kPreDelay1:
             reverb1.setPreDelay(GetParam(index)->Value());
             break;
@@ -444,6 +465,12 @@ void Plateau2::OnParamChange(int index)
         case kPan1:
             panBalance1 = balanceFactors(GetParam(kPan1)->Value()/100);
             break;
+        case k1to2:
+            send1to2 = tank1Enabled && GetParam(k1to2)->Value() >= 0.5;
+            break;
+        case k1to2Level:
+            level1to2Param = GetParam(k1to2Level)->Value() / 100;
+            break;
         case k1to2Delay:
             send1To2Delay.setDelayTime(GetParam(k1to2Delay)->Value() * GetSampleRate());
             break;
@@ -457,6 +484,27 @@ void Plateau2::OnParamChange(int index)
 			reverb1.setTankModVariance(GetParam(index)->Value());
 			break;
 
+		case kEnable2:
+			tank2Enabled = GetParam(kEnable2)->Value() >= 0.5;
+			break;
+		case kClear2:
+			clear2Param = GetParam(kClear2)->Value() >= 0.5 || GetParam(kClear)->Value() >= 0.5;
+			break;
+		case kFreeze2:
+			freeze2Param = GetParam(kFreeze2)->Value() >= 0.5;
+			break;
+		case kWet2:
+			wet2Param = GetParam(kWet2)->Value() / 100;
+			break;
+		case kInput2:
+			input2Param = GetParam(kInput2)->Value() / 100;
+			break;
+		case kSoftClip2:
+			softClip2Param = GetParam(kSoftClip2)->Value() >= 0.5;
+			break;
+		case kWidth2:
+			width2Param = GetParam(kWidth2)->Value() / 100;
+			break;
         case kPreDelay2:
             reverb2.setPreDelay(GetParam(index)->Value());
             break;
@@ -530,6 +578,12 @@ void Plateau2::OnParamChange(int index)
         case kPan2:
             panBalance2 = balanceFactors(GetParam(kPan2)->Value()/100);
             break;
+		case k2to1:
+            send2to1 = tank2Enabled && GetParam(k2to1)->Value() && GetParam(kDanger)->Value() >= 0.5;
+			break;
+		case k2to1Level:
+			level2to1Param = GetParam(k2to1Level)->Value() / 100;
+			break;
         case k2to1Delay:
             send2To1Delay.setDelayTime(GetParam(k2to1Delay)->Value() * GetSampleRate());
             break;
@@ -569,14 +623,6 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
   const int nChans = NOutChansConnected();
   
   for (int s = 0; s < nFrames; s++) {
-        const double dryParam = GetParam(kDry)->Value() / 100;
-
-        const bool tank1Enabled = GetParam(kEnable1)->Value()>=0.5;
-        const bool tank2Enabled = GetParam(kEnable2)->Value()>=0.5;
-
-		const bool send2to1 = tank2Enabled && GetParam(k2to1)->Value() && GetParam(kDanger)->Value()>=0.5;
-        const bool send1to2 = tank1Enabled && GetParam(k1to2)->Value()>=0.5;
-
         outputs[0][s] = inputs[0][s] * dryParam;
         if (nChans > 1)
         {
@@ -584,13 +630,6 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
         }
 
         if (tank1Enabled) {
-            const bool clear1Param = GetParam(kClear1)->Value()>=0.5 || GetParam(kClear)->Value()>=0.5;
-            const bool freeze1Param = GetParam(kFreeze1)->Value() >= 0.5;
-            const double wet1Param = GetParam(kWet1)->Value() / 100;
-            const double input1 = GetParam(kInput1)->Value() / 100;
-			const double level2to1 = GetParam(k2to1Level)->Value() / 100;
-			const double softClip1 = GetParam(kSoftClip1)->Value() >= 0.5;
-
             if (clear1Param && !clear1 && cleared1) {
                 cleared1 = false;
                 clear1 = true;
@@ -631,21 +670,21 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 reverb1.freeze(frozen1);
             }
 
-            reverb1.process((double)(std::get<0>(sourceBalance1) * envelope1._value * inputs[0][s] * input1), (double)(std::get<1>(sourceBalance1) * envelope1._value * (inputs[nChans > 1 ? 1 : 0][s] * input1)), (send2to1 ? (envelope1._value * level2to1 * reverbOut2) : 0));
+            reverb1.process((double)(std::get<0>(sourceBalance1) * envelope1._value * inputs[0][s] * input1Param), (double)(std::get<1>(sourceBalance1) * envelope1._value * (inputs[nChans > 1 ? 1 : 0][s] * input1Param)), (send2to1 ? (envelope1._value * level2to1Param * reverbOut2) : 0));
 
-            std::tuple<double,double> out = seperation(reverb1.getLeftOutput(), reverb1.getRightOutput(), GetParam(kWidth1)->Value() / 100);
+            std::tuple<double,double> out = seperation(reverb1.getLeftOutput(), reverb1.getRightOutput(), width1Param);
             out = { std::get<0>(panBalance1) * std::get<0>(out), std::get<1>(panBalance1)* std::get<1>(out) };
 
             outputs[0][s] += std::get<0>(out) * wet1Param;
 
-			if (softClip1) {
+			if (softClip1Param) {
 				outputs[0][s] = std::tanh(outputs[0][s]);
 			}
 
             if (nChans > 1)
             {
                 outputs[1][s] += std::get<1>(out) * wet1Param;
-                if (softClip1) {
+                if (softClip1Param) {
                     outputs[1][s] = std::tanh(outputs[1][s]);
                 }
             }
@@ -663,13 +702,6 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 
         //I can't find a way to make tank 2 work without just copying and pasting everything
         if (tank2Enabled) {
-            const bool clear2Param = GetParam(kClear2)->Value() || GetParam(kClear)->Value();
-            const bool freeze2Param = GetParam(kFreeze2)->Value();
-            const double wet2Param = GetParam(kWet2)->Value() / 100;
-			const double input2 = GetParam(kInput2)->Value() / 100;
-			const double level1to2 = GetParam(k1to2Level)->Value() / 100;
-			const double softClip2 = GetParam(kSoftClip2)->Value() >= 0.5;
-
             if (clear2Param && !clear2 && cleared2) {
                 cleared2 = false;
                 clear2 = true;
@@ -710,22 +742,22 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 reverb2.freeze(frozen2);
             }
 
-            //reverb2.process((double)(std::get<0>(sourceBalance2)* envelope2._value* inputs[0][s] * input2), (double)(std::get<1>(sourceBalance2)* envelope2._value* (inputs[nChans > 1 ? 1 : 0][s] * input2)), (send1to2 ? (envelope2._value * level1to2 * reverbOut1) : 0));
+            reverb2.process((double)(std::get<0>(sourceBalance2)* envelope2._value* inputs[0][s] * input2Param), (double)(std::get<1>(sourceBalance2)* envelope2._value* (inputs[nChans > 1 ? 1 : 0][s] * input2Param)), (send1to2 ? (envelope2._value * level1to2Param * reverbOut1) : 0));
 
 
-            std::tuple<double, double> out = seperation(reverb2.getLeftOutput(), reverb2.getRightOutput(), GetParam(kWidth2)->Value()/100);
+            std::tuple<double, double> out = seperation(reverb2.getLeftOutput(), reverb2.getRightOutput(), width2Param);
             out = { std::get<0>(panBalance2) * std::get<0>(out), std::get<1>(panBalance2) * std::get<1>(out) };
 
             outputs[0][s] += std::get<0>(out) * wet2Param;
 
-			if (softClip2) {
+			if (softClip2Param) {
 				outputs[0][s] = std::tanh(outputs[0][s]);
 			}
 
             if (nChans > 1)
             {
                 outputs[1][s] += std::get<1>(out) * wet2Param;
-				if (softClip2) {
+				if (softClip2Param) {
 					outputs[1][s] = std::tanh(outputs[1][s]);
 				}
             }

@@ -89,15 +89,15 @@ public:
     void setDelayTime(T newDelayTime) {
 
         //Validate new time
-        //if (newDelayTime >= bufferLength) { //The delay time may not exceed the maximum buffer length
-        //    newDelayTime = bufferLength - 1; //If it does then just max out the delay
-        //}
+        if (newDelayTime >= bufferLength) { //The delay time may not exceed the maximum buffer length
+            newDelayTime = bufferLength - 1; //If it does then just max out the delay
+        }
         //if (newDelayTime < 0) { //Make sure delay time is greater than 0
         //    newDelayTime = 0;
         //}
 
 		assert(newDelayTime >= 0);
-		assert(newDelayTime < bufferLength);
+		//assert(newDelayTime < bufferLength);
 
         //Update delay time
         currentDelay = static_cast<int64_t>(newDelayTime);

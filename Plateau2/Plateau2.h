@@ -12,7 +12,7 @@
 #include "./controls/LEDRadio.cpp"
 #include "./controls/NavigatorButton.cpp"
 
-const int kNumPresets = 3;
+const int kNumPresets = 2;
 
 enum EParams
 {
@@ -153,6 +153,13 @@ public:
         bool fadeOut1 = false;
         bool fadeIn1 = false;
         bool frozen1 = false;
+        bool clear1Param = false;
+        bool freeze1Param = false;
+        double wet1Param = 0.5;
+        double input1Param = 1;
+        double level2to1Param = 0;
+        double softClip1Param = false;
+		double width1Param = 1;
         
         Dattorro reverb2;
         double reverbOut2;
@@ -167,6 +174,13 @@ public:
         bool fadeOut2 = false;
         bool fadeIn2 = false;
         bool frozen2 = false;
+		bool clear2Param = false;
+		bool freeze2Param = false;
+		double wet2Param = 0.5;
+		double input2Param = 1;
+		double level1to2Param = 0;
+		double softClip2Param = false;
+		double width2Param = 1;
 
 		bool tank2Selected = false;
 		ISVGControl* PageBackgroundControl;
@@ -179,6 +193,13 @@ public:
         LEDButton* Buttons[kNumButtons];
 		ISVGControl* SVGs[kNumSVGs];
 
-
         int currentPage = 0;
+
+        double dryParam = 1;
+
+        bool tank1Enabled = true;
+        bool tank2Enabled = false;
+
+        bool send2to1 = false;
+        bool send1to2 = false;
 };
