@@ -151,7 +151,7 @@ public:
         bool fadeOut1 = false;
         bool fadeIn1 = false;
         bool frozen1 = false;
-        bool clear1Param = false;
+		double lastClear1 = 0;
         bool freeze1Param = false;
         double wet1Param = 0.5;
         double input1Param = 1;
@@ -172,7 +172,7 @@ public:
         bool fadeOut2 = false;
         bool fadeIn2 = false;
         bool frozen2 = false;
-		bool clear2Param = false;
+		double lastClear2 = 0;
 		bool freeze2Param = false;
 		double wet2Param = 0.5;
 		double input2Param = 1;
@@ -194,6 +194,7 @@ public:
         int currentPage = 0;
 
         double dryParam = 1;
+		double lastGlobalClear = 0;
 
         bool tank1Enabled = true;
         bool tank2Enabled = false;
