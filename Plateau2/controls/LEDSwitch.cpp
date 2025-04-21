@@ -29,13 +29,6 @@ public:
         if (GetValue() > 1.) {
             SetValue(0.);
         }
-        if (tank2) {
-			preferedState2 = GetValue() >= 1.;
-        }
-        else
-        {
-			preferedState1 = GetValue() >= 1.;
-        }
         SetDirty();
     };
 
@@ -51,17 +44,6 @@ public:
     }
 
     double hitboxScale = 1.0f;
-
-    void Update() {
-		SetValue(tank2 ? preferedState2 : preferedState1);
-    }
-
-	double GetPrefered() {
-        return (tank2 ? preferedState1 : preferedState2) ? 1. : 0.;
-	}
-
-	bool preferedState1 = false;
-	bool preferedState2 = false;
 
 protected:
     ISVG mSVGOff;

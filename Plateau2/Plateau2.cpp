@@ -82,7 +82,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
   MakePreset("Polish", 100.000000, false, false, true, 29.166666, 10.000000, 8.169643, 0.191964, 6.473214, 0.300870, 10.000000, 7.366071, 0.272321, 1.285714, 0.500000, 1.000000, false, false, false, true, 0.000000, false, 76.923070, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false, 50.000000, 10.000000, 10.000000, 0.500000, 10.000000, 0.450000, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, true, false, true, 0.000000, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
   MakePreset("Cave", 100.000000, false, false, true, 50.000000, 10.000000, 7.991071, 0.589286, 10.000000, 0.386642, 10.000000, 5.803571, 0.000000, 0.000000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, true, 29.910714, 0.131696, 10.000000, 10.000000, true, 22.619048, 10.000000, 7.767857, 0.584821, 10.000000, 0.466990, 10.000000, 7.053571, 0.245536, 0.714286, 0.500000, 1.000000, false, false, false, true, 0.000000, true, 64.423000, 1.000000, false, 22.321429, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
   //MakePreset("Canyon", 0.000000, false, false, true, 100.000000, 10.000000, 8.080357, 0.803571, 10.000000, 0.240609, 10.000000, 10.000000, 0.138393, 0.714286, 0.500000, 0.116071, false, false, false, true, 0.000000, true, 25.583714, 0.000000, false, 100.000000, 0.000000, 200.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false, 50.000000, 10.000000, 10.000000, 0.500000, 10.000000, 0.334416, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, true, false, true, 0.000000, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 0.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
-  MakePreset("Canyon", 0.000000, false, false, true, 100.000000, 10.000000, 8.035714, 0.803571, 10.000000, 0.248644, 10.000000, 10.000000, 0.133929, 0.642857, 0.500000, 0.120535, false, false, false, true, 0.000000, true, 60.851571, 0.000000, true, 100.000000, -100.000000, 100.000000, -66.071429, false, 0.000000, 0.000000, 10.000000, 10.000000, true, 100.000000, 10.000000, 8.035714, 0.803571, 10.000000, 0.248644, 10.000000, 10.000000, 0.133929, 0.642857, 0.500000, 0.120535, false, false, false, true, 0.000000, true, 60.851568, 0.000000, true, 100.000000, 100.000000, 100.000000, 58.928571, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
+  MakePreset("Canyon", 0.000000, false, true, true, 100.000000, 10.000000, 8.035714, 0.803571, 10.000000, 0.248644, 10.000000, 10.000000, 0.133929, 0.642857, 0.500000, 0.120535, false, true, false, true, 0.000000, true, 60.851571, 0.000000, true, 100.000000, -100.000000, 100.000000, -66.666666, false, 0.000000, 0.000000, 10.000000, 10.000000, true, 100.000000, 10.000000, 8.035714, 0.803571, 10.000000, 0.248644, 10.000000, 10.000000, 0.133929, 0.642857, 0.500000, 0.120535, true, true, false, true, 0.000000, true, 60.851568, 0.000000, true, 100.000000, 100.000000, 100.000000, 66.666663, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
   MakePreset("ChorusVerb", 51.190476, false, false, true, 100.000000, 10.000000, 8.080357, 0.803571, 0.000000, 0.284801, 10.000000, 10.000000, 0.138393, 1.857143, 0.500000, 0.116071, false, false, false, false, 0.000000, true, 25.583714, 0.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, true, 100.000000, 0.082589, 7.366071, 10.000000, true, 11.309524, 10.000000, 10.000000, 0.500000, 10.000000, 0.495112, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, 76.923000, 1.000000, false, 23.660714, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
   MakePreset("Washout", 100.000000, false, false, true, 32.142857, 10.000000, 10.000000, 0.379464, 10.000000, 0.730733, 8.169643, 7.901786, 0.272321, 1.285714, 0.500000, 1.000000, false, false, false, true, 0.000000, true, 72.905213, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false, 50.000000, 10.000000, 10.000000, 0.500000, 10.000000, 0.450000, 10.000000, 10.000000, 0.000000, 0.500000, 0.500000, 1.000000, false, false, false, true, 0.000000, false, 76.923000, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
   MakePreset("Totally Tubular", 61.904762, false, false, true, 51.785714, 10.000000, 6.026786, 0.191964, 6.473214, 0.497723, 10.000000, 8.348214, 0.272321, 1.285714, 0.500000, 1.000000, false, false, true, true, 0.000000, false, 76.923070, 1.000000, false, 100.000000, 0.000000, 100.000000, 0.000000, true, 32.589286, 0.049107, 10.000000, 4.285714, true, 32.142857, 6.517857, 8.080357, 0.294643, 10.000000, 0.591530, 7.232143, 10.000000, 0.232143, 1.071429, 0.723214, 1.000000, false, false, false, true, 0.000000, true, 47.458785, 1.000000, false, 100.000000, 0.000000, 58.928571, 0.000000, false, 0.000000, 0.000000, 10.000000, 10.000000, false);
@@ -212,11 +212,6 @@ Plateau2::Plateau2(const InstanceInfo& info)
     Switches[2] = new LEDSwitch(IRECT::MakeXYWH(-14, 216, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kTunedMode1, kTunedMode2);
     Switches[3] = new LEDSwitch(IRECT::MakeXYWH(228, 216, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kDiffuseInput1, kDiffuseInput2);
 
-	if (GetParam(kFreeze)->Value() >= 0.5) {
-		Switches[1]->SetValue(1.);
-		Switches[1]->SetDirty(false);
-	}
-
     LEDButton* clearButton = new LEDButton(IRECT::MakeXYWH(225.526f, 404.802f + 30, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, [this](IControl* clearControl) {
         if (tank2Selected) {
 			clear2 = true;
@@ -228,11 +223,10 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
     Buttons[0] = clearButton;
 
+	//Global Clear Button
     Buttons[1] = new LEDButton(IRECT::MakeXYWH(225.526f, 404.802f - 45, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this, clearButton](IControl* clearControl) {
 		clear1 = true;
 		clear2 = true;
-        clearButton->SetValue(1.);
-        clearButton->SetDirty();
     }, clearButton);
 
 	//Help Button
@@ -390,22 +384,9 @@ void Plateau2::OnParamChange(int index)
 			lastGlobalClear = GetParam(kClear)->Value();
             break;
         case kFreeze:
-            if (WindowIsOpen())
-            {
-                if (GetParam(kFreeze)->Value() >= 0.5) {
-                    SetParameterValue(tank2Selected ? kFreeze1 : kFreeze2, 1.);
-				    Switches[1]->SetValue(1.);
-                }
-                else {
-                    SetParameterValue(tank2Selected ? kFreeze1 : kFreeze2, Switches[1]->GetPrefered());
-                    Switches[1]->Update();
-                }
-			    Switches[1]->SetDirty();
-            }
-            freeze1Param = GetParam(kFreeze1)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5;
-			freeze2Param = GetParam(kFreeze2)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5;
+            reverb1.freeze(GetParam(kFreeze1)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5);
+            reverb2.freeze(GetParam(kFreeze2)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5);
 		    break;
-
         case kEnable1:
             tank1Enabled = GetParam(kEnable1)->Value() >= 0.5;
             break;
@@ -416,7 +397,7 @@ void Plateau2::OnParamChange(int index)
 			lastClear1 = GetParam(kClear1)->Value();
             break;
         case kFreeze1:
-			freeze1Param = GetParam(kFreeze1)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5;
+            reverb1.freeze(GetParam(kFreeze1)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5);
             break;
 		case kWet1:
 			wet1Param = GetParam(kWet1)->Value() / 100;
@@ -531,7 +512,7 @@ void Plateau2::OnParamChange(int index)
 			}
 			break;
 		case kFreeze2:
-			freeze2Param = GetParam(kFreeze2)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5;
+            reverb2.freeze(GetParam(kFreeze2)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5);
 			break;
 		case kWet2:
 			wet2Param = GetParam(kWet2)->Value() / 100;
@@ -691,15 +672,6 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             }
             envelope1.process();
 
-            if (freeze1Param && !frozen1) {
-                frozen1 = true;
-                reverb1.freeze(frozen1);
-            }
-            else if (!freeze1Param && frozen1) {
-                frozen1 = false;
-                reverb1.freeze(frozen1);
-            }
-
             reverb1.process((double)(std::get<0>(sourceBalance1) * envelope1._value * inputs[0][s] * input1Param), (double)(std::get<1>(sourceBalance1) * envelope1._value * (inputs[nChans > 1 ? 1 : 0][s] * input1Param)), (send2to1 ? (envelope1._value * level2to1Param * reverbOut2) : 0));
 
             std::tuple<double,double> out = seperation(reverb1.getLeftOutput()*envelope1._value, reverb1.getRightOutput()*envelope1._value, width1Param);
@@ -752,15 +724,6 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                 }
             }
             envelope2.process();
-
-            if (freeze2Param && !frozen2) {
-                frozen2 = true;
-                reverb2.freeze(frozen2);
-            }
-            else if (!freeze2Param && frozen2) {
-                frozen2 = false;
-                reverb2.freeze(frozen2);
-            }
 
             reverb2.process((double)(std::get<0>(sourceBalance2)* envelope2._value* inputs[0][s] * input2Param), (double)(std::get<1>(sourceBalance2)* envelope2._value* (inputs[nChans > 1 ? 1 : 0][s] * input2Param)), (send1to2 ? (envelope2._value * level1to2Param * reverbOut1) : 0));
 

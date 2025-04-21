@@ -19,6 +19,7 @@ enum EParams
     kDry,
     kFreeze,
     kClear,
+
     kEnable1,
     kWet1,
     kInputLowDamp1,
@@ -152,7 +153,6 @@ public:
         bool fadeIn1 = false;
         bool frozen1 = false;
 		double lastClear1 = 0;
-        bool freeze1Param = false;
         double wet1Param = 0.5;
         double input1Param = 1;
         double level2to1Param = 0;
@@ -173,7 +173,6 @@ public:
         bool fadeIn2 = false;
         bool frozen2 = false;
 		double lastClear2 = 0;
-		bool freeze2Param = false;
 		double wet2Param = 0.5;
 		double input2Param = 1;
 		double level1to2Param = 0;
