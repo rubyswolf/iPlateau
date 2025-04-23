@@ -621,7 +621,8 @@ void Plateau2::OnParamChange(int index)
 		case kDanger:
 			if (GetParam(kDanger)->Value()<=0.5) {
 				//Reset the plugin when danger is turned off for safety
-                SetParameterValue(kClear, 1);
+				clear1 = true;
+				clear2 = true;
 			}
 			if (WindowIsOpen()) {
                 UpdateSendVisibility();
