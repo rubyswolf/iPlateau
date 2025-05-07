@@ -19,6 +19,7 @@ enum EParams
     kDry,
     kFreeze,
     kClear,
+    kCopy1to2,
 
     kEnable1,
     kWet1,
@@ -117,7 +118,7 @@ enum EKnobs {
 	kNumKnobs
 };
 
-const int kNumSwitches = 9;
+const int kNumSwitches = 10;
 const int kNumButtons = 3;
 const int kNumPages = 3;
 const int kNumSVGs = 5;
@@ -135,6 +136,7 @@ public:
   void UpdatePageVisibility();
   void UpdateSendVisibility();
   void OnParamChange(int index) override;
+  void UpdateParameter(int index);
   bool WindowIsOpen();
   void SelectTank(bool tank2);
 #endif
@@ -194,6 +196,8 @@ public:
 
         double dryParam = 1;
 		double lastGlobalClear = 0;
+
+		bool copy1to2 = false;
 
         bool tank1Enabled = true;
         bool tank2Enabled = false;

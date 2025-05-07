@@ -8,6 +8,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
   GetParam(kDry)->InitPercentage("Dry", 100);
   GetParam(kFreeze)->InitBool("Global Freeze", false);
   GetParam(kClear)->InitBool("Global Clear", false);
+  GetParam(kCopy1to2)->InitBool("Copy Tank 1 to 2", false);
 
   GetParam(kEnable1)->InitBool("Tank 1 Enable", true);
   GetParam(kWet1)->InitPercentage("Wet 1", 50);
@@ -257,10 +258,12 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
     Switches[7] = new LEDSwitch(IRECT::MakeXYWH(3, 170, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kSoftClip1, kSoftClip2);
 
-	//Routing page Switches
-	Switches[8] = new LEDSwitch(IRECT::MakeXYWH(106.5, 374, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, k1to2, k2to1);
+	Switches[8] = new LEDSwitch(IRECT::MakeXYWH(3, 450, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, kCopy1to2, kCopy1to2);
 
-    for (int i = 5; i <= 8; i++) {
+	//Routing page Switches
+	Switches[9] = new LEDSwitch(IRECT::MakeXYWH(106.5, 374, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, k1to2, k2to1);
+
+    for (int i = 5; i <= 9; i++) {
         pGraphics->AttachControl(Switches[i]);
 		Switches[i]->Hide(true);
     }
@@ -338,13 +341,13 @@ void Plateau2::UpdatePageVisibility()
     for (int i = kPreDelayKnob; i <= kVarianceKnob; i++) {
         Knobs[i]->Hide(currentPage != 1);
     }
-    for (int i = 5; i <= 7; i++) {
+    for (int i = 5; i <= 8; i++) {
         Switches[i]->Hide(currentPage != 1);
     }
 	Buttons[2]->Hide(currentPage != 1);
 
 	//Routing page
-    Switches[8]->Hide(currentPage != 2);
+    Switches[9]->Hide(currentPage != 2);
 
 	for (int i = kInputKnob; i <= kPanKnob; i++) {
 		Knobs[i]->Hide(currentPage != 2);
@@ -370,47 +373,70 @@ bool Plateau2::WindowIsOpen() {
 	return pGraphics && pGraphics->WindowIsOpen();
 }
 
-void Plateau2::OnParamChange(int index)
+void Plateau2::OnParamChange(int index) {
+    if (copy1to2) {
+        if (index >= kEnable1 && index <= k1to2HighDamp) //Tank 1 range
+        {
+			UpdateParameter(index);
+			UpdateParameter(index + kEnable2 - kEnable1); //Copy to tank 2
+		}
+        else if (index < kEnable1 || index > k2to1HighDamp) //Other
+        {
+            UpdateParameter(index);
+        }
+    }
+    else {
+        UpdateParameter(index);
+    }
+}
+
+void Plateau2::UpdateParameter(int index)
 {
-    switch (index) {
+        switch (index) {
         case kDry:
             dryParam = GetParam(kDry)->Value() / 100;
-			break;
+            break;
         case kClear:
             if (GetParam(kClear)->Value() >= 0.5 && lastGlobalClear < 0.5) {
-				clear1 = true;
-				clear2 = true;
+                clear1 = true;
+                clear2 = true;
             }
-			lastGlobalClear = GetParam(kClear)->Value();
+            lastGlobalClear = GetParam(kClear)->Value();
             break;
         case kFreeze:
             reverb1.freeze(GetParam(kFreeze1)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5);
             reverb2.freeze(GetParam(kFreeze2)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5);
-		    break;
+            break;
+        case kCopy1to2:
+            copy1to2 = GetParam(kCopy1to2)->Value() >= 0.5;
+            /*if (copy1to2) {
+
+            }*/
+            break;
         case kEnable1:
             tank1Enabled = GetParam(kEnable1)->Value() >= 0.5;
             break;
         case kClear1:
             if (GetParam(kClear1)->Value() >= 0.5 && lastClear1 < 0.5) {
-				clear1 = true;
+                clear1 = true;
             }
-			lastClear1 = GetParam(kClear1)->Value();
+            lastClear1 = GetParam(kClear1)->Value();
             break;
         case kFreeze1:
             reverb1.freeze(GetParam(kFreeze1)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5);
             break;
-		case kWet1:
-			wet1Param = GetParam(kWet1)->Value() / 100;
-			break;
+        case kWet1:
+            wet1Param = GetParam(kWet1)->Value() / 100;
+            break;
         case kInput1:
             input1Param = GetParam(kInput1)->Value() / 100;
             break;
         case kSoftClip1:
             softClip1Param = GetParam(kSoftClip1)->Value() >= 0.5;
             break;
-		case kWidth1:
-			width1Param = GetParam(kWidth1)->Value() / 100;
-			break;
+        case kWidth1:
+            width1Param = GetParam(kWidth1)->Value() / 100;
+            break;
         case kPreDelay1:
             reverb1.setPreDelay(GetParam(index)->Value());
             break;
@@ -424,7 +450,7 @@ void Plateau2::OnParamChange(int index)
         case kTunedMode1:
         {
             double size = GetParam(kSize1)->Value();
-            if (GetParam(kTunedMode1)->Value()>=0.5) {
+            if (GetParam(kTunedMode1)->Value() >= 0.5) {
                 reverb1.setTimeScale(0.0025f * powf(2.f, size * 5.f));
             }
             else {
@@ -460,29 +486,29 @@ void Plateau2::OnParamChange(int index)
             reverb1.setTankModShape(GetParam(index)->Value());
             break;
         case kDiffuseInput1:
-            reverb1.enableInputDiffusion(GetParam(index)->Value()>=0.5);
+            reverb1.enableInputDiffusion(GetParam(index)->Value() >= 0.5);
             break;
-		case kNesting1:
-			reverb1.setTankDiffusionNesting(GetParam(index)->Value()>=0.5);
+        case kNesting1:
+            reverb1.setTankDiffusionNesting(GetParam(index)->Value() >= 0.5);
             break;
         case kDiffusionDecay1:
         {
             double scaled = scale<double>(GetParam(index)->Value(), 0, 100, 0, 1.3);
             if (!GetParam(kDanger)->Value()) {
-				//Clip to safe values
+                //Clip to safe values
                 scaled = clip<double>(scaled, 0.3, 1);
             }
-			reverb1.setTankDiffusionDecay(scaled);
+            reverb1.setTankDiffusionDecay(scaled);
             break;
         }
-		case kVariance1:
-			reverb1.setTankVariance(GetParam(index)->Value());
-			break;
+        case kVariance1:
+            reverb1.setTankVariance(GetParam(index)->Value());
+            break;
         case kStereoSource1:
-            sourceBalance1 = balanceFactors(GetParam(kStereoSource1)->Value()/100);
+            sourceBalance1 = balanceFactors(GetParam(kStereoSource1)->Value() / 100);
             break;
         case kPan1:
-            panBalance1 = balanceFactors(GetParam(kPan1)->Value()/100);
+            panBalance1 = balanceFactors(GetParam(kPan1)->Value() / 100);
             break;
         case k1to2:
             send1to2 = tank1Enabled && GetParam(k1to2)->Value() >= 0.5;
@@ -493,39 +519,39 @@ void Plateau2::OnParamChange(int index)
         case k1to2Delay:
             send1To2Delay.setDelayTime(GetParam(k1to2Delay)->Value() * GetSampleRate());
             break;
-		case k1to2LowDamp:
-			send1To2HP.setCutoffFreq(pitch2freq(10.f - GetParam(index)->Value()));
-			break;
-		case k1to2HighDamp:
-			send1To2LP.setCutoffFreq(pitch2freq(GetParam(index)->Value()));
-			break;
-		case kModVariance1:
-			reverb1.setTankModVariance(GetParam(index)->Value());
-			break;
+        case k1to2LowDamp:
+            send1To2HP.setCutoffFreq(pitch2freq(10.f - GetParam(index)->Value()));
+            break;
+        case k1to2HighDamp:
+            send1To2LP.setCutoffFreq(pitch2freq(GetParam(index)->Value()));
+            break;
+        case kModVariance1:
+            reverb1.setTankModVariance(GetParam(index)->Value());
+            break;
 
-		case kEnable2:
-			tank2Enabled = GetParam(kEnable2)->Value() >= 0.5;
-			break;
-		case kClear2:
-			if (GetParam(kClear2)->Value() >= 0.5 && lastClear2 < 0.5) {
-				clear2 = true;
-			}
-			break;
-		case kFreeze2:
+        case kEnable2:
+            tank2Enabled = GetParam(kEnable2)->Value() >= 0.5;
+            break;
+        case kClear2:
+            if (GetParam(kClear2)->Value() >= 0.5 && lastClear2 < 0.5) {
+                clear2 = true;
+            }
+            break;
+        case kFreeze2:
             reverb2.freeze(GetParam(kFreeze2)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5);
-			break;
-		case kWet2:
-			wet2Param = GetParam(kWet2)->Value() / 100;
-			break;
-		case kInput2:
-			input2Param = GetParam(kInput2)->Value() / 100;
-			break;
-		case kSoftClip2:
-			softClip2Param = GetParam(kSoftClip2)->Value() >= 0.5;
-			break;
-		case kWidth2:
-			width2Param = GetParam(kWidth2)->Value() / 100;
-			break;
+            break;
+        case kWet2:
+            wet2Param = GetParam(kWet2)->Value() / 100;
+            break;
+        case kInput2:
+            input2Param = GetParam(kInput2)->Value() / 100;
+            break;
+        case kSoftClip2:
+            softClip2Param = GetParam(kSoftClip2)->Value() >= 0.5;
+            break;
+        case kWidth2:
+            width2Param = GetParam(kWidth2)->Value() / 100;
+            break;
         case kPreDelay2:
             reverb2.setPreDelay(GetParam(index)->Value());
             break;
@@ -539,7 +565,7 @@ void Plateau2::OnParamChange(int index)
         case kTunedMode2:
         {
             double size = GetParam(kSize2)->Value();
-            if (GetParam(kTunedMode2)->Value()>=0.5) {
+            if (GetParam(kTunedMode2)->Value() >= 0.5) {
                 reverb2.setTimeScale(0.0025f * powf(2.f, size * 5.f));
             }
             else {
@@ -575,7 +601,7 @@ void Plateau2::OnParamChange(int index)
             reverb2.setTankModShape(GetParam(index)->Value());
             break;
         case kDiffuseInput2:
-            reverb2.enableInputDiffusion(GetParam(index)->Value()>=0.5);
+            reverb2.enableInputDiffusion(GetParam(index)->Value() >= 0.5);
             break;
         case kNesting2:
             reverb2.setTankDiffusionNesting(GetParam(index)->Value());
@@ -590,52 +616,52 @@ void Plateau2::OnParamChange(int index)
             reverb2.setTankDiffusionDecay(scaled);
             break;
         }
-		case kVariance2:
-			reverb2.setTankVariance(GetParam(index)->Value());
-			break;
+        case kVariance2:
+            reverb2.setTankVariance(GetParam(index)->Value());
+            break;
         case kStereoSource2:
-            sourceBalance2 = balanceFactors(GetParam(kStereoSource2)->Value()/100);
+            sourceBalance2 = balanceFactors(GetParam(kStereoSource2)->Value() / 100);
             break;
         case kPan2:
-            panBalance2 = balanceFactors(GetParam(kPan2)->Value()/100);
+            panBalance2 = balanceFactors(GetParam(kPan2)->Value() / 100);
             break;
-		case k2to1:
+        case k2to1:
             send2to1 = tank2Enabled && GetParam(k2to1)->Value() && GetParam(kDanger)->Value() >= 0.5;
-			break;
-		case k2to1Level:
-			level2to1Param = GetParam(k2to1Level)->Value() / 100;
-			break;
+            break;
+        case k2to1Level:
+            level2to1Param = GetParam(k2to1Level)->Value() / 100;
+            break;
         case k2to1Delay:
             send2To1Delay.setDelayTime(GetParam(k2to1Delay)->Value() * GetSampleRate());
             break;
-		case k2to1LowDamp:
-			send2To1HP.setCutoffFreq(pitch2freq(10.f - GetParam(index)->Value()));
-			break;
-		case k2to1HighDamp:
-			send2To1LP.setCutoffFreq(pitch2freq(GetParam(index)->Value()));
-			break;
-		case kModVariance2:
-			reverb2.setTankModVariance(GetParam(index)->Value());
+        case k2to1LowDamp:
+            send2To1HP.setCutoffFreq(pitch2freq(10.f - GetParam(index)->Value()));
+            break;
+        case k2to1HighDamp:
+            send2To1LP.setCutoffFreq(pitch2freq(GetParam(index)->Value()));
+            break;
+        case kModVariance2:
+            reverb2.setTankModVariance(GetParam(index)->Value());
             break;
 
-		case kDanger:
-			if (GetParam(kDanger)->Value()<=0.5) {
-				//Reset the plugin when danger is turned off for safety
-				clear1 = true;
-				clear2 = true;
-			}
-			if (WindowIsOpen()) {
+        case kDanger:
+            if (GetParam(kDanger)->Value() <= 0.5) {
+                //Reset the plugin when danger is turned off for safety
+                clear1 = true;
+                clear2 = true;
+            }
+            if (WindowIsOpen()) {
                 UpdateSendVisibility();
                 Knobs[kDiffusionDecayKnob]->Bound = GetParam(kDanger)->Value() ? 135.f : 72.6923f;
 
-                SetParameterValue(kDiffusionDecay1, clip<double>(GetParam(kDiffusionDecay1)->Value(), 23.0769, 76.92307)/100);
-                SetParameterValue(kDiffusionDecay2, clip<double>(GetParam(kDiffusionDecay2)->Value(), 23.0769, 76.92307)/100);
+                SetParameterValue(kDiffusionDecay1, clip<double>(GetParam(kDiffusionDecay1)->Value(), 23.0769, 76.92307) / 100);
+                SetParameterValue(kDiffusionDecay2, clip<double>(GetParam(kDiffusionDecay2)->Value(), 23.0769, 76.92307) / 100);
 
                 Knobs[kDiffusionDecayKnob]->SetValue((tank2Selected ? GetParam(kDiffusionDecay2)->Value() : GetParam(kDiffusionDecay1)->Value()) / 100);
-				Knobs[kDiffusionDecayKnob]->SetDirty(false);
-			}
+                Knobs[kDiffusionDecayKnob]->SetDirty(false);
+            }
             break;
-    }
+        }
 }
 
 
