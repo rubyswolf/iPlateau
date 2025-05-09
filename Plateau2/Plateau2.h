@@ -19,7 +19,7 @@ enum EParams
     kDry,
     kFreeze,
     kClear,
-    kCopy1to2,
+    kLink1to2,
 
     kEnable1,
     kWet1,
@@ -136,7 +136,7 @@ public:
   void UpdatePageVisibility();
   void UpdateSendVisibility();
   void OnParamChange(int index) override;
-  void UpdateParameter(int index);
+  void UpdateParameter(int sourceIndex, int targetIndex);
   bool WindowIsOpen();
   void SelectTank(bool tank2);
 #endif
@@ -197,7 +197,7 @@ public:
         double dryParam = 1;
 		double lastGlobalClear = 0;
 
-		bool copy1to2 = false;
+		bool link1to2 = false;
 
         bool tank1Enabled = true;
         bool tank2Enabled = false;
