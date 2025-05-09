@@ -409,11 +409,22 @@ void Plateau2::UpdateParameter(int sourceIndex, int targetIndex)
             reverb2.freeze(GetParam(kFreeze2)->Value() >= 0.5 || GetParam(kFreeze)->Value() >= 0.5);
             break;
         case kLink1to2:
+        {
             link1to2 = GetParam(kLink1to2)->Value() >= 0.5;
-            /*if (link1to2) {
-                
-            }*/
+            constexpr int offset = kEnable2 - kEnable1;
+            if (link1to2) {
+                for (int i = kInputLowDamp1; i <= kSoftClip1; i++) {
+                    UpdateParameter(i, i + offset); //Copy to tank 2
+                }
+            }
+            else
+            {
+                for (int i = kInputLowDamp2; i <= kSoftClip2; i++) {
+                    UpdateParameter(i, i); //Restore to tank 2
+                }
+            }
             break;
+        }
         case kEnable1:
             tank1Enabled = GetParam(kEnable1)->Value() >= 0.5;
             break;
