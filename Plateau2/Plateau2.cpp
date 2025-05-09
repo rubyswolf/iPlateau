@@ -115,6 +115,9 @@ Plateau2::Plateau2(const InstanceInfo& info)
         pGraphics->OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     }
 
+    //Reset the page to the main page when the UI is created
+    currentPage = 0;
+
     pGraphics->AttachCornerResizer(EUIResizerMode::Scale, false);
     pGraphics->AttachSVGBackground(BACKGROUND_FN);
 
