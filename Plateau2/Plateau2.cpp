@@ -291,18 +291,37 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
     pGraphics->AttachControl(tank1Select);
     pGraphics->AttachControl(tank2Select);
+
+	//Update the tank selection incase link changed when the UI was closed
+    SelectTank(tank2Selected);
   };
 #endif
 }
 
 void Plateau2::SelectTank(bool tank2) {
 	tank2Selected = tank2;
-    for (int i = 0; i < kNumKnobs; i++) {
+    for (int i = kDryKnob; i <= kWetKnob; i++) {
         Knobs[i]->SelectTank(tank2);
     }
-	for (int i = 0; i < kNumSwitches; i++) {
-		Switches[i]->SelectTank(tank2);
-	}
+    for (int i = kInputLowDampKnob; i <= kVarianceKnob; i++) {
+        Knobs[i]->SelectTank(link1to2 ? false : tank2);
+    }
+    for (int i = kInputKnob; i < kNumKnobs; i++) {
+        Knobs[i]->SelectTank(tank2);
+    }
+
+    
+    Switches[0]->SelectTank(tank2);
+	Switches[1]->SelectTank(tank2);
+    Switches[2]->SelectTank(link1to2 ? false : tank2);
+    Switches[3]->SelectTank(link1to2 ? false : tank2);
+	Switches[4]->SelectTank(tank2);
+    Switches[5]->SelectTank(link1to2 ? false : tank2);
+	Switches[6]->SelectTank(tank2);
+    Switches[7]->SelectTank(link1to2 ? false : tank2);
+    Switches[8]->SelectTank(tank2);
+    Switches[9]->SelectTank(tank2);
+
 	for (int i = 0; i < kNumButtons; i++) {
 		Buttons[i]->SelectTank(tank2);
 	}
@@ -378,13 +397,13 @@ bool Plateau2::WindowIsOpen() {
 
 void Plateau2::OnParamChange(int index) {
     if (link1to2) {
-        if (index >= kInputLowDamp1 && index <= kSoftClip1) //Tank 1 range
+        if (index >= kInputLowDamp1 && index <= kSoftClip1 && index != kFreeze1 && index != kClear1) //Tank 1 range
         {
 			UpdateParameter(index, index);
             constexpr int offset = kEnable2 - kEnable1;
 			UpdateParameter(index, index + offset); //Copy to tank 2
 		}
-        else if (!(index >= kInputLowDamp2 && index <= kSoftClip2)) //Not tank 2 range
+        else if (!(index >= kInputLowDamp2 && index <= kSoftClip2 && index != kFreeze2 && index != kClear2)) //Not tank 2 range
         {
             UpdateParameter(index, index);
         }
@@ -416,15 +435,27 @@ void Plateau2::UpdateParameter(int sourceIndex, int targetIndex)
             link1to2 = GetParam(kLink1to2)->Value() >= 0.5;
             constexpr int offset = kEnable2 - kEnable1;
             if (link1to2) {
-                for (int i = kInputLowDamp1; i <= kSoftClip1; i++) {
+                for (int i = kInputLowDamp1; i <= kModVariance1; i++) {
+                    UpdateParameter(i, i + offset); //Copy to tank 2
+                }
+                //Skip Freeze and Clear
+                for (int i = kTunedMode1; i <= kSoftClip1; i++) {
                     UpdateParameter(i, i + offset); //Copy to tank 2
                 }
             }
             else
             {
-                for (int i = kInputLowDamp2; i <= kSoftClip2; i++) {
+                for (int i = kInputLowDamp2; i <= kModVariance1; i++) {
                     UpdateParameter(i, i); //Restore to tank 2
                 }
+				//Skip Freeze and Clear
+				for (int i = kTunedMode2; i <= kSoftClip2; i++) {
+					UpdateParameter(i, i); //Restore to tank 2
+				}
+            }
+            if (WindowIsOpen())
+            {
+                SelectTank(tank2Selected);
             }
             break;
         }
