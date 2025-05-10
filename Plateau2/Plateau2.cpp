@@ -161,12 +161,12 @@ Plateau2::Plateau2(const InstanceInfo& info)
 	SVGs[4]->Hide(true);
 
 	//Extras Page Knobs
-    Knobs[kPreDelayKnob] = new NeedleKnob(IRECT::MakeXYWH(140, 140, 35, 35), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPreDelay1, kPreDelay2);
+    Knobs[kPreDelayKnob] = new NeedleKnob(IRECT::MakeXYWH(140, 135, 35, 35), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kPreDelay1, kPreDelay2);
 
     Knobs[kDiffusionDecayKnob] = new NeedleKnob(IRECT::MakeXYWH(233, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kDiffusionDecay1, kDiffusionDecay2);
     Knobs[kDiffusionDecayKnob]->Bound = 72.6923f;
 
-	Knobs[kModVarianceKnob] = new NeedleKnob(IRECT::MakeXYWH(130, 220, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModVariance1, kModVariance2);
+	Knobs[kModVarianceKnob] = new NeedleKnob(IRECT::MakeXYWH(130, 200, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kModVariance1, kModVariance2);
 
 	Knobs[kVarianceKnob] = new NeedleKnob(IRECT::MakeXYWH(26, 310, 56, 56), NeedleSVG, NeedleBGSVG, NeedleFG1PNG, NeedleFG2PNG, kVariance1, kVariance2);
 
@@ -207,6 +207,9 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
 	const ISVG DangerOffSVG = pGraphics->LoadSVG(DANGEROFF_FN);
 	const ISVG DangerOnSVG = pGraphics->LoadSVG(DANGERON_FN);
+
+	const ISVG LinkOffSVG = pGraphics->LoadSVG(LINKOFF_FN);
+	const ISVG LinkOnSVG = pGraphics->LoadSVG(LINKON_FN);
 
 	const ISVG HelpButtonSVG = pGraphics->LoadSVG(HELPBUTTON_FN);
 
@@ -257,11 +260,11 @@ Plateau2::Plateau2(const InstanceInfo& info)
     Switches[5] = new LEDSwitch(IRECT::MakeXYWH(210, 170, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kNesting1, kNesting2);
 
     //DANGER switch
-    Switches[6] = new LEDSwitch(IRECT::MakeXYWH(102, 321, 112, 112), 1, DangerOffSVG, DangerOnSVG, DangerOnSVG, kDanger, kDanger);
+    Switches[6] = new LEDSwitch(IRECT::MakeXYWH(102, 291, 112, 112), 1, DangerOffSVG, DangerOnSVG, DangerOnSVG, kDanger, kDanger);
 
     Switches[7] = new LEDSwitch(IRECT::MakeXYWH(3, 170, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kSoftClip1, kSoftClip2);
 
-	Switches[8] = new LEDSwitch(IRECT::MakeXYWH(3, 450, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, kLink1to2, kLink1to2);
+	Switches[8] = new LEDSwitch(IRECT::MakeXYWH(102, 418, 112, 112), 1, LinkOffSVG, LinkOnSVG, LinkOnSVG, kLink1to2, kLink1to2);
 
 	//Routing page Switches
 	Switches[9] = new LEDSwitch(IRECT::MakeXYWH(106.5, 374, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, k1to2, k2to1);
