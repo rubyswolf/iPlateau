@@ -16,8 +16,8 @@ public:
         , mSVGOff(svgOff)
         , mSVGOn1(svgOn1)
         , mSVGOn2(svgOn2)
-		, mParam1Idx(param1Idx)
-		, mParam2Idx(param2Idx)
+		, Param1Idx(param1Idx)
+		, Param2Idx(param2Idx)
     {
         hitboxScale = hitboxScaleFactor;
     }
@@ -40,17 +40,17 @@ public:
 
     void SelectTank(bool isTank2) {
         tank2 = isTank2;
-        SetParamIdx(tank2 ? mParam2Idx : mParam1Idx, 0, true);
+        SetParamIdx(tank2 ? Param2Idx : Param1Idx, 0, true);
     }
 
     double hitboxScale = 1.0f;
+    int Param1Idx;
+    int Param2Idx;
 
 protected:
     ISVG mSVGOff;
     ISVG mSVGOn1;
     ISVG mSVGOn2;
-    int mParam1Idx;
-    int mParam2Idx;
 	bool tank2 = false;
 };
 END_IGRAPHICS_NAMESPACE

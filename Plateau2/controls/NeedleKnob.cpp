@@ -12,8 +12,8 @@ public:
         , mDialFg2(dialFg2Bmp)
         , mDialBg(dialBg)
         , mDialPointer(dialPointer)
-		, mParam1Idx(kParam1Idx)
-		, mParam2Idx(kParam2Idx)
+		, Param1Idx(kParam1Idx)
+		, Param2Idx(kParam2Idx)
     {
     }
 
@@ -31,20 +31,20 @@ public:
     
 	void SelectTank(bool isTank2) {
 		tank2 = isTank2;
-		SetParamIdx(tank2 ? mParam2Idx : mParam1Idx, 0, true);
+		SetParamIdx(tank2 ? Param2Idx : Param1Idx, 0, true);
 	}
 
     float StartAngle = -135.f;
     float EndAngle = 135.f;
     float Bound = 135.f;
+	int Param1Idx;
+	int Param2Idx;
 
 private:
     IBitmap mDialFg1;
     IBitmap mDialFg2;
     ISVG mDialBg;
     ISVG mDialPointer;
-	int mParam1Idx;
-	int mParam2Idx;
 	bool tank2 = false;
 };
 

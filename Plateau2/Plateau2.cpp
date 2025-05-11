@@ -213,6 +213,13 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
 	const ISVG HelpButtonSVG = pGraphics->LoadSVG(HELPBUTTON_FN);
 
+	const ISVG CopyOffSVG = pGraphics->LoadSVG(COPYOFF_FN);
+	const ISVG CopyOnSVG = pGraphics->LoadSVG(COPYON_FN);
+
+	const ISVG SwapOffSVG = pGraphics->LoadSVG(SWAPOFF_FN);
+	const ISVG SwapOnSVG = pGraphics->LoadSVG(SWAPON_FN);
+   
+
 	//Main page Switches
     Switches[0] = new LEDSwitch(IRECT::MakeXYWH(-11.526f, 404.802f-45, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, kFreeze, kFreeze);
     Switches[1] = new LEDSwitch(IRECT::MakeXYWH(-11.526f, 404.802f+30, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kFreeze1, kFreeze2);
@@ -238,11 +245,47 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
 	//Help Button
     Buttons[2] = new LEDButton(IRECT::MakeXYWH(129.5f, 535, 56, 56), 1, HelpButtonSVG, HelpButtonSVG, HelpButtonSVG, [this](IControl* button) {this->GetUI()->OpenURL("https://github.com/rubyswolf/iPlateau/wiki");});
-	Buttons[2]->Hide(true);
 
-	for (int i = 0; i < kNumButtons; i++) {
+	//Tank Copy Button
+    Buttons[3] = new LEDButton(IRECT::MakeXYWH(15, 460, 80, 80), 1, CopyOffSVG, CopyOnSVG, CopyOnSVG, [this](IControl* button) {
+		for (int i = kEnable1; i <= k1to2HighDamp; i++) {
+			GetParam(i + offset)->Set(GetParam(i)->Value());
+		}
+		for (int i = 0; i < kNumKnobs; i++) {
+            Knobs[i]->SetValue(GetParam(tank2Selected ? Knobs[i]->Param2Idx : Knobs[i]->Param1Idx)->GetNormalized());
+            Knobs[i]->SetDirty(true);
+		}
+        for (int i = 0; i < kNumSwitches; i++) {
+			Switches[i]->SetValue(GetParam(tank2Selected ? Switches[i]->Param2Idx : Switches[i]->Param1Idx)->GetNormalized());
+            Switches[i]->SetDirty(true);
+        }
+    });
+
+	//Tank Swap Button
+	Buttons[4] = new LEDButton(IRECT::MakeXYWH(220, 460, 80, 80), 1, SwapOffSVG, SwapOnSVG, SwapOnSVG, [this](IControl* button) {
+        for (int i = kEnable1; i <= k1to2HighDamp; i++) {
+            double temp = GetParam(i)->Value();
+			GetParam(i)->Set(GetParam(i + offset)->Value());
+			GetParam(i + offset)->Set(temp);
+        }
+        for (int i = 0; i < kNumKnobs; i++) {
+            Knobs[i]->SetValue(GetParam(tank2Selected ? Knobs[i]->Param2Idx : Knobs[i]->Param1Idx)->GetNormalized());
+            Knobs[i]->SetDirty(true);
+        }
+        for (int i = 0; i < kNumSwitches; i++) {
+            Switches[i]->SetValue(GetParam(tank2Selected ? Switches[i]->Param2Idx : Switches[i]->Param1Idx)->GetNormalized());
+            Switches[i]->SetDirty(true);
+        }
+    });
+
+	for (int i = 0; i <= 1; i++) {
 		pGraphics->AttachControl(Buttons[i]);
 	}
+    for (int i = 2; i <= 4; i++) {
+		pGraphics->AttachControl(Buttons[i]);
+		Buttons[i]->Hide(true);
+    }
+
 
 	//Dump Preset Button
     //pGraphics->AttachControl((new LEDButton(IRECT::MakeXYWH(0, 40, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this](IControl* button) {DumpMakePresetSrc("C:/dev/Plugins/Plateau/Plateau2/preset.txt");})));
@@ -303,25 +346,25 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
 void Plateau2::SelectTank(bool tank2) {
 	tank2Selected = tank2;
+    bool linkedTank2 = link1to2 ? false : tank2;
     for (int i = kDryKnob; i <= kWetKnob; i++) {
         Knobs[i]->SelectTank(tank2);
     }
     for (int i = kInputLowDampKnob; i <= kVarianceKnob; i++) {
-        Knobs[i]->SelectTank(link1to2 ? false : tank2);
+        Knobs[i]->SelectTank(linkedTank2);
     }
     for (int i = kInputKnob; i < kNumKnobs; i++) {
         Knobs[i]->SelectTank(tank2);
     }
 
-    
     Switches[0]->SelectTank(tank2);
 	Switches[1]->SelectTank(tank2);
-    Switches[2]->SelectTank(link1to2 ? false : tank2);
-    Switches[3]->SelectTank(link1to2 ? false : tank2);
+    Switches[2]->SelectTank(linkedTank2);
+    Switches[3]->SelectTank(linkedTank2);
 	Switches[4]->SelectTank(tank2);
-    Switches[5]->SelectTank(link1to2 ? false : tank2);
+    Switches[5]->SelectTank(linkedTank2);
 	Switches[6]->SelectTank(tank2);
-    Switches[7]->SelectTank(link1to2 ? false : tank2);
+    Switches[7]->SelectTank(linkedTank2);
     Switches[8]->SelectTank(tank2);
     Switches[9]->SelectTank(tank2);
 
@@ -369,7 +412,9 @@ void Plateau2::UpdatePageVisibility()
     for (int i = 5; i <= 8; i++) {
         Switches[i]->Hide(currentPage != 1);
     }
-	Buttons[2]->Hide(currentPage != 1);
+    for (int i = 2; i <= 4; i++) {
+        Buttons[i]->Hide(currentPage != 1);
+    }
 
 	//Routing page
     Switches[9]->Hide(currentPage != 2);
@@ -403,7 +448,6 @@ void Plateau2::OnParamChange(int index) {
         if (index >= kInputLowDamp1 && index <= kSoftClip1 && index != kFreeze1 && index != kClear1) //Tank 1 range
         {
 			UpdateParameter(index, index);
-            constexpr int offset = kEnable2 - kEnable1;
 			UpdateParameter(index, index + offset); //Copy to tank 2
 		}
         else if (!(index >= kInputLowDamp2 && index <= kSoftClip2 && index != kFreeze2 && index != kClear2)) //Not tank 2 range
@@ -436,7 +480,6 @@ void Plateau2::UpdateParameter(int sourceIndex, int targetIndex)
         case kLink1to2:
         {
             link1to2 = GetParam(kLink1to2)->Value() >= 0.5;
-            constexpr int offset = kEnable2 - kEnable1;
             if (link1to2) {
                 for (int i = kInputLowDamp1; i <= kModVariance1; i++) {
                     UpdateParameter(i, i + offset); //Copy to tank 2
@@ -708,7 +751,7 @@ void Plateau2::UpdateParameter(int sourceIndex, int targetIndex)
                 SetParameterValue(kDiffusionDecay1, clip<double>(GetParam(kDiffusionDecay1)->Value(), 23.0769, 76.92307) / 100);
                 SetParameterValue(kDiffusionDecay2, clip<double>(GetParam(kDiffusionDecay2)->Value(), 23.0769, 76.92307) / 100);
 
-                Knobs[kDiffusionDecayKnob]->SetValue((tank2Selected ? GetParam(kDiffusionDecay2)->Value() : GetParam(kDiffusionDecay1)->Value()) / 100);
+                Knobs[kDiffusionDecayKnob]->SetValue(GetParam(tank2Selected ? kDiffusionDecay2 : kDiffusionDecay1)->Value() / 100);
                 Knobs[kDiffusionDecayKnob]->SetDirty(false);
             }
             break;

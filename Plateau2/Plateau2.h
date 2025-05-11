@@ -118,10 +118,11 @@ enum EKnobs {
 	kNumKnobs
 };
 
-const int kNumSwitches = 11;
-const int kNumButtons = 3;
+const int kNumSwitches = 10;
+const int kNumButtons = 5;
 const int kNumPages = 3;
 const int kNumSVGs = 5;
+constexpr int offset = kEnable2 - kEnable1;
 
 using namespace iplug;
 using namespace igraphics;
