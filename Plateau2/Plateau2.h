@@ -133,6 +133,8 @@ public:
   Plateau2(const InstanceInfo& info);
 #if IPLUG_DSP // http://bit.ly/2S64BDd
   void ProcessBlock(sample** inputs, sample** outputs, int nFrames) override;
+  bool SerializeState(IByteChunk& chunk) const override;
+  int UnserializeState(const IByteChunk& chunk, int pos) override;
   void ChangePage(int direction, const ISVG PageBackgrounds[kNumPages], const ISVG NextButtons[kNumPages], const ISVG PreviousButtons[kNumPages]);
   void UpdatePageVisibility();
   void UpdateSendVisibility();
