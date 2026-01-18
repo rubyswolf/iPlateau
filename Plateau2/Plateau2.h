@@ -16,7 +16,8 @@ const int kNumPresets = 8;
 
 enum EParams
 {
-    kDry,
+    kDryLeft,
+    kDryRight,
     kFreeze,
     kClear,
     kLink1to2,
@@ -91,7 +92,8 @@ enum EParams
 };
 
 enum EKnobs {
-	kDryKnob,
+	kDryLeftKnob,
+	kDryRightKnob,
     kWetKnob,
 	kInputLowDampKnob,
 	kInputHighDampKnob,
@@ -197,7 +199,8 @@ public:
 
         int currentPage = 0;
 
-        double dryParam = 1;
+        double dryLeftParam = 1;
+        double dryRightParam = 1;
 		double lastGlobalClear = 0;
 
 		bool link1to2 = false;
