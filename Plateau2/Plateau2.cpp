@@ -806,9 +806,63 @@ bool Plateau2::SerializeState(IByteChunk& chunk) const
     return SerializeParams(chunk);
 }
 
-int Plateau2::UnserializeState(const IByteChunk& chunk, int pos)
+int Plateau2::UnserializeState(const IByteChunk& chunk, int startPos)
 {
-    pos = UnserializeParams(chunk, pos);
+    TRACE
+    static_assert(kLink1to2 == (kClear + 1), "Legacy state remap expects kLink1to2 directly after kClear.");
+    constexpr int kLegacyParamCount = kNumParams - 1;
+
+    double serializedValues[kNumParams] = {};
+    int pos = startPos;
+    int valuesRead = 0;
+
+    for (int i = 0; i < kNumParams; ++i)
+    {
+        double v = 0.0;
+        const int nextPos = chunk.Get(&v, pos);
+
+        if (nextPos < 0)
+            break;
+
+        serializedValues[i] = v;
+        pos = nextPos;
+        ++valuesRead;
+    }
+
+    double paramValues[kNumParams] = {};
+
+    if (valuesRead == kNumParams)
+    {
+        for (int i = 0; i < kNumParams; ++i)
+            paramValues[i] = serializedValues[i];
+    }
+    else if (valuesRead == kLegacyParamCount)
+    {
+        for (int i = 0; i < kLink1to2; ++i)
+            paramValues[i] = serializedValues[i];
+
+        paramValues[kLink1to2] = 0.0; // default false for old states
+
+        for (int i = kLink1to2 + 1; i < kNumParams; ++i)
+            paramValues[i] = serializedValues[i - 1];
+
+        Trace(TRACELOC, "%s", "Loaded legacy state without kLink1to2; defaulted link to false.");
+    }
+    else
+    {
+        return -1;
+    }
+
+    ENTER_PARAMS_MUTEX
+    for (int i = 0; i < kNumParams; ++i)
+    {
+        IParam* pParam = GetParam(i);
+        pParam->Set(paramValues[i]);
+        Trace(TRACELOC, "%d %s %f", i, pParam->GetName(), pParam->Value());
+    }
+    OnParamReset(kPresetRecall);
+    LEAVE_PARAMS_MUTEX
+
     if (GetUI()) GetUI()->SetAllControlsDirty();
     return pos;
 }

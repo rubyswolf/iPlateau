@@ -1,7 +1,7 @@
 #define PLUG_NAME "Plateau 2"
 #define PLUG_MFR "Dart"
 #define PLUG_VERSION_HEX 0x00020000
-#define PLUG_VERSION_STR "2.0.0"
+#define PLUG_VERSION_STR "2.1.0"
 #define PLUG_UNIQUE_ID 'Wl8a'
 #define PLUG_MFR_ID 'Acme'
 #define PLUG_URL_STR "https://iplug2.github.io"
