@@ -392,9 +392,9 @@ Plateau2::Plateau2(const InstanceInfo& info)
 void Plateau2::SelectTank(bool tank2) {
 	tank2Selected = tank2;
     bool linkedTank2 = link1to2 ? false : tank2;
-    for (int i = kDryLeftKnob; i <= kWetKnob; i++) {
-        Knobs[i]->SelectTank(tank2);
-    }
+    Knobs[kDryLeftKnob]->SelectTank(tank2);
+    Knobs[kDryRightKnob]->SelectTank(tank2);
+    Knobs[kWetKnob]->SelectTank(linkedTank2);
     for (int i = kInputLowDampKnob; i <= kVarianceKnob; i++) {
         Knobs[i]->SelectTank(linkedTank2);
     }
@@ -490,12 +490,16 @@ bool Plateau2::WindowIsOpen() {
 
 void Plateau2::OnParamChange(int index) {
     if (link1to2) {
-        if (index >= kInputLowDamp1 && index <= kSoftClip1 && index != kFreeze1 && index != kClear1) //Tank 1 range
+        const bool linkedTank1Param = index == kWet1 || (index >= kInputLowDamp1 && index <= kSoftClip1 && index != kFreeze1 && index != kClear1);
+        const bool linkedTank2Param = index == kWet2 || (index >= kInputLowDamp2 && index <= kSoftClip2 && index != kFreeze2 && index != kClear2);
+        if (linkedTank1Param)
         {
 			UpdateParameter(index, index);
 			UpdateParameter(index, index + offset); //Copy to tank 2
+            // Keep Tank 2 parameter values in sync while linked so unlink preserves the current linked values.
+            GetParam(index + offset)->Set(GetParam(index)->Value());
 		}
-        else if (!(index >= kInputLowDamp2 && index <= kSoftClip2 && index != kFreeze2 && index != kClear2)) //Not tank 2 range
+        else if (!linkedTank2Param)
         {
             UpdateParameter(index, index);
         }
@@ -529,12 +533,16 @@ void Plateau2::UpdateParameter(int sourceIndex, int targetIndex)
         {
             link1to2 = GetParam(kLink1to2)->Value() >= 0.5;
             if (link1to2) {
+                UpdateParameter(kWet1, kWet2); //Copy wet to tank 2
+                GetParam(kWet2)->Set(GetParam(kWet1)->Value());
                 for (int i = kInputLowDamp1; i <= kModVariance1; i++) {
                     UpdateParameter(i, i + offset); //Copy to tank 2
+                    GetParam(i + offset)->Set(GetParam(i)->Value());
                 }
                 //Skip Freeze and Clear
                 for (int i = kTunedMode1; i <= kSoftClip1; i++) {
                     UpdateParameter(i, i + offset); //Copy to tank 2
+                    GetParam(i + offset)->Set(GetParam(i)->Value());
                 }
             }
             else
