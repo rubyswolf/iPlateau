@@ -2,6 +2,33 @@
 #include "IPlug_include_in_plug_src.h"
 #include "IControls.h"
 
+namespace
+{
+class ScaleTextControl final : public ITextControl
+{
+public:
+  ScaleTextControl(const IRECT& bounds, const IText& text)
+  : ITextControl(bounds, "", text)
+  {
+    mIgnoreMouse = true;
+  }
+
+  void OnInit() override { UpdateText(); }
+  void OnResize() override { UpdateText(); }
+  void OnRescale() override { UpdateText(); }
+
+private:
+  void UpdateText()
+  {
+    if (auto* pUI = GetUI())
+    {
+      SetStrFmt(16, "%.0f%%", pUI->GetDrawScale() * 100.0);
+      SetDirty(true);
+    }
+  }
+};
+} // namespace
+
 Plateau2::Plateau2(const InstanceInfo& info)
 : iplug::Plugin(info, MakeConfig(kNumParams, kNumPresets))
 {
@@ -115,8 +142,8 @@ Plateau2::Plateau2(const InstanceInfo& info)
         pGraphics->OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     }
 
-    //Reset the page to the main page when the UI is created
-    currentPage = 0;
+    if (currentPage < 0 || currentPage >= kNumPages)
+      currentPage = 0;
 
     pGraphics->AttachCornerResizer(EUIResizerMode::Scale, false);
     pGraphics->AttachSVGBackground(BACKGROUND_FN);
@@ -125,7 +152,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
 	ISVG NextButtons[kNumPages] = { pGraphics->LoadSVG(NEXTEXTRAS_FN), pGraphics->LoadSVG(NEXTROUTING_FN),  pGraphics->LoadSVG(NEXTMAIN_FN) };
 	ISVG PrevButtons[kNumPages] = { pGraphics->LoadSVG(PREVROUTING_FN), pGraphics->LoadSVG(PREVMAIN_FN),  pGraphics->LoadSVG(PREVEXTRAS_FN) };
 
-    PageBackgroundControl = new ISVGControl(pGraphics->GetBounds(), PageBackgrounds[0]);
+    PageBackgroundControl = new ISVGControl(pGraphics->GetBounds(), PageBackgrounds[currentPage]);
     pGraphics->AttachControl(PageBackgroundControl);
 
     SVGs[0] = new ISVGControl(IRECT::MakeXYWH(61.06f, 376.55f, 192.880f, 235), pGraphics->LoadSVG(DANGERPANEL_FN));
@@ -133,6 +160,10 @@ Plateau2::Plateau2(const InstanceInfo& info)
 	SVGs[0]->Hide(true);
 
     pGraphics->LoadFont("Roboto-Regular", ROBOTO_FN);
+    const IText scaleTextStyle(16.f, COLOR_WHITE, "Roboto-Regular", EAlign::Center, EVAlign::Middle);
+    const IRECT scaleRect = IRECT::MakeXYWH(267.f, 592.f, 40.f, 18.f);
+    pGraphics->AttachControl(new ScaleTextControl(scaleRect, scaleTextStyle));
+
     const ISVG NeedleSVG = pGraphics->LoadSVG(NEEDLE_FN);
     const ISVG NeedleBGSVG = pGraphics->LoadSVG(NEEDLEBG_FN);
     const IBitmap NeedleFG1PNG = pGraphics->LoadBitmap(NEEDLEFG1_FN);
@@ -191,12 +222,12 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
     NextButtonControl = new NavigatorButton(IRECT::MakeXYWH(213, 125.695f, 90, 30), [this, PageBackgrounds, NextButtons, PrevButtons](IControl* pCaller) {
         ChangePage(1, PageBackgrounds, NextButtons, PrevButtons);
-    }, NextButtons[0]);
+    }, NextButtons[currentPage]);
     pGraphics->AttachControl(NextButtonControl);
 
     PrevButtonControl = new NavigatorButton(IRECT::MakeXYWH(12, 125.695f, 90, 30), [this, PageBackgrounds, NextButtons, PrevButtons](IControl* pCaller) {
     ChangePage(-1, PageBackgrounds, NextButtons, PrevButtons);
-    }, PrevButtons[0]);
+    }, PrevButtons[currentPage]);
     pGraphics->AttachControl(PrevButtonControl);
 
     constexpr double LEDScale = 0.2453054f;
@@ -385,6 +416,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
 	//Update the tank selection incase link changed when the UI was closed
     SelectTank(tank2Selected);
+    ChangePage(0, PageBackgrounds, NextButtons, PrevButtons);
   };
 #endif
 }
@@ -816,12 +848,39 @@ void Plateau2::UpdateParameter(int sourceIndex, int targetIndex)
 
 bool Plateau2::SerializeState(IByteChunk& chunk) const
 {
-    return SerializeParams(chunk);
+    bool savedOK = SerializeParams(chunk);
+
+    IByteChunk editorStateChunk;
+    if (savedOK && SerializeEditorState(editorStateChunk))
+    {
+        int width = 0;
+        int height = 0;
+        float scale = 0.f;
+        int editorPos = 0;
+        editorPos = editorStateChunk.Get(&width, editorPos);
+        editorPos = editorStateChunk.Get(&height, editorPos);
+        editorPos = editorStateChunk.Get(&scale, editorPos);
+
+        // Avoid storing zeroed editor state (e.g. before the UI has ever been opened).
+        if (editorPos >= 0 && width > 0 && height > 0 && scale > 0.f)
+            savedOK &= (chunk.PutBytes(editorStateChunk.GetData(), editorStateChunk.Size()) > 0);
+    }
+
+    return savedOK;
 }
 
 int Plateau2::UnserializeState(const IByteChunk& chunk, int pos)
 {
     pos = UnserializeParams(chunk, pos);
+
+    constexpr int kEditorStateBytes = (sizeof(int) * 2) + sizeof(float);
+    if (pos >= 0 && (chunk.Size() - pos) >= kEditorStateBytes)
+    {
+        const int editorPos = UnserializeEditorState(chunk, pos);
+        if (editorPos >= 0)
+            pos = editorPos;
+    }
+
     if (GetUI()) GetUI()->SetAllControlsDirty();
     return pos;
 }
