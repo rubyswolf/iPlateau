@@ -1,9 +1,13 @@
 #include "Plateau2.h"
 #include "IPlug_include_in_plug_src.h"
 #include "IControls.h"
+#include <cstdint>
 
 namespace
 {
+constexpr uint32_t kUIStateChunkTag = 0x50425549u; // "PBUI"
+constexpr uint32_t kUIStateChunkVersion = 1u;
+
 class ScaleTextControl final : public ITextControl
 {
 public:
@@ -27,6 +31,27 @@ private:
     }
   }
 };
+
+bool ReadEditorStateHeader(const IByteChunk& chunk, int startPos, int& width, int& height, float& scale)
+{
+  width = 0;
+  height = 0;
+  scale = 0.f;
+
+  int pos = startPos;
+  pos = chunk.Get(&width, pos);
+  pos = chunk.Get(&height, pos);
+  pos = chunk.Get(&scale, pos);
+
+  if (pos < 0)
+    return false;
+
+  // The built-in editor state is width/height/scale. Reject obviously invalid values
+  // so a tagged UI-state trailer is not mistaken for editor state.
+  return width > 0 && width < 10000
+    && height > 0 && height < 10000
+    && scale > 0.f && scale < 10.f;
+}
 } // namespace
 
 Plateau2::Plateau2(const InstanceInfo& info)
@@ -406,7 +431,8 @@ Plateau2::Plateau2(const InstanceInfo& info)
     LEDRadio* tank1Select = new LEDRadio(IRECT::MakeXYWH(106.5 - 20, 40, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, [this](IControl* radioControl) {SelectTank(false);});
     LEDRadio* tank2Select = new LEDRadio(IRECT::MakeXYWH(106.5 + 20, 40, 102, 102), LEDScale, LedOffSVG, LedOn2SVG, [this](IControl* radioControl) {SelectTank(true);});
 
-	tank1Select->SetValue(1.);
+	tank1Select->SetValue(tank2Selected ? 0. : 1.);
+	tank2Select->SetValue(tank2Selected ? 1. : 0.);
 
     tank1Select->linkControls({ tank2Select });
     tank2Select->linkControls({ tank1Select });
@@ -452,6 +478,38 @@ void Plateau2::SelectTank(bool tank2) {
     UpdateSendVisibility();
 
     IEditorDelegate::SendCurrentParamValuesFromDelegate();
+}
+
+void Plateau2::ApplyCurrentPageUI()
+{
+    if (!GetUI() || !PageBackgroundControl || !NextButtonControl || !PrevButtonControl)
+        return;
+
+    if (currentPage < 0 || currentPage >= kNumPages)
+        currentPage = 0;
+
+    IGraphics* pGraphics = GetUI();
+    const ISVG pageBackgrounds[kNumPages] = {
+        pGraphics->LoadSVG(PAGEMAIN_FN),
+        pGraphics->LoadSVG(PAGEEXTRAS_FN),
+        pGraphics->LoadSVG(PAGEROUTING_FN)
+    };
+    const ISVG nextButtons[kNumPages] = {
+        pGraphics->LoadSVG(NEXTEXTRAS_FN),
+        pGraphics->LoadSVG(NEXTROUTING_FN),
+        pGraphics->LoadSVG(NEXTMAIN_FN)
+    };
+    const ISVG prevButtons[kNumPages] = {
+        pGraphics->LoadSVG(PREVROUTING_FN),
+        pGraphics->LoadSVG(PREVMAIN_FN),
+        pGraphics->LoadSVG(PREVEXTRAS_FN)
+    };
+
+    PageBackgroundControl->SetSVG(pageBackgrounds[currentPage]);
+    PageBackgroundControl->SetDirty(false);
+    NextButtonControl->SetSVG(nextButtons[currentPage]);
+    PrevButtonControl->SetSVG(prevButtons[currentPage]);
+    UpdatePageVisibility();
 }
 
 void Plateau2::ChangePage(int direction, const ISVG PageBackgrounds[kNumPages], const ISVG NextButtons[kNumPages], const ISVG PreviousButtons[kNumPages])
@@ -866,6 +924,13 @@ bool Plateau2::SerializeState(IByteChunk& chunk) const
             savedOK &= (chunk.PutBytes(editorStateChunk.GetData(), editorStateChunk.Size()) > 0);
     }
 
+    const int storedPage = (currentPage >= 0 && currentPage < kNumPages) ? currentPage : 0;
+    const int storedTank = tank2Selected ? 1 : 0;
+    savedOK &= (chunk.Put(&kUIStateChunkTag) > 0);
+    savedOK &= (chunk.Put(&kUIStateChunkVersion) > 0);
+    savedOK &= (chunk.Put(&storedPage) > 0);
+    savedOK &= (chunk.Put(&storedTank) > 0);
+
     return savedOK;
 }
 
@@ -873,12 +938,49 @@ int Plateau2::UnserializeState(const IByteChunk& chunk, int pos)
 {
     pos = UnserializeParams(chunk, pos);
 
+    if (pos < 0)
+        return pos;
+
     constexpr int kEditorStateBytes = (sizeof(int) * 2) + sizeof(float);
-    if (pos >= 0 && (chunk.Size() - pos) >= kEditorStateBytes)
+    if ((chunk.Size() - pos) >= kEditorStateBytes)
     {
-        const int editorPos = UnserializeEditorState(chunk, pos);
-        if (editorPos >= 0)
-            pos = editorPos;
+        int width = 0;
+        int height = 0;
+        float scale = 0.f;
+
+        if (ReadEditorStateHeader(chunk, pos, width, height, scale))
+        {
+            const int editorPos = UnserializeEditorState(chunk, pos);
+            if (editorPos >= 0)
+                pos = editorPos;
+        }
+    }
+
+    uint32_t chunkTag = 0;
+    uint32_t chunkVersion = 0;
+    int storedPage = 0;
+    int storedTank = 0;
+    int uiStatePos = pos;
+
+    uiStatePos = chunk.Get(&chunkTag, uiStatePos);
+    if (uiStatePos >= 0 && chunkTag == kUIStateChunkTag)
+    {
+        uiStatePos = chunk.Get(&chunkVersion, uiStatePos);
+        uiStatePos = chunk.Get(&storedPage, uiStatePos);
+        uiStatePos = chunk.Get(&storedTank, uiStatePos);
+
+        if (uiStatePos >= 0 && chunkVersion == kUIStateChunkVersion)
+        {
+            currentPage = (storedPage >= 0 && storedPage < kNumPages) ? storedPage : 0;
+            tank2Selected = storedTank != 0;
+            pos = uiStatePos;
+        }
+    }
+
+    if (GetUI())
+    {
+        ApplyCurrentPageUI();
+        SelectTank(tank2Selected);
     }
 
     if (GetUI()) GetUI()->SetAllControlsDirty();

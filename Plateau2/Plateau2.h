@@ -144,6 +144,7 @@ public:
   void UpdateParameter(int sourceIndex, int targetIndex);
   bool WindowIsOpen();
   void SelectTank(bool tank2);
+  void ApplyCurrentPageUI();
 #endif
     private:
         Dattorro reverb1;
