@@ -1,16 +1,16 @@
 #define PLUG_NAME "Plateau 2"
 #define PLUG_MFR "Dart"
 #define PLUG_VERSION_HEX 0x00020000
-#define PLUG_VERSION_STR "2.0.0"
+#define PLUG_VERSION_STR "2.1.0"
 #define PLUG_UNIQUE_ID 'Wl8a'
-#define PLUG_MFR_ID 'Acme'
-#define PLUG_URL_STR "https://iplug2.github.io"
+#define PLUG_MFR_ID 'Dart'
+#define PLUG_URL_STR "https://dartjs.com"
 #define PLUG_EMAIL_STR "rubyswolf1374@gmail.com"
 #define PLUG_COPYRIGHT_STR "Copyright 2025 Dart Spark"
 #define PLUG_CLASS_NAME Plateau2
 
 #define BUNDLE_NAME "Plateau2"
-#define BUNDLE_MFR "Dart"
+#define BUNDLE_MFR "DartJS"
 #define BUNDLE_DOMAIN "com"
 
 #define SHARED_RESOURCES_SUBPATH "Plateau2"
@@ -45,8 +45,8 @@
 
 #define VST3_SUBCATEGORY "Fx"
 
-#define CLAP_MANUAL_URL "https://iplug2.github.io/manuals/example_manual.pdf"
-#define CLAP_SUPPORT_URL "https://github.com/iPlug2/iPlug2/wiki"
+#define CLAP_MANUAL_URL "https://github.com/rubyswolf/iPlateau/wiki"
+#define CLAP_SUPPORT_URL "https://github.com/rubyswolf/iPlateau/issues"
 #define CLAP_DESCRIPTION "A recreation of the reverb by valley audio"
 #define CLAP_FEATURES "audio-effect"//, "utility"
 
