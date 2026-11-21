@@ -198,9 +198,6 @@ public:
         LEDButton* LoadButtonControl = nullptr;
         LEDRadio* Tank1SelectControl = nullptr;
         LEDRadio* Tank2SelectControl = nullptr;
-        IControl* ThemeToggleControl = nullptr;
-
-
         NeedleKnob* Knobs[kNumKnobs];
         LEDSwitch* Switches[kNumSwitches];
         LEDButton* Buttons[kNumButtons];

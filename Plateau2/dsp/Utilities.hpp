@@ -17,6 +17,13 @@ T clip(T a, T min, T max) {
 }
 
 template<typename T>
+inline T softClip(T input) {
+    // Preserve the original tanh spectrum while lowering every generated harmonic equally.
+    constexpr T harmonicMix = static_cast<T>(0.0010364515875936784);
+    return input + harmonicMix * (std::tanh(input) - input);
+}
+
+template<typename T>
 T scale(T a, T inMin, T inMax, T outMin, T outMax) {
     return (a - inMin)/(inMax - inMin) * (outMax - outMin) + outMin;
 }

@@ -125,3 +125,5 @@
 #define GOLD_REQUIRESDANGER_FN "GoldRequiresDanger.svg"
 #define GOLD_DANGERPANEL_FN "GoldDangerPanel.svg"
 #define GOLD_SENDLABELS_FN "GoldSendLabels.svg"
+#define THEMEBUTTON_FN "ThemeButton.svg"
+#define GOLD_THEMEBUTTON_FN "GoldThemeButton.svg"

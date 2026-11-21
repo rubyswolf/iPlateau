@@ -37,29 +37,6 @@ private:
   }
 };
 
-class ThemeButtonControl final : public IButtonControlBase
-{
-public:
-  ThemeButtonControl(const IRECT& bounds, const bool& goldTheme, IActionFunction action)
-  : IButtonControlBase(bounds, action)
-  , mGoldTheme(goldTheme)
-  {
-  }
-
-  void Draw(IGraphics& g) override
-  {
-    const IColor fill = mGoldTheme ? IColor(255, 15, 36, 53) : IColor(255, 83, 60, 15);
-    const IColor border = mGoldTheme ? IColor(255, 143, 177, 206) : IColor(255, 225, 199, 126);
-    const IText text(11.f, COLOR_WHITE, "Roboto-Regular", EAlign::Center, EVAlign::Middle);
-    g.FillRoundRect(fill, mRECT, 4.f, &mBlend);
-    g.DrawRoundRect(border, mRECT, 4.f, &mBlend, 1.5f);
-    g.DrawText(text, mGoldTheme ? "BLUE THEME" : "GOLD THEME", mRECT, &mBlend);
-  }
-
-private:
-  const bool& mGoldTheme;
-};
-
 bool ReadEditorStateHeader(const IByteChunk& chunk, int startPos, int& width, int& height, float& scale)
 {
   width = 0;
@@ -297,7 +274,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
 	const ISVG LinkOffSVG = pGraphics->LoadSVG(LINKOFF_FN);
 	const ISVG LinkOnSVG = pGraphics->LoadSVG(LINKON_FN);
 
-	const ISVG HelpButtonSVG = pGraphics->LoadSVG(HELPBUTTON_FN);
+	const ISVG ThemeButtonSVG = pGraphics->LoadSVG(THEMEBUTTON_FN);
 
 	const ISVG CopyOffSVG = pGraphics->LoadSVG(COPYOFF_FN);
 	const ISVG CopyOnSVG = pGraphics->LoadSVG(COPYON_FN);
@@ -329,8 +306,10 @@ Plateau2::Plateau2(const InstanceInfo& info)
 		clear2 = true;
     }, clearButton);
 
-	//Help Button
-    Buttons[2] = new LEDButton(IRECT::MakeXYWH(129.5f, 535, 56, 56), 1, HelpButtonSVG, HelpButtonSVG, HelpButtonSVG, [this](IControl* button) {this->GetUI()->OpenURL("https://github.com/rubyswolf/iPlateau/wiki");});
+	//Theme Button
+    Buttons[2] = new LEDButton(IRECT::MakeXYWH(129.5f, 535, 56, 56), 1, ThemeButtonSVG, ThemeButtonSVG, ThemeButtonSVG, [this](IControl*) {
+        SetGoldTheme(!goldTheme);
+    });
 
 	//Tank Copy Button
     Buttons[3] = new LEDButton(IRECT::MakeXYWH(15, 460, 80, 80), 1, CopyOffSVG, CopyOnSVG, CopyOnSVG, [this](IControl* button) {
@@ -471,11 +450,6 @@ Plateau2::Plateau2(const InstanceInfo& info)
     pGraphics->AttachControl(Tank1SelectControl);
     pGraphics->AttachControl(Tank2SelectControl);
 
-    ThemeToggleControl = new ThemeButtonControl(IRECT::MakeXYWH(108.f, 596.f, 99.f, 24.f), goldTheme, [this](IControl*) {
-        SetGoldTheme(!goldTheme);
-    });
-    pGraphics->AttachControl(ThemeToggleControl);
-
 	//Update the tank selection incase link changed when the UI was closed
     SelectTank(tank2Selected);
     ChangePage(0, PageBackgrounds, NextButtons, PrevButtons);
@@ -588,8 +562,8 @@ void Plateau2::ApplyThemeTextures()
 
     Buttons[0]->SetSVGs(ledOff, ledOn1, ledOn2);
     Buttons[1]->SetSVGs(ledOff, ledOnBoth, ledOnBoth);
-    const ISVG help = loadSVG(HELPBUTTON_FN, GOLD_HELPBUTTON_FN);
-    Buttons[2]->SetSVGs(help, help, help);
+    const ISVG themeButton = loadSVG(THEMEBUTTON_FN, GOLD_THEMEBUTTON_FN);
+    Buttons[2]->SetSVGs(themeButton, themeButton, themeButton);
     Buttons[3]->SetSVGs(loadSVG(COPYOFF_FN, GOLD_COPYOFF_FN), loadSVG(COPYON_FN, GOLD_COPYON_FN), loadSVG(COPYON_FN, GOLD_COPYON_FN));
     Buttons[4]->SetSVGs(loadSVG(SWAPOFF_FN, GOLD_SWAPOFF_FN), loadSVG(SWAPON_FN, GOLD_SWAPON_FN), loadSVG(SWAPON_FN, GOLD_SWAPON_FN));
     SaveButtonControl->SetSVGs(ledOff, ledOnBoth, ledOnBoth);
@@ -604,7 +578,6 @@ void Plateau2::ApplyThemeTextures()
     SVGs[4]->SetSVG(loadSVG(SENDLABELS_FN, GOLD_SENDLABELS_FN));
 
     ApplyCurrentPageUI();
-    ThemeToggleControl->SetDirty(false);
     pGraphics->SetAllControlsDirty();
 }
 
@@ -646,8 +619,6 @@ void Plateau2::UpdatePageVisibility()
     for (int i = 2; i <= 4; i++) {
         Buttons[i]->Hide(currentPage != 1);
     }
-    ThemeToggleControl->Hide(currentPage != 1);
-
 	//Routing page
     Switches[9]->Hide(currentPage != 2);
 
@@ -1132,14 +1103,14 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             outputs[0][s] += std::get<0>(out) * wet1Param;
 
 			if (softClip1Param) {
-				outputs[0][s] = std::tanh(outputs[0][s]);
+				outputs[0][s] = softClip(outputs[0][s]);
 			}
 
             if (nChans > 1)
             {
                 outputs[1][s] += std::get<1>(out) * wet1Param;
                 if (softClip1Param) {
-                    outputs[1][s] = std::tanh(outputs[1][s]);
+                    outputs[1][s] = softClip(outputs[1][s]);
                 }
             }
 
@@ -1186,14 +1157,14 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
             outputs[0][s] += std::get<0>(out) * wet2Param;
 
 			if (softClip2Param) {
-				outputs[0][s] = std::tanh(outputs[0][s]);
+				outputs[0][s] = softClip(outputs[0][s]);
 			}
 
             if (nChans > 1)
             {
                 outputs[1][s] += std::get<1>(out) * wet2Param;
 				if (softClip2Param) {
-					outputs[1][s] = std::tanh(outputs[1][s]);
+					outputs[1][s] = softClip(outputs[1][s]);
 				}
             }
 
