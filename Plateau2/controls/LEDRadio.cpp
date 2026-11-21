@@ -45,6 +45,12 @@ public:
 		}
 	}
 
+    void SetSVGs(const ISVG& svgOff, const ISVG& svgOn) {
+        mSVGOff = svgOff;
+        mSVGOn = svgOn;
+        SetDirty(false);
+    }
+
     double hitboxScale = 1.0f;
 protected:
     ISVG mSVGOff;

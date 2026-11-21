@@ -6,7 +6,12 @@
 namespace
 {
 constexpr uint32_t kUIStateChunkTag = 0x50425549u; // "PBUI"
-constexpr uint32_t kUIStateChunkVersion = 1u;
+constexpr uint32_t kUIStateChunkVersion = 2u;
+
+const char* ThemeAsset(bool goldTheme, const char* standardAsset, const char* goldAsset)
+{
+  return goldTheme ? goldAsset : standardAsset;
+}
 
 class ScaleTextControl final : public ITextControl
 {
@@ -30,6 +35,29 @@ private:
       SetDirty(true);
     }
   }
+};
+
+class ThemeButtonControl final : public IButtonControlBase
+{
+public:
+  ThemeButtonControl(const IRECT& bounds, const bool& goldTheme, IActionFunction action)
+  : IButtonControlBase(bounds, action)
+  , mGoldTheme(goldTheme)
+  {
+  }
+
+  void Draw(IGraphics& g) override
+  {
+    const IColor fill = mGoldTheme ? IColor(255, 15, 36, 53) : IColor(255, 83, 60, 15);
+    const IColor border = mGoldTheme ? IColor(255, 143, 177, 206) : IColor(255, 225, 199, 126);
+    const IText text(11.f, COLOR_WHITE, "Roboto-Regular", EAlign::Center, EVAlign::Middle);
+    g.FillRoundRect(fill, mRECT, 4.f, &mBlend);
+    g.DrawRoundRect(border, mRECT, 4.f, &mBlend, 1.5f);
+    g.DrawText(text, mGoldTheme ? "BLUE THEME" : "GOLD THEME", mRECT, &mBlend);
+  }
+
+private:
+  const bool& mGoldTheme;
 };
 
 bool ReadEditorStateHeader(const IByteChunk& chunk, int startPos, int& width, int& height, float& scale)
@@ -170,8 +198,9 @@ Plateau2::Plateau2(const InstanceInfo& info)
     if (currentPage < 0 || currentPage >= kNumPages)
       currentPage = 0;
 
+    BackgroundControl = new ISVGControl(pGraphics->GetBounds(), pGraphics->LoadSVG(BACKGROUND_FN));
+    pGraphics->AttachControl(BackgroundControl);
     pGraphics->AttachCornerResizer(EUIResizerMode::Scale, false);
-    pGraphics->AttachSVGBackground(BACKGROUND_FN);
 
     ISVG PageBackgrounds[kNumPages] = { pGraphics->LoadSVG(PAGEMAIN_FN), pGraphics->LoadSVG(PAGEEXTRAS_FN), pGraphics->LoadSVG(PAGEROUTING_FN) };
 	ISVG NextButtons[kNumPages] = { pGraphics->LoadSVG(NEXTEXTRAS_FN), pGraphics->LoadSVG(NEXTROUTING_FN),  pGraphics->LoadSVG(NEXTMAIN_FN) };
@@ -348,7 +377,7 @@ Plateau2::Plateau2(const InstanceInfo& info)
     //pGraphics->AttachControl((new LEDButton(IRECT::MakeXYWH(0, 40, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this](IControl* button) {DumpMakePresetSrc("C:/dev/Plugins/Plateau/Plateau2/preset.txt");})));
 
     //Save Button
-    pGraphics->AttachControl((new LEDButton(IRECT::MakeXYWH(-14, 20, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this, pGraphics](IControl* button) {
+    SaveButtonControl = new LEDButton(IRECT::MakeXYWH(-14, 20, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this, pGraphics](IControl* button) {
         WDL_String filename;
         WDL_String path;
         pGraphics->PromptForFile(filename, path, EFileAction::Save, "pl2", [this, button](const WDL_String& fileName, const WDL_String& path) {
@@ -365,10 +394,11 @@ Plateau2::Plateau2(const InstanceInfo& info)
                 }
             }
         });
-    })));
+    });
+    pGraphics->AttachControl(SaveButtonControl);
 
     //Load Button
-    pGraphics->AttachControl((new LEDButton(IRECT::MakeXYWH(228, 20, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this, pGraphics](IControl* button) {
+    LoadButtonControl = new LEDButton(IRECT::MakeXYWH(228, 20, 102, 102), LEDScale, LedOffSVG, LedOnBothSVG, LedOnBothSVG, [this, pGraphics](IControl* button) {
         WDL_String filename;
         WDL_String path;
         pGraphics->PromptForFile(filename, path, EFileAction::Open, "pl2", [this, button](const WDL_String& fileName, const WDL_String& path) {
@@ -390,7 +420,8 @@ Plateau2::Plateau2(const InstanceInfo& info)
                 button->SetDirty(false);
             }
         });
-    })));
+    });
+    pGraphics->AttachControl(LoadButtonControl);
 
 	//Tank Enable Switch
     Switches[4] = new LEDSwitch(IRECT::MakeXYWH(106.5f, 112, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, LedOn2SVG, kEnable1, kEnable2);
@@ -428,21 +459,27 @@ Plateau2::Plateau2(const InstanceInfo& info)
     }
 
 
-    LEDRadio* tank1Select = new LEDRadio(IRECT::MakeXYWH(106.5 - 20, 40, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, [this](IControl* radioControl) {SelectTank(false);});
-    LEDRadio* tank2Select = new LEDRadio(IRECT::MakeXYWH(106.5 + 20, 40, 102, 102), LEDScale, LedOffSVG, LedOn2SVG, [this](IControl* radioControl) {SelectTank(true);});
+    Tank1SelectControl = new LEDRadio(IRECT::MakeXYWH(106.5 - 20, 40, 102, 102), LEDScale, LedOffSVG, LedOn1SVG, [this](IControl* radioControl) {SelectTank(false);});
+    Tank2SelectControl = new LEDRadio(IRECT::MakeXYWH(106.5 + 20, 40, 102, 102), LEDScale, LedOffSVG, LedOn2SVG, [this](IControl* radioControl) {SelectTank(true);});
 
-	tank1Select->SetValue(tank2Selected ? 0. : 1.);
-	tank2Select->SetValue(tank2Selected ? 1. : 0.);
+	Tank1SelectControl->SetValue(tank2Selected ? 0. : 1.);
+	Tank2SelectControl->SetValue(tank2Selected ? 1. : 0.);
 
-    tank1Select->linkControls({ tank2Select });
-    tank2Select->linkControls({ tank1Select });
+    Tank1SelectControl->linkControls({ Tank2SelectControl });
+    Tank2SelectControl->linkControls({ Tank1SelectControl });
 
-    pGraphics->AttachControl(tank1Select);
-    pGraphics->AttachControl(tank2Select);
+    pGraphics->AttachControl(Tank1SelectControl);
+    pGraphics->AttachControl(Tank2SelectControl);
+
+    ThemeToggleControl = new ThemeButtonControl(IRECT::MakeXYWH(108.f, 596.f, 99.f, 24.f), goldTheme, [this](IControl*) {
+        SetGoldTheme(!goldTheme);
+    });
+    pGraphics->AttachControl(ThemeToggleControl);
 
 	//Update the tank selection incase link changed when the UI was closed
     SelectTank(tank2Selected);
     ChangePage(0, PageBackgrounds, NextButtons, PrevButtons);
+    ApplyThemeTextures();
   };
 #endif
 }
@@ -490,19 +527,19 @@ void Plateau2::ApplyCurrentPageUI()
 
     IGraphics* pGraphics = GetUI();
     const ISVG pageBackgrounds[kNumPages] = {
-        pGraphics->LoadSVG(PAGEMAIN_FN),
-        pGraphics->LoadSVG(PAGEEXTRAS_FN),
-        pGraphics->LoadSVG(PAGEROUTING_FN)
+        pGraphics->LoadSVG(ThemeAsset(goldTheme, PAGEMAIN_FN, GOLD_PAGEMAIN_FN)),
+        pGraphics->LoadSVG(ThemeAsset(goldTheme, PAGEEXTRAS_FN, GOLD_PAGEEXTRAS_FN)),
+        pGraphics->LoadSVG(ThemeAsset(goldTheme, PAGEROUTING_FN, GOLD_PAGEROUTING_FN))
     };
     const ISVG nextButtons[kNumPages] = {
-        pGraphics->LoadSVG(NEXTEXTRAS_FN),
-        pGraphics->LoadSVG(NEXTROUTING_FN),
-        pGraphics->LoadSVG(NEXTMAIN_FN)
+        pGraphics->LoadSVG(ThemeAsset(goldTheme, NEXTEXTRAS_FN, GOLD_NEXTEXTRAS_FN)),
+        pGraphics->LoadSVG(ThemeAsset(goldTheme, NEXTROUTING_FN, GOLD_NEXTROUTING_FN)),
+        pGraphics->LoadSVG(ThemeAsset(goldTheme, NEXTMAIN_FN, GOLD_NEXTMAIN_FN))
     };
     const ISVG prevButtons[kNumPages] = {
-        pGraphics->LoadSVG(PREVROUTING_FN),
-        pGraphics->LoadSVG(PREVMAIN_FN),
-        pGraphics->LoadSVG(PREVEXTRAS_FN)
+        pGraphics->LoadSVG(ThemeAsset(goldTheme, PREVROUTING_FN, GOLD_PREVROUTING_FN)),
+        pGraphics->LoadSVG(ThemeAsset(goldTheme, PREVMAIN_FN, GOLD_PREVMAIN_FN)),
+        pGraphics->LoadSVG(ThemeAsset(goldTheme, PREVEXTRAS_FN, GOLD_PREVEXTRAS_FN))
     };
 
     PageBackgroundControl->SetSVG(pageBackgrounds[currentPage]);
@@ -510,6 +547,65 @@ void Plateau2::ApplyCurrentPageUI()
     NextButtonControl->SetSVG(nextButtons[currentPage]);
     PrevButtonControl->SetSVG(prevButtons[currentPage]);
     UpdatePageVisibility();
+}
+
+void Plateau2::SetGoldTheme(bool useGoldTheme)
+{
+    goldTheme = useGoldTheme;
+    ApplyThemeTextures();
+}
+
+void Plateau2::ApplyThemeTextures()
+{
+    IGraphics* pGraphics = GetUI();
+    if (!pGraphics || !BackgroundControl || !PageBackgroundControl)
+        return;
+
+    const auto loadSVG = [this, pGraphics](const char* standardAsset, const char* goldAsset) {
+        return pGraphics->LoadSVG(ThemeAsset(goldTheme, standardAsset, goldAsset));
+    };
+    const auto loadBitmap = [this, pGraphics](const char* standardAsset, const char* goldAsset) {
+        return pGraphics->LoadBitmap(ThemeAsset(goldTheme, standardAsset, goldAsset));
+    };
+
+    BackgroundControl->SetSVG(loadSVG(BACKGROUND_FN, GOLD_BACKGROUND_FN));
+
+    const ISVG needle = loadSVG(NEEDLE_FN, GOLD_NEEDLE_FN);
+    const ISVG needleBG = loadSVG(NEEDLEBG_FN, GOLD_NEEDLEBG_FN);
+    const IBitmap needleFG1 = loadBitmap(NEEDLEFG1_FN, GOLD_NEEDLEFG1_FN);
+    const IBitmap needleFG2 = loadBitmap(NEEDLEFG2_FN, GOLD_NEEDLEFG2_FN);
+    for (int i = 0; i < kNumKnobs; ++i)
+        Knobs[i]->SetTextures(needle, needleBG, needleFG1, needleFG2);
+
+    const ISVG ledOff = loadSVG(LEDOFF_FN, GOLD_LEDOFF_FN);
+    const ISVG ledOn1 = loadSVG(LEDON1_FN, GOLD_LEDON1_FN);
+    const ISVG ledOn2 = loadSVG(LEDON2_FN, GOLD_LEDON2_FN);
+    const ISVG ledOnBoth = loadSVG(LEDONBOTH_FN, GOLD_LEDONBOTH_FN);
+    for (int i : {0, 1, 2, 3, 4, 5, 7, 9})
+        Switches[i]->SetSVGs(ledOff, ledOn1, ledOn2);
+    Switches[6]->SetSVGs(loadSVG(DANGEROFF_FN, GOLD_DANGEROFF_FN), loadSVG(DANGERON_FN, GOLD_DANGERON_FN), loadSVG(DANGERON_FN, GOLD_DANGERON_FN));
+    Switches[8]->SetSVGs(loadSVG(LINKOFF_FN, GOLD_LINKOFF_FN), loadSVG(LINKON_FN, GOLD_LINKON_FN), loadSVG(LINKON_FN, GOLD_LINKON_FN));
+
+    Buttons[0]->SetSVGs(ledOff, ledOn1, ledOn2);
+    Buttons[1]->SetSVGs(ledOff, ledOnBoth, ledOnBoth);
+    const ISVG help = loadSVG(HELPBUTTON_FN, GOLD_HELPBUTTON_FN);
+    Buttons[2]->SetSVGs(help, help, help);
+    Buttons[3]->SetSVGs(loadSVG(COPYOFF_FN, GOLD_COPYOFF_FN), loadSVG(COPYON_FN, GOLD_COPYON_FN), loadSVG(COPYON_FN, GOLD_COPYON_FN));
+    Buttons[4]->SetSVGs(loadSVG(SWAPOFF_FN, GOLD_SWAPOFF_FN), loadSVG(SWAPON_FN, GOLD_SWAPON_FN), loadSVG(SWAPON_FN, GOLD_SWAPON_FN));
+    SaveButtonControl->SetSVGs(ledOff, ledOnBoth, ledOnBoth);
+    LoadButtonControl->SetSVGs(ledOff, ledOnBoth, ledOnBoth);
+    Tank1SelectControl->SetSVGs(ledOff, ledOn1);
+    Tank2SelectControl->SetSVGs(ledOff, ledOn2);
+
+    SVGs[0]->SetSVG(loadSVG(DANGERPANEL_FN, GOLD_DANGERPANEL_FN));
+    SVGs[1]->SetSVG(loadSVG(SEND1TO2_FN, GOLD_SEND1TO2_FN));
+    SVGs[2]->SetSVG(loadSVG(SEND2TO1_FN, GOLD_SEND2TO1_FN));
+    SVGs[3]->SetSVG(loadSVG(REQUIRESDANGER_FN, GOLD_REQUIRESDANGER_FN));
+    SVGs[4]->SetSVG(loadSVG(SENDLABELS_FN, GOLD_SENDLABELS_FN));
+
+    ApplyCurrentPageUI();
+    ThemeToggleControl->SetDirty(false);
+    pGraphics->SetAllControlsDirty();
 }
 
 void Plateau2::ChangePage(int direction, const ISVG PageBackgrounds[kNumPages], const ISVG NextButtons[kNumPages], const ISVG PreviousButtons[kNumPages])
@@ -550,6 +646,7 @@ void Plateau2::UpdatePageVisibility()
     for (int i = 2; i <= 4; i++) {
         Buttons[i]->Hide(currentPage != 1);
     }
+    ThemeToggleControl->Hide(currentPage != 1);
 
 	//Routing page
     Switches[9]->Hide(currentPage != 2);
@@ -926,10 +1023,12 @@ bool Plateau2::SerializeState(IByteChunk& chunk) const
 
     const int storedPage = (currentPage >= 0 && currentPage < kNumPages) ? currentPage : 0;
     const int storedTank = tank2Selected ? 1 : 0;
+    const int storedTheme = goldTheme ? 1 : 0;
     savedOK &= (chunk.Put(&kUIStateChunkTag) > 0);
     savedOK &= (chunk.Put(&kUIStateChunkVersion) > 0);
     savedOK &= (chunk.Put(&storedPage) > 0);
     savedOK &= (chunk.Put(&storedTank) > 0);
+    savedOK &= (chunk.Put(&storedTheme) > 0);
 
     return savedOK;
 }
@@ -960,6 +1059,7 @@ int Plateau2::UnserializeState(const IByteChunk& chunk, int pos)
     uint32_t chunkVersion = 0;
     int storedPage = 0;
     int storedTank = 0;
+    int storedTheme = 0;
     int uiStatePos = pos;
 
     uiStatePos = chunk.Get(&chunkTag, uiStatePos);
@@ -968,18 +1068,21 @@ int Plateau2::UnserializeState(const IByteChunk& chunk, int pos)
         uiStatePos = chunk.Get(&chunkVersion, uiStatePos);
         uiStatePos = chunk.Get(&storedPage, uiStatePos);
         uiStatePos = chunk.Get(&storedTank, uiStatePos);
+        if (uiStatePos >= 0 && chunkVersion >= 2u)
+            uiStatePos = chunk.Get(&storedTheme, uiStatePos);
 
-        if (uiStatePos >= 0 && chunkVersion == kUIStateChunkVersion)
+        if (uiStatePos >= 0 && (chunkVersion == 1u || chunkVersion == kUIStateChunkVersion))
         {
             currentPage = (storedPage >= 0 && storedPage < kNumPages) ? storedPage : 0;
             tank2Selected = storedTank != 0;
+            goldTheme = storedTheme != 0;
             pos = uiStatePos;
         }
     }
 
     if (GetUI())
     {
-        ApplyCurrentPageUI();
+        ApplyThemeTextures();
         SelectTank(tank2Selected);
     }
 

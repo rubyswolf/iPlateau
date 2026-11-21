@@ -43,6 +43,13 @@ public:
         SetParamIdx(tank2 ? Param2Idx : Param1Idx, 0, true);
     }
 
+    void SetSVGs(const ISVG& svgOff, const ISVG& svgOn1, const ISVG& svgOn2) {
+        mSVGOff = svgOff;
+        mSVGOn1 = svgOn1;
+        mSVGOn2 = svgOn2;
+        SetDirty(false);
+    }
+
     double hitboxScale = 1.0f;
     int Param1Idx;
     int Param2Idx;

@@ -34,6 +34,14 @@ public:
 		SetParamIdx(tank2 ? Param2Idx : Param1Idx, 0, true);
 	}
 
+    void SetTextures(const ISVG& dialPointer, const ISVG& dialBg, const IBitmap& dialFg1Bmp, const IBitmap& dialFg2Bmp) {
+        mDialPointer = dialPointer;
+        mDialBg = dialBg;
+        mDialFg1 = dialFg1Bmp;
+        mDialFg2 = dialFg2Bmp;
+        SetDirty(false);
+    }
+
     float StartAngle = -135.f;
     float EndAngle = 135.f;
     float Bound = 135.f;

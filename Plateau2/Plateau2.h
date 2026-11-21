@@ -145,6 +145,8 @@ public:
   bool WindowIsOpen();
   void SelectTank(bool tank2);
   void ApplyCurrentPageUI();
+  void SetGoldTheme(bool useGoldTheme);
+  void ApplyThemeTextures();
 #endif
     private:
         Dattorro reverb1;
@@ -188,9 +190,15 @@ public:
 		double width2Param = 1;
 
 		bool tank2Selected = false;
-		ISVGControl* PageBackgroundControl;
-        NavigatorButton* NextButtonControl;
-        NavigatorButton* PrevButtonControl;
+		ISVGControl* BackgroundControl = nullptr;
+		ISVGControl* PageBackgroundControl = nullptr;
+        NavigatorButton* NextButtonControl = nullptr;
+        NavigatorButton* PrevButtonControl = nullptr;
+        LEDButton* SaveButtonControl = nullptr;
+        LEDButton* LoadButtonControl = nullptr;
+        LEDRadio* Tank1SelectControl = nullptr;
+        LEDRadio* Tank2SelectControl = nullptr;
+        IControl* ThemeToggleControl = nullptr;
 
 
         NeedleKnob* Knobs[kNumKnobs];
@@ -199,6 +207,7 @@ public:
 		ISVGControl* SVGs[kNumSVGs];
 
         int currentPage = 0;
+		bool goldTheme = false;
 
         double dryLeftParam = 1;
         double dryRightParam = 1;
