@@ -147,11 +147,15 @@ Plateau2::Plateau2(const InstanceInfo& info)
 
   reverb1.setSampleRate(GetSampleRate());
   envelope1.setSampleRate(GetSampleRate());
+  softClip1Left.setSampleRate(GetSampleRate());
+  softClip1Right.setSampleRate(GetSampleRate());
   envelope1.setTime(0.004f);
   envelope1._value = 1.f;
   
   reverb2.setSampleRate(GetSampleRate());
   envelope2.setSampleRate(GetSampleRate());
+  softClip2Left.setSampleRate(GetSampleRate());
+  softClip2Right.setSampleRate(GetSampleRate());
   envelope2.setTime(0.004f);
   envelope2._value = 1.f;
 
@@ -1102,16 +1106,12 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 
             outputs[0][s] += std::get<0>(out) * wet1Param;
 
-			if (softClip1Param) {
-				outputs[0][s] = softClip(outputs[0][s]);
-			}
+			outputs[0][s] = softClip1Left.process(outputs[0][s], softClip1Param);
 
             if (nChans > 1)
             {
                 outputs[1][s] += std::get<1>(out) * wet1Param;
-                if (softClip1Param) {
-                    outputs[1][s] = softClip(outputs[1][s]);
-                }
+                outputs[1][s] = softClip1Right.process(outputs[1][s], softClip1Param);
             }
 
             if (send1to2) {
@@ -1123,6 +1123,10 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 				send1To2HP.process();
 				reverbOut1 = send1To2HP.output;
             }
+        }
+        else {
+            softClip1Left.process(static_cast<sample>(0), false);
+            softClip1Right.process(static_cast<sample>(0), false);
         }
 
         //I can't find a way to make tank 2 work without just copying and pasting everything
@@ -1156,16 +1160,12 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 
             outputs[0][s] += std::get<0>(out) * wet2Param;
 
-			if (softClip2Param) {
-				outputs[0][s] = softClip(outputs[0][s]);
-			}
+			outputs[0][s] = softClip2Left.process(outputs[0][s], softClip2Param);
 
             if (nChans > 1)
             {
                 outputs[1][s] += std::get<1>(out) * wet2Param;
-				if (softClip2Param) {
-					outputs[1][s] = softClip(outputs[1][s]);
-				}
+                outputs[1][s] = softClip2Right.process(outputs[1][s], softClip2Param);
             }
 
             if (send2to1) {
@@ -1177,6 +1177,10 @@ void Plateau2::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 				send2To1HP.process();
 				reverbOut2 = send2To1HP.output;
             }
+        }
+        else {
+            softClip2Left.process(static_cast<sample>(0), false);
+            softClip2Right.process(static_cast<sample>(0), false);
         }
   }
 }

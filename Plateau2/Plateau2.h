@@ -167,6 +167,8 @@ public:
         double input1Param = 1;
         double level2to1Param = 0;
         double softClip1Param = false;
+		SoftClipProcessor<sample> softClip1Left;
+		SoftClipProcessor<sample> softClip1Right;
 		double width1Param = 1;
         
         Dattorro reverb2;
@@ -187,6 +189,8 @@ public:
 		double input2Param = 1;
 		double level1to2Param = 0;
 		double softClip2Param = false;
+		SoftClipProcessor<sample> softClip2Left;
+		SoftClipProcessor<sample> softClip2Right;
 		double width2Param = 1;
 
 		bool tank2Selected = false;
